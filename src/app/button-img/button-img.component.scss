@@ -1,0 +1,46 @@
+.button-img {
+
+  background-image: url('/assets/images/12.jpg');
+  background-size: cover;
+  background-position: center;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(255,0,0,0.8));
+    border-radius: 3px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    position: relative;
+    padding: 26px 25px;
+    text-align: left;
+    width: 100%;
+    border: none;
+    color: #f8f8f8;
+    letter-spacing: 1px;
+    font-weight: 100;
+    font-size: 1.2rem;
+  }
+
+}
+
+.button-img--blue {
+  &:before {
+
+    background-image: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,255,0.85));
+  }
+}
+
+.button-img--top {
+  margin-top: 30px;
+}

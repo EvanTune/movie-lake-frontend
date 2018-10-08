@@ -1,0 +1,10 @@
+<div class="popular-discussions card">
+
+  <ng-container *ngFor="let movie of movies;let i = index">
+    <div class="popular-discussions__item" *ngIf="i < 6">
+      <div class="popular-discussions__text">Epic is guard copy agency </div>
+      <div class="popular-discussions__title">{{ movie.title }}</div>
+    </div>
+  </ng-container>
+
+</div>

@@ -1,0 +1,68 @@
+@import "variables";
+
+
+
+// Margin top
+.mt-xs {
+  margin-top: $spacing-xs;
+  display: block;
+}
+
+.mt-sm {
+  margin-top: $spacing-sm;
+  display: block;
+}
+
+.mt-md {
+  margin-top: $spacing-md;
+  display: block;
+}
+
+.mt-lg {
+  margin-top: $spacing-lg;
+  display: block;
+}
+
+.mt-xl {
+
+}
+
+
+// Margin bottom
+.mb-xs {
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.mb-sm {
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.mb-md {
+  margin-bottom: $spacing-md;
+  display: block;
+}
+
+.mb-lg {
+  margin-bottom: $spacing-lg;
+  display: block;
+}
+
+
+// Margin top and bottom
+.mtb-sm {
+  margin-top: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.mtb-md {
+  margin-top: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.mtb-lg {
+  margin-top: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+

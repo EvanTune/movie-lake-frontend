@@ -1,0 +1,20 @@
+export const MOVIES = [
+  {'title': 'Jurassic World: Fallen Kingdom', 'image': '/assets/images/1.jpg', 'image2': '/assets/images/10.jpg'},
+  {'title': 'Harry Potter and the Philosopher\'s Stone', 'image': '/assets/images/2.jpg', 'image2': '/assets/images/11.jpg'},
+  {'title': 'Venom', 'image': '/assets/images/3.jpg', 'image2': '/assets/images/12.jpg'},
+  {'title': 'A star is born', 'image': '/assets/images/4.jpg', 'image2': '/assets/images/13.jpg'},
+  {'title': 'Over the Limit', 'image': '/assets/images/5.jpg', 'image2': '/assets/images/14.jpg'},
+  {'title': 'Loving Pablo', 'image': '/assets/images/6.jpg', 'image2': '/assets/images/10.jpg'},
+  {'title': 'Jurassic World: Fallen Kingdom', 'image': '/assets/images/1.jpg', 'image2': '/assets/images/11.jpg'},
+  {'title': 'Harry Potter and the Philosopher\'s Stone', 'image': '/assets/images/2.jpg', 'image2': '/assets/images/12.jpg'},
+  {'title': 'Venom', 'image': '/assets/images/3.jpg', 'image2': '/assets/images/13.jpg'},
+  {'title': 'A star is born', 'image': '/assets/images/4.jpg', 'image2': '/assets/images/14.jpg'},
+  {'title': 'Over the Limit', 'image': '/assets/images/5.jpg', 'image2': '/assets/images/11.jpg'},
+  {'title': 'Loving Pablo', 'image': '/assets/images/6.jpg', 'image2': '/assets/images/12.jpg'},
+  {'title': 'Jurassic World: Fallen Kingdom', 'image': '/assets/images/1.jpg', 'image2': '/assets/images/11.jpg'},
+  {'title': 'Harry Potter and the Philosopher\'s Stone', 'image': '/assets/images/2.jpg', 'image2': '/assets/images/12.jpg'},
+  {'title': 'Venom', 'image': '/assets/images/3.jpg', 'image2': '/assets/images/13.jpg'},
+  {'title': 'A star is born', 'image': '/assets/images/4.jpg', 'image2': '/assets/images/14.jpg'},
+  {'title': 'Over the Limit', 'image': '/assets/images/5.jpg', 'image2': '/assets/images/11.jpg'},
+  {'title': 'Loving Pablo', 'image': '/assets/images/6.jpg', 'image2': '/assets/images/12.jpg'}
+];

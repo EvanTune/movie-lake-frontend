@@ -1,0 +1,23 @@
+@import "../variables";
+
+.popular-discussions {
+
+  padding: 10px;
+
+  &__title {
+    font-size: 0.8rem;
+    color: black;
+    font-weight: 400;
+  }
+
+  &__text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: black;
+  }
+
+  &__item {
+    padding: 10px;
+  }
+
+}

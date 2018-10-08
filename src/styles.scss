@@ -1,10 +1,94 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,600,700');
 
 // Bootstrap 4
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
 
+// Font awesome 5
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+// Slick Slider
+@import "~slick-carousel/slick/slick.css";
+
+// Variables
+@import "app/variables";
+@import "app/spacing";
+@import "app/general";
+
+
 html, body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  background-color: #f3f3f3;
 }
+
+.card {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.circular-image {
+
+  width: 100%;
+  padding-bottom: 100%;
+  overflow:hidden;
+  position:relative;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+  &__img {
+    position:absolute;
+    width:100%;
+    min-width:100%;
+    min-height:100%;
+    margin-top: -30px;
+  }
+
+}
+
+
+.mt-30 {
+  margin-top: 30px;
+  display: block;
+}
+
+.mt-20 {
+  margin-top: 20px;
+  display: block;
+}
+
+
+.mt-40 {
+  margin-top: 40px;
+  display: block;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+  display: block;
+}
+
+.section  {
+  padding: 80px 0;
+}
+
+.section--sm {
+  padding: 30px 0;
+}
+
+.section--white {
+  background-color: white;
+}
+
+.column-padding {
+
+
+
+}
+

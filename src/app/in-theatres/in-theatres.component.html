@@ -1,0 +1,23 @@
+<div class="in-theatres">
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="header-one">
+          <app-header-one title="In Theatres" color="white"></app-header-one>
+        </div>
+      </div>
+      <div *ngFor="let movie of movies" class="col-md-2">
+        <div class="in-theatres__item">
+          <img class="in-theatres__img" src="{{ movie.image }}" alt="">
+          <div class="in-theatres__container">
+            <div class="in-theatres__title">{{ movie.title }}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

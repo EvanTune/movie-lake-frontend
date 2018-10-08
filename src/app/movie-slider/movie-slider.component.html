@@ -1,0 +1,22 @@
+<div class="movie-slider">
+
+  <div class="container">
+    <app-header-one title="In Theatres" color="white"></app-header-one>
+  </div>
+
+<div #slider class="movie-slider__slider"
+     (panleft)="panLeft()"
+     (panright)="panRight()"
+
+
+
+>
+  <ng-container *ngFor="let movie of movies">
+    <div class="movie-slider__item">
+      <img class="movie-slider__img" src="{{ movie.image }}" alt="">
+      <h3 class="movie-slider__title">{{ movie.title }}</h3>
+    </div>
+  </ng-container>
+</div>
+
+</div>

@@ -1,0 +1,42 @@
+.button-social {
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: white;
+  //background-image: linear-gradient(to bottom right, #00b5ff, #00a8ff);
+  background-color: #00a9ff;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+
+  &__text {
+    margin-left: 20px;
+    font-weight: 100;
+    letter-spacing: 1px;
+    margin-top: 1px;
+    font-size: 1.1rem;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    display: inline-block;
+    padding: 20px;
+    background-color: #0099e7;
+    width: 63px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  &__icon--instagram {
+    background-color: #bf10e7;
+  }
+
+}
+
+.button-social--instagram {
+  //background-image: linear-gradient(to bottom right, #ac0bff, #ff00ee);
+  background-color: #cf13ff;
+}

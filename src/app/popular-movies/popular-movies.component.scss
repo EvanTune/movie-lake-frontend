@@ -1,0 +1,89 @@
+.popular-movies {
+
+  &__item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  &__container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 113px;
+    padding: 10px 15px 15px 15px;
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+
+  &__year {
+    color: #575757;
+    margin-top: 2px;
+    margin-bottom: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+  }
+
+  &__text {
+    font-size: 0.9rem;
+    height: 68px;
+    overflow: hidden;
+  }
+
+  &__img {
+    height: 170px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  &__rating {
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    background-color: #009f00;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 600;
+    position: absolute;
+    left: -15px;
+    top: calc(50% - 16px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 1rem;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .popular-movies {
+
+    .col-lg-6:nth-child(5) .popular-movies__item,
+    .col-lg-6:nth-child(6) .popular-movies__item {
+      margin-bottom: 0;
+    }
+
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

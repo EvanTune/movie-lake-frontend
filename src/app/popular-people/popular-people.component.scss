@@ -1,0 +1,28 @@
+.popular-people {
+
+  padding: 10px;
+
+  &__item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__img-container {
+    height: 42px;
+    width: 42px;
+    padding-bottom: 42px;
+  }
+
+  &__img {
+    margin-top: -15%;
+  }
+
+  &__name {
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+}
