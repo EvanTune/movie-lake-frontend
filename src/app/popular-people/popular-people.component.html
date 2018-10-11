@@ -1,9 +1,9 @@
 <div class="popular-people card">
 
   <ng-container  *ngFor="let person of people; let i=index">
-    <div class="popular-people__item" *ngIf="i<5" routerLink="/person">
+    <div class="popular-people__item" *ngIf="i<5" routerLink="/person/{{ person.id }}">
       <div class="popular-people__img-container circular-image">
-        <img class="popular-people__img circular-image__img" src="{{ person.image}}" alt="">
+        <img class="popular-people__img circular-image__img" src="https://image.tmdb.org/t/p/w500{{ person.profile_path}}" alt="">
       </div>
       <h3 class="popular-people__name">{{ person.name}}</h3>
     </div>

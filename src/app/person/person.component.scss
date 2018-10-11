@@ -1,0 +1,24 @@
+.person {
+
+}
+
+.person-window {
+
+  padding: 60px;
+
+  &__img {
+    width: 100%;
+    border-radius: 3px;
+  }
+
+  &__container {
+    height: 100%;
+    padding: 30px;
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+}

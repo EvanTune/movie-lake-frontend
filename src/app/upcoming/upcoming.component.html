@@ -3,14 +3,14 @@
     <div class="row">
       <ng-container *ngFor="let movie of movies;let i = index">
         <div class="col-lg-6" *ngIf="i < 8">
-          <div class="upcoming__item card">
+          <div class="upcoming__item card" routerLink="/movie/{{ movie.id }}">
 
             <div class="upcoming__container">
               <span class="upcoming__date">October 24th</span>
               <h2 class="upcoming__title">{{ movie.title }}</h2>
             </div>
 
-            <img class="upcoming__img" src="{{ movie.image}}" alt="">
+            <img class="upcoming__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
 
           </div>
         </div>

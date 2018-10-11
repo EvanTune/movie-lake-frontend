@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MOVIES} from '../mock-movies';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-movie-slider',
@@ -8,14 +9,19 @@ import {MOVIES} from '../mock-movies';
 })
 export class MovieSliderComponent implements OnInit {
 
-  movies = MOVIES;
+  movies = [];
   scrollPosition = 0;
   @ViewChild('slider') sliderElement: ElementRef;
 
 
-  constructor() { }
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
+
+    this.movieService.getTheatresMovies().subscribe(data => {
+      this.movies = data['results'];
+    });
+
   }
 
   panLeft() {

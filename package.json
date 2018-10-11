@@ -24,8 +24,10 @@
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "ngx-content-loading": "^0.1.3",
     "ngx-siema": "^2.0.1",
     "ngx-slick": "^0.2.1",
+    "placeholder-loading": "^0.1.5",
     "rxjs": "~6.2.0",
     "slick-carousel": "^1.8.1",
     "zone.js": "~0.8.26"

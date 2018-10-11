@@ -13,7 +13,7 @@
 >
   <ng-container *ngFor="let movie of movies">
     <div class="movie-slider__item">
-      <img class="movie-slider__img" src="{{ movie.image }}" alt="">
+      <img class="movie-slider__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
       <h3 class="movie-slider__title">{{ movie.title }}</h3>
     </div>
   </ng-container>

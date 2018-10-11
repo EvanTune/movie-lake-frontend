@@ -1,3 +1,23 @@
-<p>
-  person works!
-</p>
+<div class="person">
+  
+  <div class="person-window">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <img class="person-window__img" src="https://image.tmdb.org/t/p/w500{{ person['profile_path']}}" alt="">
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+          <div class="person-window__container card">
+            <h1 class="person-window__title">{{ person['name'] }}</h1>
+            <p class="person-window__bio">{{ person['biography'] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  
+</div>

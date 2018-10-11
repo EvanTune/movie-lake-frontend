@@ -6,13 +6,13 @@ import {PersonComponent} from './person/person.component';
 
 const routes: Routes = [
   { path: '', component: FrontPageComponent },
-  { path: 'movie', component: ItemComponent },
-  { path: 'person', component: PersonComponent }
+  { path: 'movie/:id', component: ItemComponent },
+  { path: 'person/:id', component: PersonComponent }
 ];
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes,{scrollPositionRestoration: 'enabled'}) ],
+  imports: [ RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}) ],
   exports: [ RouterModule ]
 })
 

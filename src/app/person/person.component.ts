@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PeopleService } from '../people.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-person',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonComponent implements OnInit {
 
-  constructor() { }
+  person = {};
+  id = 0;
+
+  constructor(private peopleService: PeopleService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.params.id;
+    this.peopleService.getPerson(this.id).subscribe(data => {
+      this.person = data;
+      console.log(data);
+    });
+
   }
 
 }
