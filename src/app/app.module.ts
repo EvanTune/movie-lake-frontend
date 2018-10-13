@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxContentLoadingModule } from 'ngx-content-loading';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -48,6 +49,7 @@ import { PersonComponent } from './person/person.component';
     HttpClientModule,
     AppRoutingModule,
     NgxContentLoadingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

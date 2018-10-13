@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MovieService} from '../movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {min} from 'rxjs/operators';
 import {getLangugaeFromIso} from '../helpers/language';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-item',
@@ -14,9 +13,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class ItemComponent implements OnInit {
 
   id = 0;
-  movie = {
-    'poster_path': '/assets/images/placeholder-poster.png'
-  };
+  movie = {};
   videos = [];
   images = [];
   crew = [];
@@ -37,6 +34,20 @@ export class ItemComponent implements OnInit {
     private location: Location,
     private sanitizer: DomSanitizer,
   ) {
+    route.params.subscribe(val => {
+      this.movie = {
+        'poster_path': '/assets/images/placeholder-poster.png'
+      };
+      this.movieLoaded = false;
+      this.getRuntime(112);
+
+      this.id = this.route.snapshot.params.id;
+
+      this.setupMovie();
+      this.setupMovieVideos();
+      this.setupMovieCredits();
+      this.setupMovieImages();
+    });
   }
 
   getMoney(money) {
@@ -46,7 +57,9 @@ export class ItemComponent implements OnInit {
   getGenres() {
     let genres = '';
     for (let i = 0; i < this.movie['genres'].length; i++) {
-      if (i > 2) {break;}
+      if (i > 2) {
+        break;
+      }
       genres += this.movie['genres'][i].name;
 
       if (i < 2) {
@@ -90,41 +103,51 @@ export class ItemComponent implements OnInit {
     return getLangugaeFromIso(iso);
   }
 
-  getYear() {
-
-  }
-
-
-  ngOnInit() {
-    this.getRuntime(112);
-
-    this.id = this.route.snapshot.params.id;
-
+  setupMovie() {
     this.movieService.getMovie(this.id).subscribe(data => {
       this.movie = data;
       this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w500' + this.movie['poster_path'];
       console.log(data);
       this.movieLoaded = true;
     });
+  }
 
+  setupMovieVideos() {
     this.movieService.getMovieVideos(this.id).subscribe(data => {
       this.videos = data['results'];
-      console.log(this.videos);
-      this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0].key);
+
+      if (this.videos.length) {
+        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0].key);
+
+      }
+
     });
+  }
 
-
+  setupMovieCredits() {
     this.movieService.getMovieCredits(this.id).subscribe(data => {
       this.crew = data['crew'];
       this.cast = data['cast'];
       console.log(data);
     });
+  }
 
+  setupMovieImages() {
     this.movieService.getMovieImages(this.id).subscribe(data => {
       console.log(data);
       this.images = data['backdrops'];
     });
+  }
 
+  ngOnInit() {
+    this.getRuntime(112);
+
+    this.id = this.route.snapshot.params.id;
+
+    this.setupMovie();
+    this.setupMovieVideos();
+    this.setupMovieCredits();
+    this.setupMovieImages();
 
   }
 

@@ -44,4 +44,9 @@ export class MovieService {
     get(environment.api_path + 'movie/' + id + '/images');
   }
 
+  getSearch(query) {
+    return this.httpClient.
+    get(environment.api_path + 'search?query=' + query);
+  }
+
 }

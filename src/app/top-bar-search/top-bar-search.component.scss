@@ -1,8 +1,7 @@
 .top-bar-search {
+
   &__input {
-    border-radius: 30px;
-    border: 1px solid #cdcdcd;
-    padding-left: 15px;
+    border: 1px solid #e1e1e1;
     padding-right: 15px;
     height: 40px;
     color: #393939;
@@ -11,7 +10,197 @@
     font-weight: 500;
     margin-left: 50px;
     display: none;
+    padding-left: 40px;
+    border-radius: 2px;
+    background-color: whitesmoke;
   }
+
+  &__search-icon {
+    position: absolute;
+    left: 200px;
+    top: 14px;
+    color: grey;
+    pointer-events: none;
+    font-size: 0.9rem;
+  }
+
+  &__close-icon {
+    position: absolute;
+    left: 510px;
+    top: 14px;
+    color: grey;
+    font-size: 0.9rem;
+  }
+
+  &__close-icon:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  &__container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: rgba(0,0,0,0.6);
+  }
+
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 38px;
+  margin-left: 10px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #5f5f5f;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+
+.top-bar-search-mobile {
+
+  &__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: white;
+    z-index: 999999;
+    padding: 0 10px;
+  }
+
+  &__input {
+    border: none;
+    margin-top: 20px;
+    padding-bottom: 5px;
+  }
+
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    color: #7d7d7d;
+    font-size: 1.2rem;
+  }
+
+  &__btn {
+    position: absolute;
+    right: 60px;
+    top: 0px;
+    height: 35px;
+    width: 35px;
+    border: none;
+    border-radius: 50%;
+    font-size: 0.9rem;
+  }
+}
+
+.top-bar-search-results {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  border-top: 1px solid #ebebeb;
+  overflow-y: auto;
+  background-color: #f0f0f0;
+  padding: 10px 10px;
+
+  &__test {
+
+  }
+
+  &__item {
+    position: relative;
+    margin-bottom: 10px;
+    transition: 0.15s all;
+  }
+
+  &__item:hover {
+    background-color: #ededed;
+    cursor: pointer;
+  }
+
+  &__img {
+    width: 28px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+
+  &__container {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: -4px;
+  }
+
+  &__header {
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -22,17 +211,70 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
 
-  .top-bar-search {
-    &__input {
-      display: block;
-    }
-  }
-
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
 
+  .top-bar-search {
+    &__input {
+      display: block;
+    }
+
+    &__container {
+      position: relative;
+    }
+  }
+
+  .top-bar-search-mobile {
+    display: none;
+
+    &__btn {
+      display: none;
+    }
+  }
+
+  .top-bar-search-results {
+    position: absolute;
+    width: 350px;
+    bottom: auto;
+    top: 15px;
+    left: 50px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: white;
+    padding: 10px 0 0 0;
+    overflow-y: hidden;
+
+    &__item {
+      padding: 4px 10px;
+      margin-bottom: 0;
+    }
+
+    .container {
+      padding: 0;
+    }
+
+    &__container {
+      top: 1px;
+      left: 45px;
+      right: 15px;
+    }
+
+    &__header {
+      padding: 0 10px;
+    }
+
+    &__img {
+      width: 26px;
+    }
+
+    &__title {
+      font-size: 0.8rem;
+    }
+
+  }
 
 
 }

@@ -16,6 +16,8 @@ export class PopularMoviesComponent implements OnInit {
 
   ngOnInit() {
 
+
+
     this.movieService.getPopularMovies().subscribe(data => {
       console.log(data['results']);
       this.movies = data['results'];

@@ -15,9 +15,14 @@ export class UpcomingComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
+
+
+
     this.movieService.getUpcomingMovies().subscribe(data => {
       this.movies = data['results'];
     });
+
+
   }
 
 }
