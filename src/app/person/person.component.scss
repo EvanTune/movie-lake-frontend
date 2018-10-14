@@ -9,16 +9,165 @@
   &__img {
     width: 100%;
     border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
   }
 
   &__container {
+    padding: 35px 40px 40px 40px;
     height: 100%;
-    padding: 30px;
+  }
+
+  &__img-container {
+
   }
 
   &__title {
-    font-size: 3rem;
+    font-size: 1.8rem;
+    margin-bottom: 17px;
     font-weight: 700;
   }
 
+  &__bio {
+    height: 140px;
+    overflow-y: auto;
+    padding-right: 40px;
+  }
+
+}
+
+.person-window-info {
+
+  margin-top: 30px;
+  position: absolute;
+  bottom: 35px;
+
+  &__item {
+    display: inline-block;
+    margin-right: 60px;
+  }
+
+  &__title {
+    font-weight: 100;
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+
+  &__value {
+    font-weight: 500;
+    color: #1c1c1c;
+    font-size: 1rem;
+  }
+
+}
+
+.person-known {
+
+  margin-top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-left: 2px;
+  padding-right: 2px;
+
+  &__img {
+    width: 100%;
+    border-radius: 3px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 5px;
+    white-space: normal;
+  }
+
+  &__item {
+    width: 162px;
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+    vertical-align: top;
+  }
+
+}
+
+.person-job {
+
+  &__item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #ebebeb;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__item:nth-child(2n) {
+
+  }
+
+  &__header {
+    background-image: linear-gradient(45deg, #0089ff, #0075dc);
+    color: white;
+    padding: 15px 20px;
+    font-weight: 500;
+    border-bottom: 1px solid #ebebeb;
+    font-size: 1.2rem;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  &__header--prod {
+    background-image: linear-gradient(45deg, #b700ff, #9100cc);
+    margin-top: 20px;
+  }
+
+  &__arrow {
+    position: absolute;
+    right: 20px;
+    top: 22px;
+    font-size: 1rem;
+  }
+
+  &__card {
+    margin-top: 30px;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 60px;
+  }
+
+  &__year {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #5b5b5b;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-left: 15px;
+    color: #1e1e1e;
+  }
+
+  &__name {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: #1d1d1d;
+  }
+
+}
+
+.item-header {
+  font-weight: 100;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  font-size: 1.6rem;
+  color: #181818;
 }

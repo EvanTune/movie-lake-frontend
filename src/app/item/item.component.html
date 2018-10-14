@@ -182,7 +182,7 @@
 
       <ng-container *ngFor="let person of cast; let i = index">
         <div class="col-md-2" *ngIf="i < 6">
-          <div class="item-cast__item">
+          <div class="item-cast__item" [routerLink]="'/person/' + person.id">
             <div class="item-cast__img-container">
               <img class="item-cast__img" src="https://image.tmdb.org/t/p/w500{{ person['profile_path']}}" alt="">
             </div>

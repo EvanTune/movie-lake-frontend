@@ -3,16 +3,62 @@
   <div class="person-window">
     
     <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <img class="person-window__img" src="https://image.tmdb.org/t/p/w500{{ person['profile_path']}}" alt="">
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-          <div class="person-window__container card">
-            <h1 class="person-window__title">{{ person['name'] }}</h1>
-            <p class="person-window__bio">{{ person['biography'] }}</p>
+      <div class="row justify-content-center">
+
+        <div class="col-md-12 col-lg-11">
+          <div class="row">
+            <div class="col-md-4 col-lg-3">
+              <div class="person-window__img-container">
+                <img class="person-window__img" src="{{ person['profile_path']}}" alt="">
+              </div>
+
+            </div>
+            <div class="col-md-8 col-lg-9">
+              <div class="person-window__container card">
+
+                <ngx-content-loading *ngIf="!personLoaded"
+                                     [speed]="'1000ms'"
+                                     [width]="1000"
+                                     [height]="400"
+                                     [primaryColor]="'#9b9b9b'"
+                                     [secondaryColor]="'#afafaf'">
+
+                  <svg:g ngx-rect width="450" height="35" y="20" x="0" rx="5" ry="5"></svg:g>
+                  <svg:g ngx-rect width="1000" height="200" y="100" x="0" rx="5" ry="5"></svg:g>
+                  <svg:g ngx-rect width="80" height="20" y="380" x="0" rx="5" ry="5"></svg:g>
+                  <svg:g ngx-rect width="80" height="20" y="380" x="170" rx="5" ry="5"></svg:g>
+                  <svg:g ngx-rect width="80" height="20" y="380" x="340" rx="5" ry="5"></svg:g>
+                  <svg:g ngx-rect width="80" height="20" y="380" x="510" rx="5" ry="5"></svg:g>
+
+                </ngx-content-loading>
+
+                <h1 class="person-window__title">{{ person['name'] }}</h1>
+                <p class="person-window__bio" *ngIf="personLoaded">{{ person['biography'] }}</p>
+
+                <div class="person-window-info" *ngIf="personLoaded">
+                    <div class="person-window-info__item">
+                      <div class="person-window-info__title">Gender</div>
+                      <div class="person-window-info__value">{{ person['gender'] === 2 ? 'Male' : 'Female' }}</div>
+                    </div>
+                  <div class="person-window-info__item">
+                    <div class="person-window-info__title">Age</div>
+                    <div class="person-window-info__value">42</div>
+                  </div>
+                  <div class="person-window-info__item">
+                    <div class="person-window-info__title">Country</div>
+                    <div class="person-window-info__value">England</div>
+                  </div>
+                  <div class="person-window-info__item">
+                    <div class="person-window-info__title">Profession</div>
+                    <div class="person-window-info__value">Actor</div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -20,4 +66,96 @@
   </div>
   
   
+</div>
+
+<div class="person-known section section--white">
+
+  <div class="container">
+   <div class="col-md-12">
+     <h3 class="item-header">Known for</h3>
+
+     <ngx-content-loading *ngIf="!creditsLoaded"
+                          [speed]="'1000ms'"
+                          [width]="1000"
+                          [height]="405"
+                          [primaryColor]="'#9b9b9b'"
+                          [secondaryColor]="'#afafaf'">
+
+       <svg:g ngx-rect width="150" height="220" y="0" x="0" rx="5" ry="5"></svg:g>
+       <svg:g ngx-rect width="150" height="220" y="0" x="170" rx="5" ry="5"></svg:g>
+       <svg:g ngx-rect width="150" height="220" y="0" x="340" rx="5" ry="5"></svg:g>
+       <svg:g ngx-rect width="150" height="220" y="0" x="510" rx="5" ry="5"></svg:g>
+       <svg:g ngx-rect width="150" height="220" y="0" x="680" rx="5" ry="5"></svg:g>
+       <svg:g ngx-rect width="150" height="220" y="0" x="850" rx="5" ry="5"></svg:g>
+
+
+     </ngx-content-loading>
+
+     <div #knownElement class="person-known" (panstart)="setOffset($event)" (panright)="panRight($event)" (panleft)="panLeft($event)" (panend)="panEnd($event)">
+         <ng-container *ngFor="let movie of knownFor; let i = index" >
+
+             <div class="person-known__item"*ngIf="i < 12" (tap)="navigateToItem(movie.id)">
+               <img class="person-known__img" src="https://image.tmdb.org/t/p/w185{{ movie['poster_path']}}" alt="">
+               <h3 class="person-known__title">{{ movie['title'] }}</h3>
+             </div>
+
+         </ng-container>
+
+
+     </div>
+
+   </div>
+
+    <div class="col-md-12">
+
+    </div>
+  </div>
+
+
+
+
+</div>
+
+<div class="section">
+
+  <div class="container">
+
+    <div class="col-md-12">
+      <h3 class="item-header">Work</h3>
+
+      <div class="person-job__card card">
+
+        <div class="person-job__header">Acting <i class="person-job__arrow fas fa-chevron-down"></i></div>
+        <ng-container *ngFor="let movie of movies; let i = index">
+          <div class="person-job__item" *ngIf="i < actingLength">
+            <div class="person-job__year">{{ movie['release_date'] | date: 'y' }}</div>
+            <div class="person-job__container">
+              <div class="person-job__title">{{ movie['title'] }}</div>
+              <div class="person-job__name">as {{ movie['character'] }}</div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+      <div class="person-job__card card">
+
+        <div class="person-job__header person-job__header--prod">Tv Shows <i class="person-job__arrow fas fa-chevron-down"></i></div>
+        <ng-container *ngFor="let t of tv; let i = index">
+          <div class="person-job__item" *ngIf="i < actingLength">
+            <div class="person-job__year">{{ t['first_air_date'] | date: 'y' }}</div>
+            <div class="person-job__container">
+              <div class="person-job__title">{{ t['name'] }}</div>
+              <div class="person-job__name">as {{ t['character'] }}</div>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
 </div>

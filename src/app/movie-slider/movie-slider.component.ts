@@ -12,6 +12,7 @@ export class MovieSliderComponent implements OnInit {
   movies = [];
   scrollPosition = 0;
   @ViewChild('slider') sliderElement: ElementRef;
+  offset = 0;
 
 
   constructor(private movieService: MovieService) { }

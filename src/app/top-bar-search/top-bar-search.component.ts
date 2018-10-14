@@ -68,9 +68,9 @@ export class TopBarSearchComponent implements OnInit {
     }
   }
 
-  redirectAndClear(link) {
+  redirectAndClear(type, link) {
 
-    this.router.navigate(['/movie', link]);
+    this.router.navigate([type, link]);
     this.showContainer = false;
 
   }

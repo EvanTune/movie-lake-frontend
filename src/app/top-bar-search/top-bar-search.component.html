@@ -26,7 +26,7 @@
           <h3 class="top-bar-search-results__header" *ngIf="movies.length">Movies</h3>
 
           <ng-container *ngFor="let movie of movies; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear(movie.id)">
+            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/movie', movie.id)">
               <img class="top-bar-search-results__img"
                    [src]="movie['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + movie['poster_path'] : '/assets/images/placeholder-poster.png'" alt="">
               <div class="top-bar-search-results__container">
@@ -51,9 +51,9 @@
           <h3 class="top-bar-search-results__header" *ngIf="people.length">People</h3>
 
           <ng-container *ngFor="let person of people; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5">
+            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/person', person.id)">
               <img class="top-bar-search-results__img"
-                   [src]="person['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + person['poster_path'] : '/assets/images/placeholder-poster.png'" alt="">
+                   [src]="person['profile_path'] ? 'https://image.tmdb.org/t/p/w45' + person['profile_path'] : '/assets/images/placeholder-poster.png'" alt="">
               <div class="top-bar-search-results__container">
                 <span class="top-bar-search-results__title">{{ person['name'] }}</span>
               </div>
