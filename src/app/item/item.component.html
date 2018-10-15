@@ -95,7 +95,7 @@
 </div>
 -->
 
-<div class="item-info section section--white">
+<div class="item-info section section--md section--white">
 
   <div class="container">
     <div class="row">
@@ -171,7 +171,7 @@
   </div>
 </div>
 
-<div class="item-cast section">
+<div class="item-cast section section--md">
 
   <div class="container">
     <div class="row">
@@ -184,7 +184,7 @@
         <div class="col-md-2" *ngIf="i < 6">
           <div class="item-cast__item" [routerLink]="'/person/' + person.id">
             <div class="item-cast__img-container">
-              <img class="item-cast__img" src="https://image.tmdb.org/t/p/w500{{ person['profile_path']}}" alt="">
+              <img class="item-cast__img" src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="">
             </div>
             <div class="item-cast__container">
               <div class="item-cast__name">{{ person['name'] }}</div>
@@ -199,7 +199,7 @@
 
 </div>
 
-<div class="item-images section section--white">
+<div class="item-images section section--md section--white">
 
   <div class="container">
     <div class="row">
@@ -208,13 +208,9 @@
         <h2 class="item-header">Images</h2>
       </div>
 
-      <ng-container *ngFor="let image of images;let i = index">
-        <div class="col-md-3" *ngIf="i < 4">
-          <div class="item-images__item">
-            <img class="item-images__img" src="https://image.tmdb.org/t/p/w500{{ image['file_path']}}" alt="">
-          </div>
-        </div>
-      </ng-container>
+      <div class="col-md-12">
+        <app-images [images]="images" [width]="'w780'"></app-images>
+      </div>
 
     </div>
   </div>

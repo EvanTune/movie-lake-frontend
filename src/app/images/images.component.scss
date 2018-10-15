@@ -1,0 +1,221 @@
+.images {
+
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  &__item {
+    display: inline-block;
+    width: 200px;
+    margin-right: 20px;
+    padding: 0 2px;
+    transition: 0.1s all;
+  }
+
+  &__item:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  &__img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: 0.1s all;
+    pointer-events: none;
+  }
+
+}
+
+
+.images-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.6);
+  display: none;
+
+  &__body {
+    background-color: white;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  &__arrow {
+    display: none;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
+  }
+
+  &__text {
+    margin-right: auto;
+    margin-left: 20px;
+    font-size: 0.9rem;
+  }
+
+  &__header {
+    font-weight: 600;;
+  }
+
+  &__img-container {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    pointer-events: none;
+    scroll-behavior: smooth;
+    border-top: 1px solid #e6e6e6;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 50px;
+  }
+
+  &__img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  &__item {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  &__exit {
+    color: grey;
+    transition: 0.1s all;
+  }
+
+  &__exit:hover {
+    color: black;
+    cursor: pointer;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .images-modal {
+    padding: 100px;
+
+    &__top {
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    &__body {
+      left: 0;
+      right: 0;
+      bottom: 100px;
+      top: 100px;
+      width: 992px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    &__arrow {
+      display: block;
+      position: absolute;
+      height: 42px;
+      width: 42px;
+      line-height: 42px;
+      text-align: center;
+      border-radius: 50%;
+      border: none;
+      top: calc(50% - 20px);
+      background-color: rgba(0,0,0,0.7);
+      color: #e8e8e8;
+      z-index: 100;
+      transition: 0.1s all;
+    }
+
+    &__arrow--left {
+      left: 60px;
+    }
+
+    &__arrow--right {
+      right: 60px;
+    }
+
+    &__arrow:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+      color: white;
+    }
+
+    &__arrow:focus {
+      outline: none;
+    }
+
+    &__img-container {
+      position: absolute;
+      left: 0;
+      top: 60px;
+      right: 0;
+      bottom: 0;
+    }
+
+    &__img  {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+    }
+
+    &__text {
+      margin-right: inherit;
+      margin-left: 0;
+    }
+
+    &__item {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+  .images-modal {
+
+    &__body {
+      width: 1200px;
+    }
+
+  }
+
+}

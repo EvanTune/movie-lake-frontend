@@ -1,0 +1,40 @@
+<div #imgElement class="images" (panstart)="setOffset($event)" (panright)="panRight($event)"
+     (panleft)="panLeft($event)" (panend)="panEnd($event)">
+
+  <ng-container *ngFor="let image of images; let i = index">
+    <div class="images__item" (tap)="openImageModal(i)">
+      <img class="images__img" src="https://image.tmdb.org/t/p/w185{{ image['file_path'] }}" alt="">
+    </div>
+  </ng-container>
+
+</div>
+
+<div class="images-modal" #modal (click)="exitImageModal()">
+
+  <div class="images-modal__body" (click)="stopBodyProp($event)" (swiperight)="prevImage($event)" (swipeleft)="nextImage($event)">
+
+    <div class="images-modal__top">
+      <div class="images-modal__header">Images</div>
+      <div class="images-modal__text">{{ position + 1 }} of {{ images.length }}  images</div>
+      <div class="images-modal__exit" (click)="exitImageModal()"><i class="fas fa-times"></i></div>
+    </div>
+
+    <button class="images-modal__arrow images-modal__arrow--left" (click)="prevImage($event)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="images-modal__arrow images-modal__arrow--right" (click)="nextImage($event)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="images-modal__img-container" #imgContainer >
+      <ng-container *ngFor="let image of images">
+        <div class="images-modal__item">
+          <img class="images-modal__img" src="https://image.tmdb.org/t/p/{{ width }}{{ image['file_path'] }}" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <div class="images-modal__choose"></div>
+
+  </div>
+
+</div>

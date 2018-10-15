@@ -1,7 +1,10 @@
 <div class="top-bar-search">
+
   <i class="fas fa-search top-bar-search__search-icon"></i>
   <i class="fas fa-times top-bar-search__close-icon" *ngIf="query.length > 0" (click)="clearQuery()"></i>
+
   <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query" placeholder="Search for movie, tv-show or actor ..." class="top-bar-search__input" type="text">
+
   <button class="top-bar-search-mobile__btn" (click)="showContainer=true"><i class="fas fa-search"></i></button>
 
   <div class="top-bar-search__container" [hidden]="!showContainer">

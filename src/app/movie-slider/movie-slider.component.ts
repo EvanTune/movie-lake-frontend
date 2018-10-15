@@ -14,6 +14,12 @@ export class MovieSliderComponent implements OnInit {
   @ViewChild('slider') sliderElement: ElementRef;
   offset = 0;
 
+  currentOffset = 0;
+  last = 0;
+  acceleration = 0;
+  panInterval: any = null;
+  scrolling = false;
+
 
   constructor(private movieService: MovieService) { }
 
@@ -25,23 +31,73 @@ export class MovieSliderComponent implements OnInit {
 
   }
 
-  panLeft() {
-    console.log('fsdfsdf');
-    this.setSliderScroll(0);
-  }
 
-  panRight() {
-    console.log('fsdfsdf');
-    this.setSliderScroll(1);
-  }
+  setOffset(e) {
+    if (!this.scrolling) {
+      let screenWidth = e['center'];
+      this.currentOffset = this.sliderElement.nativeElement.scrollLeft;
+      this.last = e['center'].x;
 
-  setSliderScroll(test) {
-    if (test === 0) {
-      this.sliderElement.nativeElement.scrollLeft += 9;
-    } else {
-      this.sliderElement.nativeElement.scrollLeft -= 9;
     }
   }
 
+  panRight(e) {
+    console.log(this.scrolling);
+    if (!this.scrolling) {
+      let a = this.last - e['center'].x + this.currentOffset;
+      this.sliderElement.nativeElement.scrollLeft = a;
+    }
+  }
+
+  panLeft(e) {
+    if (!this.scrolling) {
+      let a = this.last - e['center'].x + this.currentOffset;
+      this.sliderElement.nativeElement.scrollLeft = a;
+    }
+  }
+
+  panEnd(e) {
+    if (!this.scrolling) {
+
+      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 500) {
+        this.acceleration = Math.floor(e.overallVelocity * 22);
+      } else {
+        this.acceleration = 0;
+      }
+
+      this.scrolling = true;
+      this.panInterval = setInterval(() => {
+
+        if (this.acceleration > 0) {
+
+          this.sliderElement.nativeElement.scrollLeft -= this.acceleration;
+
+          if (this.sliderElement.nativeElement.scrollLeft <= 0) {
+            this.acceleration = 0;
+          } else {
+            this.acceleration--;
+          }
+
+        } else if (this.acceleration < 0) {
+
+          this.sliderElement.nativeElement.scrollLeft -= this.acceleration;
+
+          if (this.sliderElement.nativeElement.scrollLeft >= this.sliderElement.nativeElement.scrollWidth - this.sliderElement.nativeElement.clientWidth) {
+            this.acceleration = 0;
+          } else {
+            this.acceleration++;
+          }
+
+          this.acceleration++;
+
+        } else {
+          clearInterval(this.panInterval);
+          this.scrolling = false;
+
+        }
+
+      }, 16);
+    }
+  }
 
 }

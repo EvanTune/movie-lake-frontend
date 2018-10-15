@@ -24,4 +24,9 @@ export class PeopleService {
     get(environment.api_path + 'person/' + id + '/combined_credits');
   }
 
+  getImages(id) {
+    return this.httpClient.
+    get(environment.api_path + 'person/' + id + '/images');
+  }
+
 }

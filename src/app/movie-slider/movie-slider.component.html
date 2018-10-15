@@ -5,8 +5,8 @@
   </div>
 
 <div #slider class="movie-slider__slider"
-     (panleft)="panLeft()"
-     (panright)="panRight()"
+     (panstart)="setOffset($event)" (panright)="panRight($event)"
+     (panleft)="panLeft($event)" (panend)="panEnd($event)"
 
 
 

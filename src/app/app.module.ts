@@ -22,6 +22,7 @@ import { MovieSliderComponent } from './movie-slider/movie-slider.component';
 import { UpcomingComponent } from './upcoming/upcoming.component';
 import { PopularDiscussionsComponent } from './popular-discussions/popular-discussions.component';
 import { PersonComponent } from './person/person.component';
+import { ImagesComponent } from './images/images.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { PersonComponent } from './person/person.component';
     MovieSliderComponent,
     UpcomingComponent,
     PopularDiscussionsComponent,
-    PersonComponent
+    PersonComponent,
+    ImagesComponent
   ],
   imports: [
     BrowserModule,

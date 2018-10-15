@@ -11,16 +11,16 @@ import {Router} from '@angular/router';
 export class PersonComponent implements OnInit {
 
   person = {};
-  movies = [];
-  tv = [];
+  acting = [];
   production = [];
   knownFor = [];
+  images = [];
   id = 0;
 
   personLoaded = false;
   creditsLoaded = false;
 
-  actingLength = 12;
+  actingLength = 20;
   innerWidth = 0;
   currentOffset = 0;
   last = 0;
@@ -40,7 +40,35 @@ export class PersonComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    route.params.subscribe(val => {
+
+     this.clearPrev();
+
+      this.innerWidth = window.innerWidth;
+      this.id = val.id;
+
+      this.setupPerson();
+      this.setupCredits();
+      this.setupImages();
+
+    });
   }
+
+  clearPrev() {
+    this.personLoaded = false;
+    this.creditsLoaded = false;
+    this.person = {};
+    this.acting = [];
+    this.production = [];
+    this.knownFor = [];
+    this.images = [];
+  }
+
+  navigateToItem(id) {
+    console.log('fff');
+    this.router.navigate(['movie/' + id]);
+  }
+
 
   setOffset(e) {
     if (!this.scrolling) {
@@ -66,18 +94,11 @@ export class PersonComponent implements OnInit {
     }
   }
 
-  navigateToItem(id) {
-    console.log('fff');
-    this.router.navigate(['movie/' + id]);
-  }
-
   panEnd(e) {
     if (!this.scrolling) {
 
-      console.log(e.distance);
-
-      if (Math.abs(e.overallVelocity) > 1 && e.distance < 550) {
-        this.acceleration = Math.floor(e.overallVelocity * 15);
+      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 400) {
+        this.acceleration = Math.floor(e.overallVelocity * 22);
       } else {
         this.acceleration = 0;
       }
@@ -99,45 +120,36 @@ export class PersonComponent implements OnInit {
 
           this.knownEle.nativeElement.scrollLeft -= this.acceleration;
 
+          if (this.knownEle.nativeElement.scrollLeft >= this.knownEle.nativeElement.scrollWidth - this.knownEle.nativeElement.clientWidth) {
+            this.acceleration = 0;
+          } else {
             this.acceleration++;
+          }
 
         } else {
           clearInterval(this.panInterval);
-          console.log(this.acceleration);
           this.scrolling = false;
 
         }
 
-      }, 20);
+      }, 16);
     }
   }
 
-  ngOnInit() {
-
-    this.person = {
-      'profile_path': '/assets/images/placeholder-poster.png'
-    };
-
-    this.innerWidth = window.innerWidth;
-    this.id = this.route.snapshot.params.id;
-
-    this.peopleService.getPerson(this.id).subscribe(data => {
-      this.person = data;
-
-      this.person['profile_path'] = 'https://image.tmdb.org/t/p/w500' + this.person['profile_path'];
-
-      this.personLoaded = true;
-    });
-
+  setupCredits() {
     this.peopleService.getCredits(this.id).subscribe(data => {
 
       for (let i = 0; i < data['cast'].length; i++) {
-        if (data['cast'][i]['media_type'] === 'movie') {
-          this.movies.push(data['cast'][i]);
-          this.knownFor.push(data['cast'][i]);
-        } else if (data['cast'][i]['media_type'] === 'tv') {
-          this.tv.push(data['cast'][i]);
-          this.knownFor.push(data['cast'][i]);
+        if (data['cast'][i]['media_type'] === 'movie' || data['cast'][i]['media_type'] === 'tv') {
+          if (data['cast'][i]['release_date']) {
+            data['cast'][i]['date'] = data['cast'][i]['release_date'];
+            this.acting.push(data['cast'][i]);
+            this.knownFor.push(data['cast'][i]);
+          } else if (data['cast'][i]['first_air_date']) {
+            data['cast'][i]['date'] = data['cast'][i]['first_air_date'];
+            this.acting.push(data['cast'][i]);
+            this.knownFor.push(data['cast'][i]);
+          }
         }
       }
 
@@ -147,11 +159,11 @@ export class PersonComponent implements OnInit {
         }
       }
 
-      this.movies.sort((a, b) => {
-        if (a.release_date > b.release_date) {
+      this.acting.sort((a, b) => {
+        if (a.date > b.date) {
           return -1;
         }
-        if (a.release_date < b.release_date) {
+        if (a.date < b.date) {
           return 1;
         }
         return 0;
@@ -170,6 +182,29 @@ export class PersonComponent implements OnInit {
       this.creditsLoaded = true;
 
     });
+  }
+
+  setupPerson() {
+    this.person = {
+      'profile_path': '/assets/images/placeholder-poster.png'
+    };
+    this.peopleService.getPerson(this.id).subscribe(data => {
+      this.person = data;
+
+      this.person['profile_path'] = 'https://image.tmdb.org/t/p/w500' + this.person['profile_path'];
+
+      this.personLoaded = true;
+    });
+  }
+
+  setupImages() {
+    this.peopleService.getImages(this.id).subscribe(data => {
+      this.images = data['profiles'];
+      console.log('got images');
+    });
+  }
+
+  ngOnInit() {
 
 
   }

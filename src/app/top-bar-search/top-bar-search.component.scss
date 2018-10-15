@@ -22,6 +22,7 @@
     color: grey;
     pointer-events: none;
     font-size: 0.9rem;
+    display: none;
   }
 
   &__close-icon {
@@ -223,6 +224,10 @@
 
     &__container {
       position: relative;
+    }
+
+    &__search-icon {
+      display: inline-block;
     }
   }
 

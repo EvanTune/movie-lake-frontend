@@ -1,54 +1,52 @@
 .person {
-
 }
 
 .person-window {
 
-  padding: 60px;
-
   &__img {
     width: 100%;
     border-radius: 3px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   }
 
   &__container {
-    padding: 35px 40px 40px 40px;
+    padding: 15px 20px 20px 20px;
     height: 100%;
   }
 
   &__img-container {
-
   }
 
   &__title {
     font-size: 1.8rem;
-    margin-bottom: 17px;
+    margin-bottom: 12px;
     font-weight: 700;
   }
 
   &__bio {
-    height: 140px;
+    height: 265px;
     overflow-y: auto;
-    padding-right: 40px;
+    padding-right: 10px;
+    margin-bottom: 0;
   }
 
 }
 
 .person-window-info {
 
-  margin-top: 30px;
-  position: absolute;
-  bottom: 35px;
+  margin-top: 0;
+  position: relative;
+  bottom: 0;
 
   &__item {
     display: inline-block;
     margin-right: 60px;
+    margin-top: 20px;
   }
 
   &__title {
     font-weight: 100;
-    margin-bottom: 5px;
+    margin-bottom: 0;
     font-size: 1rem;
   }
 
@@ -58,6 +56,10 @@
     font-size: 1rem;
   }
 
+}
+
+.person-window-info-alt {
+  display: none;
 }
 
 .person-known {
@@ -73,7 +75,7 @@
     width: 100%;
     border-radius: 3px;
     pointer-events: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 
   &__title {
@@ -81,6 +83,7 @@
     font-weight: 600;
     margin-top: 5px;
     white-space: normal;
+    margin-bottom: 0;
   }
 
   &__item {
@@ -91,12 +94,16 @@
     vertical-align: top;
   }
 
+  &__item:hover {
+    cursor: pointer;
+  }
+
 }
 
 .person-job {
 
   &__item {
-    padding: 15px 20px;
+    padding: 12px 15px;
     border-bottom: 1px solid #ebebeb;
     position: relative;
     display: flex;
@@ -104,16 +111,15 @@
   }
 
   &__item:nth-child(2n) {
-
   }
 
   &__header {
-    background-image: linear-gradient(45deg, #0089ff, #0075dc);
+    background-image: linear-gradient(45deg, #0080ee, #0075dc);
     color: white;
     padding: 15px 20px;
     font-weight: 500;
     border-bottom: 1px solid #ebebeb;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     letter-spacing: 1px;
@@ -137,10 +143,8 @@
   }
 
   &__container {
-    display: flex;
+    display: block;
     align-items: center;
-    position: absolute;
-    left: 60px;
   }
 
   &__year {
@@ -153,11 +157,11 @@
     font-weight: 600;
     font-size: 0.9rem;
     margin-left: 15px;
-    color: #1e1e1e;
+    color: #000000;
   }
 
   &__name {
-    margin-left: 10px;
+    margin-left: 15px;
     font-size: 0.9rem;
     color: #1d1d1d;
   }
@@ -170,4 +174,122 @@
   letter-spacing: 2px;
   font-size: 1.6rem;
   color: #181818;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .person-window {
+
+    &__container {
+      padding: 15px 20px 20px 20px;
+    }
+
+    &__bio {
+      padding-right: 70px;
+      height: 220px;
+      margin-bottom: 15px;
+    }
+
+    &__title {
+      margin-bottom: 12px;
+    }
+  }
+
+  .person-window-info {
+    position: absolute;
+    bottom: 35px;
+    margin-top: 30px;
+    display: none;
+
+    &__item {
+      margin-top: 0;
+    }
+
+    &__title {
+      margin-bottom: 5px;
+    }
+
+  }
+
+  .person-window-info-alt {
+    display: block;
+    margin-top: 20px;
+    padding: 12px;
+
+    &__item {
+      display: inline-block;
+      margin-right: 30px;
+    }
+
+    &__title {}
+
+    &__value {
+      font-weight: 600;
+      color: #323232;
+    }
+
+  }
+
+  .person-job {
+    &__container {
+      display: flex;
+    }
+
+    &__item {
+      padding: 12px 20px;
+    }
+
+    &__title {
+      margin-left: 20px;
+    }
+
+    &__name {
+      margin-left: 10px;
+    }
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .person-window {
+    &__container {
+      padding: 20px 25px 25px 25px;
+    }
+
+    &__bio {
+      height: 145px;
+    }
+  }
+
+  .person-window-info {
+    display: block;
+  }
+
+  .person-window-info-alt {
+    display: none;
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+  .person-window {
+    &__container {
+      padding: 35px 40px 40px 40px;
+    }
+
+    &__bio {
+      height: 170px;
+    }
+  }
+
 }

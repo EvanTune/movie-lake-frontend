@@ -35,19 +35,26 @@ export class ItemComponent implements OnInit {
     private sanitizer: DomSanitizer,
   ) {
     route.params.subscribe(val => {
-      this.movie = {
-        'poster_path': '/assets/images/placeholder-poster.png'
-      };
-      this.movieLoaded = false;
+
+      this.clearPrev();
       this.getRuntime(112);
 
-      this.id = this.route.snapshot.params.id;
+      this.id = val.id;
 
       this.setupMovie();
       this.setupMovieVideos();
       this.setupMovieCredits();
       this.setupMovieImages();
     });
+  }
+
+  clearPrev() {
+    this.movieLoaded = false;
+    this.movie = {};
+    this.videos = [];
+    this.images = [];
+    this.crew = [];
+    this.cast = [];
   }
 
   getMoney(money) {
@@ -104,10 +111,13 @@ export class ItemComponent implements OnInit {
   }
 
   setupMovie() {
+    this.movie = {
+      'poster_path': '/assets/images/placeholder-poster.png'
+    };
     this.movieService.getMovie(this.id).subscribe(data => {
       this.movie = data;
       this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w500' + this.movie['poster_path'];
-      console.log(data);
+
       this.movieLoaded = true;
     });
   }
@@ -128,26 +138,19 @@ export class ItemComponent implements OnInit {
     this.movieService.getMovieCredits(this.id).subscribe(data => {
       this.crew = data['crew'];
       this.cast = data['cast'];
-      console.log(data);
     });
   }
 
   setupMovieImages() {
     this.movieService.getMovieImages(this.id).subscribe(data => {
-      console.log(data);
+
       this.images = data['backdrops'];
+      console.log('got images');
     });
   }
 
   ngOnInit() {
-    this.getRuntime(112);
 
-    this.id = this.route.snapshot.params.id;
-
-    this.setupMovie();
-    this.setupMovieVideos();
-    this.setupMovieCredits();
-    this.setupMovieImages();
 
   }
 
