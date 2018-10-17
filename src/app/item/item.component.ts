@@ -48,6 +48,10 @@ export class ItemComponent implements OnInit {
     });
   }
 
+  roundToNearestInt(number) {
+    return Math.round(number);
+  }
+
   clearPrev() {
     this.movieLoaded = false;
     this.movie = {};
@@ -116,7 +120,7 @@ export class ItemComponent implements OnInit {
     };
     this.movieService.getMovie(this.id).subscribe(data => {
       this.movie = data;
-      this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w500' + this.movie['poster_path'];
+      this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w300' + this.movie['poster_path'];
 
       this.movieLoaded = true;
     });

@@ -105,7 +105,7 @@
     width: 40px;
     line-height: 41px;
     background-color: #00be00;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: white;
     font-weight: 700;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
@@ -188,8 +188,13 @@
   }
 
   &__header {
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+  }
+
+  &__value {
     font-weight: 600;
-    margin-bottom: 10px;
+    color: #3f3f3f;
   }
 
   &__trailer {
@@ -198,73 +203,8 @@
     height: 260px;
   }
 
-  &__genre {
-    color: white;
-    padding: 11px 25px;
-    display: inline-block;
-    margin-right: 20px;
-    border-radius: 3px;
-    font-weight: 600;
-    font-size: 0.7rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  &__genre--action {
-    background-color: #094dff;
-  }
-
-  &__genre--adventure {
-    background-color: #ff7100;
-  }
-
 }
 
-/***************************
- *  ITEM CAST
- ***************************/
-.item-cast {
-
-  &__img-container {
-    width: 88%;
-    padding-bottom: 88%;
-    overflow:hidden;
-    position:relative;
-    border-radius: 50%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  }
-
-  &__img {
-    position:absolute;
-    width:100%;
-    min-width:100%;
-    min-height:100%;
-    margin-top: -30px;
-  }
-
-  &__container {
-    text-align: center;
-    margin-top: 15px;
-    padding-right: 12%;
-  }
-
-  &__name {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  &__playing {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-  }
-
-  &__item:hover {
-    cursor: pointer;
-  }
-
-}
 
 /***************************
  *  ITEM IMAGES
@@ -301,6 +241,10 @@
 
   .item-window {
     padding: 80px 0;
+
+    &__title {
+      font-size: 1.8rem;
+    }
   }
 
   .item-window-crew {
@@ -316,11 +260,15 @@
   .item-window {
 
     &__img {
-      width: 290px;
+      height: 415px;
+      max-width: 100%;
+      min-height: auto;
+      width: auto;
     }
 
     &__overview {
-      padding-right: 15%;
+      padding-right: 10%;
+      height: 120px;
     }
 
     &__container {

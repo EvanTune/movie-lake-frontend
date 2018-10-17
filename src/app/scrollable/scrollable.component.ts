@@ -1,20 +1,22 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MOVIES} from '../mock-movies';
-import {MovieService} from '../movie.service';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-movie-slider',
-  templateUrl: './movie-slider.component.html',
-  styleUrls: ['./movie-slider.component.scss']
+  selector: 'app-scrollable',
+  templateUrl: './scrollable.component.html',
+  styleUrls: ['./scrollable.component.scss']
 })
-export class MovieSliderComponent implements OnInit {
+export class ScrollableComponent implements OnInit {
 
-  movies = [];
-  scrollPosition = 0;
-  @ViewChild('slider') sliderElement: ElementRef;
-  offset = 0;
+  canScroll = false;
+  contentLoaded = false;
+  @Input() items;
+  @Input() component;
+  @Input() tvId;
+  @ViewChild('scrollableElement') scrollableElement: ElementRef;
 
+  actingLength = 20;
+  innerWidth = 0;
   currentOffset = 0;
   last = 0;
   acceleration = 0;
@@ -22,27 +24,21 @@ export class MovieSliderComponent implements OnInit {
   scrolling = false;
 
   constructor(
-    private movieService: MovieService,
     private router: Router
   ) {
   }
 
   ngOnInit() {
-
-    this.movieService.getTheatresMovies().subscribe(data => {
-      this.movies = data['results'];
-    });
-
   }
 
-  navigateToMovie(id) {
-    this.router.navigate(['/movie/' + id]);
+  navigateToSeason(id) {
+    this.router.navigate(['/tv/' + this.tvId + '/season/' + id]);
   }
 
   setOffset(e) {
-    if (!this.scrolling) {
+    if (!this.canScroll) {
       let screenWidth = e['center'];
-      this.currentOffset = this.sliderElement.nativeElement.scrollLeft;
+      this.currentOffset = this.scrollableElement.nativeElement.scrollLeft;
       this.last = e['center'].x;
 
     }
@@ -52,14 +48,14 @@ export class MovieSliderComponent implements OnInit {
     console.log(this.scrolling);
     if (!this.scrolling) {
       let a = this.last - e['center'].x + this.currentOffset;
-      this.sliderElement.nativeElement.scrollLeft = a;
+      this.scrollableElement.nativeElement.scrollLeft = a;
     }
   }
 
   panLeft(e) {
     if (!this.scrolling) {
       let a = this.last - e['center'].x + this.currentOffset;
-      this.sliderElement.nativeElement.scrollLeft = a;
+      this.scrollableElement.nativeElement.scrollLeft = a;
     }
   }
 
@@ -77,9 +73,9 @@ export class MovieSliderComponent implements OnInit {
 
         if (this.acceleration > 0) {
 
-          this.sliderElement.nativeElement.scrollLeft -= this.acceleration;
+          this.scrollableElement.nativeElement.scrollLeft -= this.acceleration;
 
-          if (this.sliderElement.nativeElement.scrollLeft <= 0) {
+          if (this.scrollableElement.nativeElement.scrollLeft <= 0) {
             this.acceleration = 0;
           } else {
             this.acceleration--;
@@ -87,9 +83,9 @@ export class MovieSliderComponent implements OnInit {
 
         } else if (this.acceleration < 0) {
 
-          this.sliderElement.nativeElement.scrollLeft -= this.acceleration;
+          this.scrollableElement.nativeElement.scrollLeft -= this.acceleration;
 
-          if (this.sliderElement.nativeElement.scrollLeft >= this.sliderElement.nativeElement.scrollWidth - this.sliderElement.nativeElement.clientWidth) {
+          if (this.scrollableElement.nativeElement.scrollLeft >= this.scrollableElement.nativeElement.scrollWidth - this.scrollableElement.nativeElement.clientWidth) {
             this.acceleration = 0;
           } else {
             this.acceleration++;
@@ -106,5 +102,6 @@ export class MovieSliderComponent implements OnInit {
       }, 16);
     }
   }
+
 
 }

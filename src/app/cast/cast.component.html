@@ -1,0 +1,57 @@
+<!--
+<ng-container *ngFor="let person of cast; let i = index">
+  <div class="col-md-2" *ngIf="i < 6">
+    <div class="item-cast__item" [routerLink]="'/person/' + person.id">
+      <div class="item-cast__img-container">
+        <img class="item-cast__img" src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="">
+      </div>
+      <div class="item-cast__container">
+        <div class="item-cast__name">{{ person['name'] }}</div>
+        <div class="item-cast__playing">{{ person['character'] }}</div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+-->
+<div class="cast row">
+
+   <div class="col-md-6">
+
+     <h2 class="section-header">Cast</h2>
+
+     <ng-container *ngFor="let person of cast; let i = index">
+
+       <div class="cast__item" *ngIf="i < 6" [routerLink]="'/person/' + person.id">
+         <div class="cast__img-container">
+           <img src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
+         </div>
+         <div class="cast__container">
+           <div class="item-cast__name">{{ person['name'] }}</div>
+           <div class="item-cast__playing">{{ person['character'] }}</div>
+         </div>
+       </div>
+     </ng-container>
+     <p *ngIf="cast.length === 0">No crew for this tv show was found.</p>
+   </div>
+
+
+  <div class="col-md-6">
+
+    <h2 class="section-header">Crew</h2>
+
+    <ng-container *ngFor="let person of crew; let i = index">
+
+      <div class="cast__item" *ngIf="i < 6" [routerLink]="'/person/' + person.id">
+        <div class="cast__img-container">
+          <img src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
+        </div>
+        <div class="cast__container">
+          <div class="item-cast__name">{{ person['name'] }}</div>
+          <div class="item-cast__playing">{{ person['job'] }}</div>
+        </div>
+      </div>
+    </ng-container>
+    <p *ngIf="crew.length === 0">No crew for this tv show was found.</p>
+  </div>
+
+</div>

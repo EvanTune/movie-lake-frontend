@@ -1,0 +1,43 @@
+<div class="section section--lg" [ngStyle]="{'background': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(' + tv['backdrop_path'] + ') top / cover'}">
+  <div class="season-window">
+    <h2 class="season-window__name" *ngIf="tvLoaded && seasonLoaded">{{ tv['name'] }}</h2>
+    <h3 class="season-window__season" *ngIf="seasonLoaded && tvLoaded">{{ season['name'] }}</h3>
+  </div>
+</div>
+
+<div class="seasons section section--md">
+  
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <ng-container *ngFor="let episode of season['episodes']">
+          <div class="seasons__item" [routerLink]="'/tv/' + tvId + '/season/' + seasonId + '/episode/' + episode['episode_number']">
+            <div class="seasons__number" *ngIf="seasonLoaded">{{ episode['episode_number'] }}</div>
+            <img [src]="episode['still_path'] ? 'https://image.tmdb.org/t/p/w300' + episode['still_path'] :'/assets/images/placeholder-still.png'" alt="" class="seasons__img">
+
+            <div class="seasons__box">
+              <h2 class="seasons__title" *ngIf="seasonLoaded">{{ episode['name']}}</h2>
+              <p class="seasons__overview" *ngIf="seasonLoaded">{{ episode['overview']}}</p>
+
+              <ngx-content-loading *ngIf="!seasonLoaded"
+                [speed]="'1000ms'"
+                [width]="1000"
+                [height]="120"
+                [primaryColor]="'#9b9b9b'"
+                [secondaryColor]="'#afafaf'">
+
+                <svg:g ngx-rect width="300" height="15" y="5" x="0" rx="5" ry="5"></svg:g>
+                <svg:g ngx-rect width="700" height="80" y="40" x="0" rx="5" ry="5"></svg:g>
+
+
+              </ngx-content-loading>
+
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+  
+</div>

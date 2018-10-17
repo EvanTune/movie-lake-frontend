@@ -44,7 +44,7 @@ export class ImagesComponent implements OnInit {
   }
 
   nextImage(e) {
-    if (this.position < this.images.length - 1) {
+    if (this.position < this.images.length - 1 && this.position < 11) {
       this.position++;
       console.log('left');
       this.setScrollbarPosition();

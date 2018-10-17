@@ -23,6 +23,11 @@ import { UpcomingComponent } from './upcoming/upcoming.component';
 import { PopularDiscussionsComponent } from './popular-discussions/popular-discussions.component';
 import { PersonComponent } from './person/person.component';
 import { ImagesComponent } from './images/images.component';
+import { TvComponent } from './tv/tv.component';
+import { CastComponent } from './cast/cast.component';
+import { ScrollableComponent } from './scrollable/scrollable.component';
+import { SeasonComponent } from './season/season.component';
+import { EpisodeComponent } from './episode/episode.component';
 
 
 @NgModule({
@@ -44,7 +49,12 @@ import { ImagesComponent } from './images/images.component';
     UpcomingComponent,
     PopularDiscussionsComponent,
     PersonComponent,
-    ImagesComponent
+    ImagesComponent,
+    TvComponent,
+    CastComponent,
+    ScrollableComponent,
+    SeasonComponent,
+    EpisodeComponent
   ],
   imports: [
     BrowserModule,

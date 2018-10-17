@@ -41,7 +41,7 @@
           <h3 class="top-bar-search-results__header" *ngIf="tv.length">Tv shows</h3>
 
           <ng-container *ngFor="let show of tv; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5">
+            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/tv', show.id)">
               <img class="top-bar-search-results__img"
                    [src]="show['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + show['poster_path'] : '/assets/images/placeholder-poster.png'" alt="">
               <div class="top-bar-search-results__container">

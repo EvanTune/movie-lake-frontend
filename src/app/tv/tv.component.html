@@ -1,0 +1,194 @@
+<section class="section section--lg" [ngStyle]="{'background': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(' + tv['backdrop_path'] + ') top / cover'}">
+
+  <div class="container tv-window">
+    <div class="row justify-content-center">
+      <div class="col-lg-3">
+        <img class="tv-window__img" *ngIf="tv['poster_path']"
+             src="{{ tv['poster_path']}}" alt="">
+      </div>
+      <div class="col-lg-8">
+        <div class="tv-window__box card">
+          <h1 class="tv-window__title" *ngIf="tvLoaded">{{ tv['name'] }}</h1>
+          <p class="tv-window__overview" *ngIf="tvLoaded">{{ tv['overview'] }}</p>
+
+          <ngx-content-loading *ngIf="!tvLoaded"
+                               [speed]="'1000ms'"
+                               [width]="1000"
+                               [height]="365"
+                               [primaryColor]="'#9b9b9b'"
+                               [secondaryColor]="'#afafaf'">
+
+            <svg:g ngx-rect width="1000" height="30" y="0" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="700" height="140" y="75" x="0" rx="5" ry="5"></svg:g>
+
+            <svg:g ngx-rect width="100" height="20" y="285" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="160" height="20" y="325" x="0" rx="5" ry="5"></svg:g>
+
+          </ngx-content-loading>
+
+          <div class="tv-window__seasons" *ngIf="tvLoaded">
+            <p class="tv-window__seasons-header">Seasons:</p>
+            <ng-container *ngFor="let season of tv['seasons']">
+            <span *ngIf="season['season_number'] !== 0">
+              <span class="tv-window__seasons-item">{{ season['season_number'] }}</span>
+              </span>
+            </ng-container>
+          </div>
+
+
+          <div class="tv-window__bottom">
+            <div class="tv-window__score" *ngIf="tvLoaded">{{ roundToNearestInt(tv['vote_average']) }}</div>
+            <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-heart"></i></span>
+            <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-list"></i></span>
+            <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-eye"></i></span>
+
+            <ngx-content-loading *ngIf="!tvLoaded"
+                                 [speed]="'1000ms'"
+                                 [width]="1000"
+                                 [height]="60"
+                                 [primaryColor]="'#9b9b9b'"
+                                 [secondaryColor]="'#afafaf'">
+
+              <svg:g ngx-circle cy="30" cx="30" r="28" ry="5"></svg:g>
+              <svg:g ngx-circle cy="30" cx="145" r="28" ry="5"></svg:g>
+              <svg:g ngx-circle cy="30" cx="232" r="28" ry="5"></svg:g>
+              <svg:g ngx-circle cy="30" cx="317" r="28" ry="5"></svg:g>
+
+
+            </ngx-content-loading>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<section class="section section--white section--md">
+
+  <div class="container tv-info">
+    <div class="row">
+
+      <div class="col-md-12" *ngIf="tvLoaded">
+        <h2 class="section-header">General Information</h2>
+      </div>
+
+      <div class="col-md-12" *ngIf="!tvLoaded">
+        <ngx-content-loading
+                             [speed]="'1000ms'"
+                             [width]="1000"
+                             [height]="220"
+                             [primaryColor]="'#9b9b9b'"
+                             [secondaryColor]="'#afafaf'">
+
+          <svg:g ngx-rect width="300" height="17" y="0" x="0" rx="5" ry="5"></svg:g>
+
+          <svg:g ngx-rect width="150" height="14" y="70" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="0" rx="5" ry="5"></svg:g>
+
+          <svg:g ngx-rect width="150" height="14" y="70" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="340" rx="5" ry="5"></svg:g>
+
+          <svg:g ngx-rect width="150" height="14" y="70" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="680" rx="5" ry="5"></svg:g>
+
+
+        </ngx-content-loading>
+      </div>
+
+      <div class="col-md-4" *ngIf="tvLoaded">
+        <div class="tv-info__item">
+          <div class="tv-info__header">Original Language</div>
+          <div class="tv-info__value">{{ getlanguage(tv['original_language'])}}</div>
+        </div>
+
+        <div class="tv-info__item" *ngIf="tvLoaded">
+          <div class="tv-info__header">Status</div>
+          <div class="tv-info__value">{{ tv['status'] }}</div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="tvLoaded">
+        <div class="tv-info__item">
+          <div class="tv-info__header">Genres</div>
+          <div class="tv-info__value">{{ getGenres() }}</div>
+        </div>
+        <div class="tv-info__item">
+          <div class="tv-info__header">Last air date</div>
+          <div class="tv-info__value">{{ tv['last_air_date'] | date}}</div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="tvLoaded">
+        <div class="tv-info__item">
+          <div class="tv-info__header">Number of seasons</div>
+          <div class="tv-info__value">{{ tv['number_of_seasons'] }}</div>
+        </div>
+        <div class="tv-info__item">
+          <div class="tv-info__header">Number of episodes</div>
+          <div class="tv-info__value">{{ tv['number_of_episodes'] }}</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</section>
+
+<section class="section section--md">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <h2 class="section-header">Seasons</h2>
+      </div>
+
+      <div class="col-md-12">
+        <app-scrollable [items]="seasons" [component]="'seasons'" [tvId]="tv['id']"></app-scrollable>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<section class="item-cast section section--white section--md">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <app-cast [cast]="cast" [crew]="crew"></app-cast>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<section class="item-images section section--md">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <h2 class="section-header">Images</h2>
+      </div>
+
+      <div class="col-md-12">
+        <app-images [images]="images" [width]="'w780'"></app-images>
+      </div>
+
+    </div>
+  </div>
+</section>

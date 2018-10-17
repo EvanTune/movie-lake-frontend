@@ -199,6 +199,12 @@
     &__title {
       margin-bottom: 12px;
     }
+
+    &__img {
+      width: auto;
+      max-width: 100%;
+      height: 360px;
+    }
   }
 
   .person-window-info {

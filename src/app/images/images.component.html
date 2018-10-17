@@ -1,12 +1,12 @@
-<div #imgElement class="images" (panstart)="setOffset($event)" (panright)="panRight($event)"
-     (panleft)="panLeft($event)" (panend)="panEnd($event)">
-
+<div class="images">
+  <div #imgElement class="images__container" (panstart)="setOffset($event)" (panright)="panRight($event)"
+       (panleft)="panLeft($event)" (panend)="panEnd($event)">
   <ng-container *ngFor="let image of images; let i = index">
-    <div class="images__item" (tap)="openImageModal(i)">
+    <div class="images__item" (tap)="openImageModal(i)" *ngIf="i < 12">
       <img class="images__img" src="https://image.tmdb.org/t/p/w185{{ image['file_path'] }}" alt="">
     </div>
   </ng-container>
-
+  </div>
 </div>
 
 <div class="images-modal" #modal (click)="exitImageModal()">
@@ -15,7 +15,7 @@
 
     <div class="images-modal__top">
       <div class="images-modal__header">Images</div>
-      <div class="images-modal__text">{{ position + 1 }} of {{ images.length }}  images</div>
+      <div class="images-modal__text">{{ position + 1 }} of {{ images.length > 12 ? '12' : images.length }}  images</div>
       <div class="images-modal__exit" (click)="exitImageModal()"><i class="fas fa-times"></i></div>
     </div>
 
@@ -27,8 +27,8 @@
     </button>
 
     <div class="images-modal__img-container" #imgContainer >
-      <ng-container *ngFor="let image of images">
-        <div class="images-modal__item">
+      <ng-container *ngFor="let image of images; let i = index">
+        <div class="images-modal__item" *ngIf="i < 12">
           <img class="images-modal__img" src="https://image.tmdb.org/t/p/{{ width }}{{ image['file_path'] }}" alt="">
         </div>
       </ng-container>

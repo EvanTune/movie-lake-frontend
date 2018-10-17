@@ -12,7 +12,7 @@
 
 >
   <ng-container *ngFor="let movie of movies">
-    <div class="movie-slider__item">
+    <div class="movie-slider__item" (tap)="navigateToMovie(movie.id)">
       <img class="movie-slider__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
       <h3 class="movie-slider__title">{{ movie.title }}</h3>
     </div>

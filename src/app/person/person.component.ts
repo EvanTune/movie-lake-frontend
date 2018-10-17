@@ -64,9 +64,9 @@ export class PersonComponent implements OnInit {
     this.images = [];
   }
 
-  navigateToItem(id) {
+  navigateToItem(type, id) {
     console.log('fff');
-    this.router.navigate(['movie/' + id]);
+    this.router.navigate([type + '/' + id]);
   }
 
 
@@ -97,7 +97,7 @@ export class PersonComponent implements OnInit {
   panEnd(e) {
     if (!this.scrolling) {
 
-      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 400) {
+      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 600) {
         this.acceleration = Math.floor(e.overallVelocity * 22);
       } else {
         this.acceleration = 0;
@@ -191,7 +191,7 @@ export class PersonComponent implements OnInit {
     this.peopleService.getPerson(this.id).subscribe(data => {
       this.person = data;
 
-      this.person['profile_path'] = 'https://image.tmdb.org/t/p/w500' + this.person['profile_path'];
+      this.person['profile_path'] = 'https://image.tmdb.org/t/p/w300' + this.person['profile_path'];
 
       this.personLoaded = true;
     });

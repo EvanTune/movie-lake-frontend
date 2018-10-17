@@ -2,12 +2,12 @@
 
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <img class="item-window__img" *ngIf="movie['poster_path']"
              src="{{ movie['poster_path']}}" alt="">
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="item-window__container">
 
           <ngx-content-loading *ngIf="!movieLoaded"
@@ -19,7 +19,7 @@
 
             <svg:g ngx-rect width="1000" height="30" y="0" x="0" rx="5" ry="5"></svg:g>
             <svg:g ngx-rect width="800" height="20" y="60" x="0" rx="5" ry="5"></svg:g>
-            <svg:g ngx-rect width="600" height="200" y="120" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="700" height="150" y="120" x="0" rx="5" ry="5"></svg:g>
 
           </ngx-content-loading>
 
@@ -57,7 +57,7 @@
           </div>
 
           <div class="item-window__bottom">
-            <div class="item-window__score" *ngIf="movie['overview']">8</div>
+            <div class="item-window__score" *ngIf="movie['overview']">{{ roundToNearestInt(movie['vote_average']) }}</div>
             <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-heart"></i></span>
             <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-list"></i></span>
             <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-eye"></i></span>
@@ -108,11 +108,11 @@
         <ngx-content-loading *ngIf="!movieLoaded"
                              [speed]="'1000ms'"
                              [width]="1000"
-                             [height]="200"
+                             [height]="300"
                              [primaryColor]="'#9b9b9b'"
                              [secondaryColor]="'#afafaf'">
 
-          <svg:g ngx-rect width="420" height="200" y="0" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="415" height="200" y="0" x="0" rx="5" ry="5"></svg:g>
 
 
         </ngx-content-loading>
@@ -126,7 +126,7 @@
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Runtime</div>
-          <div class="item-info__text">{{ getRuntime(movie['runtime']) }}</div>
+          <div class="item-info__value">{{ getRuntime(movie['runtime']) }}</div>
         </div>
 
       </div>
@@ -134,14 +134,14 @@
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Release date</div>
-          <div class="item-info__text">{{movie['release_date'] | date }}</div>
+          <div class="item-info__value">{{movie['release_date'] | date }}</div>
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Budget</div>
-          <div class="item-info__text">{{ getMoney(movie['budget']) }}</div>
+          <div class="item-info__value">{{ getMoney(movie['budget']) }}</div>
         </div>
 
       </div>
@@ -151,20 +151,20 @@
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Original Language</div>
-          <div class="item-info__text" *ngIf="movie['original_language']">{{ getLanguage(movie['original_language']) }}
+          <div class="item-info__value" *ngIf="movie['original_language']">{{ getLanguage(movie['original_language']) }}
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Genres</div>
-          <div *ngIf="movie['genres']">{{ getGenres() }}</div>
+          <div class="item-info__value" *ngIf="movie['genres']">{{ getGenres() }}</div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="item-info__item">
           <div class="item-info__header">Revenue</div>
-          <div class="item-info__text">{{ getMoney(movie['revenue']) }}</div>
+          <div class="item-info__value">{{ getMoney(movie['revenue']) }}</div>
         </div>
       </div>
     </div>
@@ -177,22 +177,8 @@
     <div class="row">
 
       <div class="col-md-12">
-        <h2 class="item-header">Top Cast</h2>
+        <app-cast [cast]="cast" [crew]="crew"></app-cast>
       </div>
-
-      <ng-container *ngFor="let person of cast; let i = index">
-        <div class="col-md-2" *ngIf="i < 6">
-          <div class="item-cast__item" [routerLink]="'/person/' + person.id">
-            <div class="item-cast__img-container">
-              <img class="item-cast__img" src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="">
-            </div>
-            <div class="item-cast__container">
-              <div class="item-cast__name">{{ person['name'] }}</div>
-              <div class="item-cast__playing">{{ person['character'] }}</div>
-            </div>
-          </div>
-        </div>
-      </ng-container>
 
     </div>
   </div>

@@ -1,0 +1,20 @@
+<div class="scrollable">
+
+  <div #scrollableElement class="scrollable__container" (panstart)="setOffset($event)" (panright)="panRight($event)"
+       (panleft)="panLeft($event)" (panend)="panEnd($event)">
+
+    <ng-container *ngFor="let item of items; let i = index">
+      <div class="scrollable__item" *ngIf="component === 'seasons'" (tap)="navigateToSeason(item['season_number'])">
+        <div class="scrollable-seasons__item">
+          <img class="scrollable-seasons__img" [src]="'https://image.tmdb.org/t/p/w185' + item['poster_path']" alt="">
+          <div class="scrollable-seasons__container">
+            <div class="scrollable-seasons__meta">{{ item['air_date'] | date: 'y' }}</div>
+            <div class="scrollable-seasons__name">{{ item['name'] }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
