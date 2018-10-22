@@ -1,9 +1,40 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-images',
   templateUrl: './images.component.html',
-  styleUrls: ['./images.component.scss']
+  styleUrls: ['./images.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('show', style({
+        opacity: '1'
+      })),
+      state('hide', style({
+        opacity: '0'
+      })),
+      transition('show => hide', [
+        animate('0.3s ease-out')
+      ]),
+      transition('hide => show', [
+        animate('0.3s ease-in')
+      ])
+    ]),
+    trigger('slideBody', [
+      state('show', style({
+        height: '100%'
+      })),
+      state('hide', style({
+        height: '0'
+      })),
+      transition('show => hide', [
+        animate('0.6s ease-in-out')
+      ]),
+      transition('hide => show', [
+        animate('0.6s ease-in-out')
+      ])
+    ]),
+  ]
 })
 export class ImagesComponent implements OnInit {
 
@@ -19,16 +50,44 @@ export class ImagesComponent implements OnInit {
   acceleration = 0;
   panInterval: any = null;
   scrolling = false;
+  showOverlay: boolean;
+  showModal: boolean;
+  showContent: boolean;
 
   constructor() { }
 
   ngOnInit() {}
 
   openImageModal(index) {
+    this.showOverlay = true;
+
+    setTimeout(() => {
+      this.showModal = true;
+    }, 400);
+    setTimeout(() => {
+      this.showContent = true;
+      this.modal.nativeElement.style.pointerEvents = 'auto';
+    }, 900);
     this.modal.nativeElement.style.display = 'block';
-    console.log('open');
     this.position = index;
     this.setScrollbarPosition();
+  }
+
+  exitImageModal() {
+    console.log('exit');
+    this.showContent = false;
+
+    setTimeout(() => {
+      this.showModal = false;
+    }, 300);
+    setTimeout(() => {
+      this.showOverlay = false;
+    }, 800);
+    setTimeout(() => {
+      this.modal.nativeElement.style.display = 'none';
+      this.modal.nativeElement.style.pointerEvents = 'none';
+    }, 1100);
+
   }
 
   stopBodyProp(e) {
@@ -36,7 +95,6 @@ export class ImagesComponent implements OnInit {
   }
 
   prevImage(e) {
-    console.log('right');
     if (this.position !== 0) {
       this.position--;
       this.setScrollbarPosition();
@@ -46,25 +104,18 @@ export class ImagesComponent implements OnInit {
   nextImage(e) {
     if (this.position < this.images.length - 1 && this.position < 11) {
       this.position++;
-      console.log('left');
       this.setScrollbarPosition();
     }
   }
 
   setScrollbarPosition() {
     const width = this.imgContainer.nativeElement.offsetWidth;
-    console.log(width);
     this.imgContainer.nativeElement.scrollLeft = this.position * width;
-  }
-
-  exitImageModal() {
-    this.modal.nativeElement.style.display = 'none';
-    console.log('exit');
   }
 
   setOffset(e) {
     if (!this.scrolling) {
-      let screenWidth = e['center'];
+      const screenWidth = e['center'];
       this.currentOffset = this.imagesEl.nativeElement.scrollLeft;
       this.last = e['center'].x;
 
@@ -72,17 +123,14 @@ export class ImagesComponent implements OnInit {
   }
 
   panRight(e) {
-    console.log(this.scrolling);
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.imagesEl.nativeElement.scrollLeft = a;
+      this.imagesEl.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 
   panLeft(e) {
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.imagesEl.nativeElement.scrollLeft = a;
+      this.imagesEl.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 

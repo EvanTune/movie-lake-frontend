@@ -43,11 +43,11 @@
                   </div>
                   <div class="person-window-info__item">
                     <div class="person-window-info__title">Age</div>
-                    <div class="person-window-info__value">42</div>
+                    <div class="person-window-info__value">{{ getAge(person['birthday']) }}</div>
                   </div>
                   <div class="person-window-info__item">
-                    <div class="person-window-info__title">Country</div>
-                    <div class="person-window-info__value">England</div>
+                    <div class="person-window-info__title">Place of birth</div>
+                    <div class="person-window-info__value">{{ getCountry(person['place_of_birth']) }}</div>
                   </div>
                   <div class="person-window-info__item">
                     <div class="person-window-info__title">Profession</div>

@@ -6,7 +6,6 @@
   overflow-x: hidden;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  position: relative;
 
   &__item {
     display:inline-block;
@@ -103,7 +102,7 @@
   }
 
   &__arrow {
-    position: fixed;
+    position: absolute;
     color: #e5e5e5;
     border: none;
     height: 42px;
@@ -137,7 +136,7 @@
   }
 
   &__dots {
-    position: fixed;
+    position: absolute;
     top: 355px;
   }
 

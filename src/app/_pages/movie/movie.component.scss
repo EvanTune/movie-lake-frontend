@@ -127,6 +127,11 @@
   width: 100%;
   display: none;
 
+  &__item {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
   &__item-placeholder {
     background-color: #e6e6e6;
     height: 20px;
@@ -154,7 +159,6 @@
 .item-menu {
   background-color: rgba(0,0,0,0.8);
   background-color: white;
-  //box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   border-bottom: 1px solid #ebebeb;
 
   &__item {
@@ -260,19 +264,20 @@
   .item-window {
 
     &__img {
-      height: 415px;
+      height: auto;
       max-width: 100%;
       min-height: auto;
       width: auto;
     }
 
     &__overview {
-      padding-right: 10%;
+      padding-right: 5%;
       height: 120px;
     }
 
     &__container {
-      padding: 30px 35px 35px 35px;
+      padding: 20px 25px 25px 25px;
+      height: 385px;
     }
 
     &__bottom {
@@ -290,6 +295,29 @@
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
 
+  .item-window {
+    &__img {
+      height: auto;
+    }
+
+    &__container {
+      padding: 18px 20px 20px 20px;
+      height: 380px;
+    }
+
+    &__bottom {
+      padding: 18px 18px;
+    }
+
+    &__overview {
+      padding-right: 10%;
+      height: 120px;
+    }
+  }
+
+  .item-window-crew {
+    padding-left: 20px;
+  }
 
 
 }
@@ -297,5 +325,23 @@
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
 
+  .item-window {
+    &__img {
+      height: auto;
+    }
+
+    &__container {
+      padding: 30px 35px 35px 35px;
+      height: 100%;
+    }
+
+    &__bottom {
+      padding: 20px 35px;
+    }
+  }
+
+  .item-window-crew {
+    padding-left: 35px;
+  }
 
 }

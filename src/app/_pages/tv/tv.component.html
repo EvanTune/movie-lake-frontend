@@ -2,11 +2,11 @@
 
   <div class="container tv-window">
     <div class="row justify-content-center">
-      <div class="col-lg-3">
+      <div class="col-md 3 col-lg-3">
         <img class="tv-window__img" *ngIf="tv['poster_path']"
              src="{{ tv['poster_path']}}" alt="">
       </div>
-      <div class="col-lg-8">
+      <div class="col-md-8 col-lg-8">
         <div class="tv-window__box card">
           <h1 class="tv-window__title" *ngIf="tvLoaded">{{ tv['name'] }}</h1>
           <p class="tv-window__overview" *ngIf="tvLoaded">{{ tv['overview'] }}</p>

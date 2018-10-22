@@ -28,7 +28,7 @@ export class CarouselComponent implements OnInit {
   @ViewChild('carousel') carouselElement: ElementRef;
   @ViewChild('dots') dotsElement: ElementRef;
 
-  movies: object[] = [{}];
+  movies: object[] = [];
   currentPosition: number = 0;
   windowWidth: number = 0;
   showArrows: boolean;
@@ -76,6 +76,14 @@ export class CarouselComponent implements OnInit {
     }
   }
 
+  panRight(e) {
+    this.prev(e);
+  }
+
+  panLeft(e) {
+    this.next(e);
+  }
+
   setWindowWidth() {
     this.windowWidth = document.body.clientWidth;
   }
@@ -85,6 +93,9 @@ export class CarouselComponent implements OnInit {
   }
 
   setupTopMovies() {
+    this.movies = [{
+      'backdrop_path': '/assets/images/placeholder-poster.png'
+    }];
     this.movieService.getPopularMovies().subscribe(data => {
 
       this.movies = [];

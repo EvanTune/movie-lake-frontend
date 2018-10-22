@@ -9,6 +9,7 @@
   &__overview {
     padding-right: 70px;
   }
+
   &__box {
     padding: 17px;
     height: 100%;
@@ -125,11 +126,12 @@
     &__img {
       width: auto;
       max-width: 100%;
-      height: 380px;
+      height: auto;
     }
 
     &__box {
-      padding: 30px 35px 35px 35px;
+      padding: 20px 25px 25px 25px;
+      height: 400px;
     }
 
     &__bottom {
@@ -137,7 +139,7 @@
       left: 0;
       bottom: 0;
       right: 0;
-      padding: 18px 35px;
+      padding: 18px 20px;
     }
 
     &__seasons {
@@ -166,6 +168,15 @@
     &__bottom {
       padding: 18px 35px;
     }
+
+    &__img {
+      height: auto;
+    }
+
+    &__box {
+      padding: 20px 25px 25px 25px;
+      height: 390px;
+    }
   }
 
   .tv-info {
@@ -183,5 +194,14 @@
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
 
+  .tv-window {
+    &__img {
+      height: 390px;
+    }
+
+    &__box {
+      padding: 30px 35px 35px 35px;
+    }
+  }
 
 }

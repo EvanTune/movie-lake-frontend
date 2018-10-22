@@ -11,6 +11,8 @@
     width: 100%;
     box-sizing: content-box;
     padding-bottom: 18px;
+    padding-left: 3px;
+    padding-top: 3px;
   }
 
   &__item {
@@ -44,17 +46,25 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.6);
+  opacity: 0;
   display: none;
+  pointer-events: none;
 
-  &__body {
-    background-color: white;
+  &__container {
     position: absolute;
     left: 10px;
     top: 10px;
     right: 10px;
     bottom: 10px;
+    margin: 0 auto;
+  }
+
+  &__body {
+    background-color: white;
     border-radius: 3px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    opacity: 1;
+    height: 0;
   }
 
   &__arrow {
@@ -136,18 +146,22 @@
 
   .images-modal {
     padding: 100px;
+    pointer-events: auto;
 
     &__top {
       justify-content: space-between;
       padding: 20px;
     }
 
-    &__body {
+    &__container {
       left: 0;
       right: 0;
-      bottom: 100px;
-      top: 100px;
+      bottom: 90px;
+      top: 90px;
       width: 992px;
+    }
+
+    &__body {
       text-align: center;
       margin: 0 auto;
     }
@@ -221,7 +235,7 @@
 
   .images-modal {
 
-    &__body {
+    &__container {
       width: 1200px;
     }
 

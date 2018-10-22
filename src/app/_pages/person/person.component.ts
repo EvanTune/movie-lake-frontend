@@ -66,6 +66,17 @@ export class PersonComponent implements OnInit {
     this.router.navigate([type + '/' + id]);
   }
 
+  getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
   setOffset(e: object): void {
     if (!this.scrolling) {
       const screenWidth = e['center'];
@@ -185,6 +196,7 @@ export class PersonComponent implements OnInit {
       this.person = data;
       this.person['profile_path'] = 'https://image.tmdb.org/t/p/w300' + this.person['profile_path'];
       this.personLoaded = true;
+      console.log(this.person);
     });
   }
 
@@ -192,6 +204,11 @@ export class PersonComponent implements OnInit {
     this.peopleService.getImages(this.id).subscribe(data => {
       this.images = data['profiles'];
     });
+  }
+
+  getCountry(string): string {
+    const arr = string.split(',');
+    return arr[arr.length - 1 ];
   }
 
 }

@@ -1,4 +1,5 @@
-<div class="carousel" #carousel (mouseenter)="showArrows=true" (mouseleave)="showArrows=false">
+<div class="carousel" #carousel (mouseenter)="showArrows=true" (mouseleave)="showArrows=false" (panright)="panRight($event)"
+     (panleft)="panLeft($event)">
 
   <button [@arrowFade]="showArrows ? 'show' : 'hide'" class="carousel__arrow carousel__arrow--prev" (click)="prev($event)"><i class="fas fa-chevron-left"></i>
   </button>
