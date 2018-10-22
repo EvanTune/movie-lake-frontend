@@ -1,13 +1,13 @@
-<div class="carousel" #carousel>
+<div class="carousel" #carousel (mouseenter)="showArrows=true" (mouseleave)="showArrows=false">
 
-  <button class="carousel__arrow carousel__arrow--prev" (click)="prev($event)"><i class="fas fa-chevron-left"></i>
+  <button [@arrowFade]="showArrows ? 'show' : 'hide'" class="carousel__arrow carousel__arrow--prev" (click)="prev($event)"><i class="fas fa-chevron-left"></i>
   </button>
-  <button class="carousel__arrow carousel__arrow--next" (click)="next($event)"><i class="fas fa-chevron-right"></i>
+  <button [@arrowFade]="showArrows ? 'show' : 'hide'" class="carousel__arrow carousel__arrow--next" (click)="next($event)"><i class="fas fa-chevron-right"></i>
   </button>
 
 
   <ng-container *ngFor="let movie of movies;let i = index">
-    <div class="carousel__item" *ngIf="i < 7" [ngStyle]="{'background-image': 'url(' + movie['backdrop_path'] + ')'}">
+    <div class="carousel__item" *ngIf="i < 8" [ngStyle]="{'background-image': 'url(' + movie['backdrop_path'] + ')'}">
       <div class="container position-relative">
 
         <div class="carousel__content">
@@ -31,5 +31,10 @@
       </div>
     </div>
   </ng-container>
+
+  <div [@arrowFade]="showArrows ? 'show' : 'hide'" class="carousel__dots" #dots>
+    <div (click)="setSlidePosition(i)" [class]="i === currentPosition ? 'carousel__dot carousel__dot--active' : 'carousel__dot'" *ngFor="let movie of movies;let i = index">
+    </div>
+  </div>
 
 </div>
