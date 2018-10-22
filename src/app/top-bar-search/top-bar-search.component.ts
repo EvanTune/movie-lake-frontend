@@ -1,94 +1,205 @@
-import {Component, OnInit} from '@angular/core';
-import {MovieService} from '../movie.service';
-import {Router} from '@angular/router';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {MovieService} from '../_services/movie.service';
+import {NavigationEnd, Router} from '@angular/router';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-top-bar-search',
   templateUrl: './top-bar-search.component.html',
-  styleUrls: ['./top-bar-search.component.scss']
+  styleUrls: ['./top-bar-search.component.scss'],
+  animations: [
+    trigger('resultsContainer', [
+      state('open', style({
+        height: '396px'
+      })),
+      state('open-mobile', style({
+        height: 'calc(100vh - 50px)'
+      })),
+      state('closed', style({
+        height: '0px'
+      })),
+      transition('open => closed', [
+        animate('0.4s ease-out')
+      ]),
+      transition('closed => open', [
+        animate('0.5s ease-in')
+      ])
+    ]),
+    trigger('header', [
+      state('open', style({
+        opacity: '1'
+      })),
+      state('closed', style({
+        opacity: '0'
+      })),
+      transition('open => closed', [
+        animate('0.2s ease-out')
+      ]),
+      transition('closed => open', [
+        animate('0.5s ease-in')
+      ])
+    ]),
+    trigger('itemFade', [
+      transition(':enter', [
+        style({opacity: 0, marginLeft: '-12px'}),
+        animate('0.35s ease-in', style({opacity: 1, marginLeft: '0'})),
+      ]),
+      transition(':leave', [
+        style({opacity: 1, marginLeft: '0px'}),
+        animate('0.35s ease-out', style({opacity: 0, marginLeft: '-12px'})),
+      ])
+    ])
+  ]
 })
 export class TopBarSearchComponent implements OnInit {
 
-  query = '';
-  movies = [];
-  tv = [];
-  people = [];
+  query: string = '';
+  allMovies: object[] = [];
+  allTv: object[] = [];
+  allPeople: object[] = [];
+  movies: object[] = [];
+  tv: object[] = [];
+  people: object[] = [];
+  showHeaders: boolean;
+  showNotFoundText: boolean;
 
-  showContainer = false;
-  showLoading = true;
+  loading: boolean;
+  mobileMode: boolean;
+  containerState: string = 'closed';
+  mobileSearchMode: boolean;
 
   typingTimer: any = null;
-  doneTypingInterval = 400;
+  doneTypingInterval: number = 350;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.mobileMode = window.innerWidth < 992;
+  }
 
   constructor(
     private movieService: MovieService,
     private router: Router
   ) {
     router.events.subscribe(val => {
-      this.clearQuery();
+      if (val instanceof NavigationEnd) {
+        if (this.containerState.includes('open')) {
+          this.clearQuery();
+        }
+        this.mobileMode = window.innerWidth < 992;
+      }
     });
   }
 
   ngOnInit() {
   }
 
-  search() {
+  addSlowlyToArray(array: object[], array2: object[], index: number): void {
+    setInterval(() => {
+      if (index >= array2.length || index === 6) {
+        return;
+      }
+      array.push(array2[index]);
+      index++;
+    }, 85);
+  }
+
+  search(): void {
 
     if (this.query.length > 2) {
 
-      this.showContainer = true;
-      this.showLoading = true;
+      this.loading = true;
 
-      this.movies = [];
-      this.tv = [];
-      this.people = [];
+      this.allMovies = [];
+      this.allTv = [];
+      this.allPeople = [];
+
+      if (this.containerState.includes('open')) {
+        this.movies = [];
+        this.tv = [];
+        this.people = [];
+        this.showNotFoundText = false;
+      }
 
       this.movieService.getSearch(this.query).subscribe(data => {
 
         for (let i = 0; i < data['results'].length; i++) {
           if (data['results'][i]['media_type'] === 'movie') {
-
-            this.movies.push(data['results'][i]);
-
+            this.allMovies.push(data['results'][i]);
           } else if (data['results'][i]['media_type'] === 'tv') {
-
-            this.tv.push(data['results'][i]);
-
+            this.allTv.push(data['results'][i]);
           } else if (data['results'][i]['media_type'] === 'person') {
-
-            this.people.push(data['results'][i]);
-
+            this.allPeople.push(data['results'][i]);
           }
 
         }
-        this.showLoading = false;
+        if (this.mobileMode) {
+          this.containerState = 'open-mobile';
+        } else {
+          this.containerState = 'open';
+        }
+        this.showHeaders = true;
+
+        this.addSlowlyToArray(this.movies, this.allMovies, 0);
+        this.addSlowlyToArray(this.tv, this.allTv, 0);
+        this.addSlowlyToArray(this.people, this.allPeople, 0);
+
+        setTimeout(() => {
+          this.showHeaders = true;
+          this.showNotFoundText = true;
+        }, 600);
+
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+
       });
     } else {
-      this.showContainer = false;
+      if (!this.mobileMode) {
+        this.closeSearch();
+      } else {
+        this.movies = [];
+        this.tv = [];
+        this.people = [];
+      }
     }
   }
 
-  redirectAndClear(type, link) {
 
-    this.router.navigate([type, link]);
-    this.showContainer = false;
 
+  closeSearch() {
+    this.showHeaders = false;
+    this.showNotFoundText = false;
+    this.mobileSearchMode = false;
+    this.movies = [];
+    this.tv = [];
+    this.people = [];
+
+    setTimeout(() => {
+      this.containerState = 'closed';
+    }, 350);
   }
 
-  clearQuery() {
+
+  clearQuery(): void {
     this.query = '';
-    this.showContainer = false;
-    this.showLoading = true;
+    this.closeSearch();
   }
 
-  clearTimeout1() {
+  clearTimeout1(): void {
     clearTimeout(this.typingTimer);
   }
 
-  attemptSearch() {
+  attemptSearch(): void {
+
+    if (this.loading) {
+      this.doneTypingInterval = 1300;
+    } else {
+      this.doneTypingInterval = 350;
+    }
+
     clearTimeout(this.typingTimer);
     this.typingTimer = setTimeout(() => {
-      this.search()
+      this.search();
     }, this.doneTypingInterval);
   }
 

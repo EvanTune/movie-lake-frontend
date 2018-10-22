@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TvService} from '../tv.service';
+import {TvService} from '../../_services/tv.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,19 +9,18 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SeasonComponent implements OnInit {
 
-  tvId = 0;
-  seasonId = 0;
-  season = {};
-  tv = {};
+  tvId: number = 0;
+  seasonId: number = 0;
+  season: object = {};
+  tv: object = {};
 
-  seasonLoaded = false;
-  tvLoaded = false;
+  seasonLoaded: boolean;
+  tvLoaded: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private tvService: TvService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.tvId = this.route.snapshot.params['id'];
@@ -29,12 +28,12 @@ export class SeasonComponent implements OnInit {
 
     this.setupSeason();
     this.setupTv();
-
   }
 
-  setupTv() {
+  setupTv(): void {
 
     this.season['episodes'] = [{}, {}, {}, {}, {}, {}];
+    this.tv['backdrop_path'] = '/assets/images/placeholder-poster.png';
 
     this.tvService.getTv(this.tvId).subscribe(data => {
       this.tv = data;
@@ -43,12 +42,11 @@ export class SeasonComponent implements OnInit {
     });
   }
 
-  setupSeason() {
+  setupSeason(): void {
 
     this.tvService.getTvSeason(this.tvId, this.seasonId).subscribe(data => {
       this.season = data;
       this.seasonLoaded = true;
-      console.log(this.season);
     });
 
   }

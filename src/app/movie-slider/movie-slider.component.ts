@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MOVIES} from '../mock-movies';
-import {MovieService} from '../movie.service';
+import {MovieService} from '../_services/movie.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -28,6 +28,7 @@ export class MovieSliderComponent implements OnInit {
   }
 
   ngOnInit() {
+
 
     this.movieService.getTheatresMovies().subscribe(data => {
       this.movies = data['results'];
@@ -66,7 +67,7 @@ export class MovieSliderComponent implements OnInit {
   panEnd(e) {
     if (!this.scrolling) {
 
-      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 500) {
+      if (Math.abs(e.overallVelocity) > 0.6) {
         this.acceleration = Math.floor(e.overallVelocity * 22);
       } else {
         this.acceleration = 0;

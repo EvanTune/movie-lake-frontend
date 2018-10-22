@@ -3,15 +3,33 @@
 
     <ng-container *ngFor="let movie of movies; let i=index">
       <div *ngIf="i < 6" class="col-md-12 col-lg-6">
-        <div class="popular-movies__item card" routerLink="/movie/{{ movie.id }}">
-          <div class="popular-movies__rating">9</div>
-          <img class="popular-movies__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
-          <div class="popular-movies__container">
-            <h3 class="popular-movies__title">{{ movie.title }}</h3>
-            <h4 class="popular-movies__year">May 24th, 2018</h4>
+        <div class="popular-movies__item" routerLink="/movie/{{ movie.id }}">
+          <h3 *ngIf="moviesLoaded" class="popular-movies__title">{{ titleCharLimit( movie.title) }}</h3>
+          <div *ngIf="moviesLoaded" class="popular-movies__rating">9</div>
+          <img *ngIf="moviesLoaded" class="popular-movies__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
+          <div *ngIf="moviesLoaded" class="popular-movies__container">
+            <h4 class="popular-movies__year">{{ movie['release_date'] | date }}</h4>
             <p class="popular-movies__text">{{ movie.overview}}</p>
           </div>
+
+          <ngx-content-loading *ngIf="!moviesLoaded"
+                               [speed]="'1000ms'"
+                               [width]="1000"
+                               [height]="490"
+                               [primaryColor]="'#c3c3c3'"
+                               [secondaryColor]="'#d7d7d7'">
+
+            <svg:g ngx-rect width="400" height="28" y="45" x="30" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="250" height="350" y="120" x="20" rx="5" ry="5"></svg:g>
+
+            <svg:g ngx-rect width="200" height="20" y="170" x="290" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="600" height="200" y="240" x="290" rx="5" ry="5"></svg:g>
+
+
+          </ngx-content-loading>
+
         </div>
+
       </div>
     </ng-container>
 

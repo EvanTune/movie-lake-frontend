@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,11 @@ export class MovieService {
   getTheatresMovies() {
     return this.httpClient.
     get(environment.api_path + 'movies/theatres');
+  }
+
+  getTopMovies() {
+    return this.httpClient.
+    get(environment.api_path + 'movies/top');
   }
 
   getMovie(id) {

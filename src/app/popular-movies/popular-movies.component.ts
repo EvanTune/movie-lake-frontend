@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MOVIES } from '../mock-movies';
-import { MovieService } from '../movie.service';
-import {Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {MovieService} from '../_services/movie.service';
 
 @Component({
   selector: 'app-popular-movies',
@@ -10,18 +8,40 @@ import {Observable} from 'rxjs';
 })
 export class PopularMoviesComponent implements OnInit {
 
-  movies = [];
+  movies = [{}, {}, {}, {}, {}, {}];
+  moviesLoaded = false;
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService) {
+  }
 
   ngOnInit() {
 
-
-
     this.movieService.getPopularMovies().subscribe(data => {
-      console.log(data['results']);
       this.movies = data['results'];
+      console.log(this.movies);
+      this.moviesLoaded = true;
     });
+
+  }
+
+  titleCharLimit(title: string) {
+
+    const width = window.innerWidth;
+
+    if (width >= 1200) {
+      if (title.length > 40) {
+        return title.substr(0, 40) + '...';
+      } else {
+        return title;
+      }
+    } else {
+      if (title.length > 30) {
+        return title.substr(0, 30) + '...';
+      } else {
+        return title;
+      }
+    }
+
 
   }
 

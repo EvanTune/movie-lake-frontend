@@ -47,14 +47,15 @@
 .cast {
   width: 100%;
 
-
   &__img-container {
     width: 46px;
     height:  46px;
     overflow:hidden;
     position:relative;
     border-radius: 50%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    background-color: #ededed;
+    flex-shrink: 0;
   }
 
   &__img {
@@ -65,48 +66,41 @@
     margin-top: -10px;
   }
 
+  &__not-found {
+    font-weight: 100;
+  }
+
   &__container {
     margin-left: 15px;
   }
 
-  &__container--crew {
-    display: flex;
-    align-items: center;
-  }
-
   &__name {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 1rem;
     margin-bottom: 1px;
-  }
-
-  &__name--crew {
-    font-size: 0.9rem;
-    margin-bottom: 0;
+    color: #404040;
   }
 
   &__playing {
     margin-bottom: 0;
     font-size: 0.9rem;
-  }
-
-  &__job {
-    margin-left: 10px;
-    margin-bottom: 0;
-    font-size: 0.9rem;
+    color: #636363;
   }
 
   &__item {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-  }
-
-  &__item--crew {
-    margin-bottom: 12px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #f5f5f5;
+    transition: 0.15s all;
   }
 
   &__item:hover {
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 1px solid #efefef;
   }
 }

@@ -1,26 +1,27 @@
 import {Component, OnInit} from '@angular/core';
-import {MovieService} from '../movie.service';
+import {MovieService} from '../../_services/movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {getLangugaeFromIso} from '../helpers/language';
-import {DomSanitizer} from '@angular/platform-browser';
+import {getLangugaeFromIso} from '../../_helpers/language';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  templateUrl: './movie.component.html',
+  styleUrls: ['./movie.component.scss']
 })
-export class ItemComponent implements OnInit {
+export class MovieComponent implements OnInit {
 
-  id = 0;
-  movie = {};
-  videos = [];
-  images = [];
-  crew = [];
-  cast = [];
-  trailerUrl;
 
-  movieLoaded = false;
+  id: number = 0;
+  movie: object = {};
+  videos: object[] = [];
+  images: object[] = [];
+  crew: object[] = [];
+  cast: object[] = [];
+  trailerUrl: SafeUrl;
+
+  movieLoaded: boolean;
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -48,11 +49,11 @@ export class ItemComponent implements OnInit {
     });
   }
 
-  roundToNearestInt(number) {
+  roundToNearestInt(number: number): number {
     return Math.round(number);
   }
 
-  clearPrev() {
+  clearPrev(): void {
     this.movieLoaded = false;
     this.movie = {};
     this.videos = [];
@@ -61,11 +62,11 @@ export class ItemComponent implements OnInit {
     this.cast = [];
   }
 
-  getMoney(money) {
+  getMoney(money: number): string {
     return this.formatter.format(money);
   }
 
-  getGenres() {
+  getGenres(): string {
     let genres = '';
     for (let i = 0; i < this.movie['genres'].length; i++) {
       if (i > 2) {
@@ -81,7 +82,7 @@ export class ItemComponent implements OnInit {
     return genres;
   }
 
-  getRuntime(time) {
+  getRuntime(time: number): string {
 
     const hour = Math.floor(time / 60);
     const minutes = Math.floor((time / 60 - hour) * 60);
@@ -94,13 +95,13 @@ export class ItemComponent implements OnInit {
 
   }
 
-  getDirector() {
+  getDirector(): string {
 
     let director = '';
 
     for (let i = 0; i < this.crew.length; i++) {
-      if (this.crew[i].job === 'Director') {
-        director = this.crew[i].name;
+      if (this.crew[i]['job'] === 'Director') {
+        director = this.crew[i]['name'];
         break;
       }
 
@@ -121,41 +122,35 @@ export class ItemComponent implements OnInit {
     this.movieService.getMovie(this.id).subscribe(data => {
       this.movie = data;
       this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w300' + this.movie['poster_path'];
-
       this.movieLoaded = true;
     });
   }
 
-  setupMovieVideos() {
+  setupMovieVideos(): void {
     this.movieService.getMovieVideos(this.id).subscribe(data => {
       this.videos = data['results'];
 
       if (this.videos.length) {
-        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0].key);
-
+        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0]['key']);
       }
 
     });
   }
 
-  setupMovieCredits() {
+  setupMovieCredits(): void {
     this.movieService.getMovieCredits(this.id).subscribe(data => {
       this.crew = data['crew'];
       this.cast = data['cast'];
     });
   }
 
-  setupMovieImages() {
+  setupMovieImages(): void {
     this.movieService.getMovieImages(this.id).subscribe(data => {
-
       this.images = data['backdrops'];
-      console.log('got images');
     });
   }
 
   ngOnInit() {
-
-
   }
 
 }

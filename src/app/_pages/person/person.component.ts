@@ -1,7 +1,6 @@
-import {Component, OnInit, ElementRef, ViewChild, HostListener} from '@angular/core';
-import {PeopleService} from '../people.service';
-import {ActivatedRoute} from '@angular/router';
-import {Router} from '@angular/router';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {PeopleService} from '../../_services/people.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-person',
@@ -10,23 +9,23 @@ import {Router} from '@angular/router';
 })
 export class PersonComponent implements OnInit {
 
-  person = {};
-  acting = [];
-  production = [];
-  knownFor = [];
-  images = [];
-  id = 0;
+  person: object = {};
+  acting: object[] = [];
+  production: object[] = [];
+  knownFor: object[] = [];
+  images: object[] = [];
+  id: number = 0;
 
-  personLoaded = false;
-  creditsLoaded = false;
+  personLoaded: boolean;
+  creditsLoaded: boolean;
 
-  actingLength = 20;
-  innerWidth = 0;
-  currentOffset = 0;
-  last = 0;
-  acceleration = 0;
+  actingLength: number = 20;
+  innerWidth: number = 0;
+  currentOffset: number = 0;
+  last: number = 0;
+  acceleration: number = 0;
   panInterval: any = null;
-  scrolling = false;
+  scrolling: boolean;
 
   @ViewChild('knownElement') knownEle: ElementRef;
 
@@ -41,20 +40,19 @@ export class PersonComponent implements OnInit {
     private router: Router
   ) {
     route.params.subscribe(val => {
-
-     this.clearPrev();
-
       this.innerWidth = window.innerWidth;
       this.id = val.id;
 
+      this.clearPrev();
       this.setupPerson();
       this.setupCredits();
       this.setupImages();
-
     });
   }
 
-  clearPrev() {
+  ngOnInit() {}
+
+  clearPrev(): void {
     this.personLoaded = false;
     this.creditsLoaded = false;
     this.person = {};
@@ -64,41 +62,36 @@ export class PersonComponent implements OnInit {
     this.images = [];
   }
 
-  navigateToItem(type, id) {
-    console.log('fff');
+  navigateToItem(type: string, id: number): void {
     this.router.navigate([type + '/' + id]);
   }
 
-
-  setOffset(e) {
+  setOffset(e: object): void {
     if (!this.scrolling) {
-      let screenWidth = e['center'];
+      const screenWidth = e['center'];
       this.currentOffset = this.knownEle.nativeElement.scrollLeft;
       this.last = e['center'].x;
 
     }
   }
 
-  panRight(e) {
-    console.log(this.scrolling);
+  panRight(e: object): void {
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.knownEle.nativeElement.scrollLeft = a;
+      this.knownEle.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 
-  panLeft(e) {
+  panLeft(e: object): void {
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.knownEle.nativeElement.scrollLeft = a;
+      this.knownEle.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 
-  panEnd(e) {
+  panEnd(e: object): void {
     if (!this.scrolling) {
 
-      if (Math.abs(e.overallVelocity) > 0.6 && e.distance < 600) {
-        this.acceleration = Math.floor(e.overallVelocity * 22);
+      if (Math.abs(e['overallVelocity']) > 0.6 && e['distance'] < 600) {
+        this.acceleration = Math.floor(e['overallVelocity'] * 22);
       } else {
         this.acceleration = 0;
       }
@@ -136,7 +129,7 @@ export class PersonComponent implements OnInit {
     }
   }
 
-  setupCredits() {
+  setupCredits(): void {
     this.peopleService.getCredits(this.id).subscribe(data => {
 
       for (let i = 0; i < data['cast'].length; i++) {
@@ -160,20 +153,20 @@ export class PersonComponent implements OnInit {
       }
 
       this.acting.sort((a, b) => {
-        if (a.date > b.date) {
+        if (a['date'] > b['date']) {
           return -1;
         }
-        if (a.date < b.date) {
+        if (a['date'] < b['date']) {
           return 1;
         }
         return 0;
       });
 
       this.knownFor.sort((a, b) => {
-        if (a.popularity > b.popularity) {
+        if (a['popularity'] > b['popularity']) {
           return -1;
         }
-        if (a.popularity < b.popularity) {
+        if (a['popularity'] < b['popularity']) {
           return 1;
         }
         return 0;
@@ -184,29 +177,21 @@ export class PersonComponent implements OnInit {
     });
   }
 
-  setupPerson() {
+  setupPerson(): void {
     this.person = {
       'profile_path': '/assets/images/placeholder-poster.png'
     };
     this.peopleService.getPerson(this.id).subscribe(data => {
       this.person = data;
-
       this.person['profile_path'] = 'https://image.tmdb.org/t/p/w300' + this.person['profile_path'];
-
       this.personLoaded = true;
     });
   }
 
-  setupImages() {
+  setupImages(): void {
     this.peopleService.getImages(this.id).subscribe(data => {
       this.images = data['profiles'];
-      console.log('got images');
     });
-  }
-
-  ngOnInit() {
-
-
   }
 
 }

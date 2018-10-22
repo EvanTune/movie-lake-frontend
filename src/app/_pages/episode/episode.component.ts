@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TvService} from '../tv.service';
+import {TvService} from '../../_services/tv.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,13 +9,13 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class EpisodeComponent implements OnInit {
 
-  tvId = 0;
-  seasonId = 0;
-  episodeId = 0;
-  episode = {};
-  cast = [];
-  crew = [];
-  episodeLoaded = false;
+  tvId: number = 0;
+  seasonId: number = 0;
+  episodeId: number = 0;
+  episode: object = {};
+  cast: object[] = [];
+  crew: object[] = [];
+  episodeLoaded: boolean;
 
   constructor(
     private tvService: TvService,
@@ -31,7 +31,7 @@ export class EpisodeComponent implements OnInit {
     this.setupEpisode();
   }
 
-  setupEpisode() {
+  setupEpisode(): void {
 
     this.tvService.getTvEpisode(this.tvId, this.seasonId, this.episodeId).subscribe(data => {
       this.episode = data;
@@ -39,7 +39,6 @@ export class EpisodeComponent implements OnInit {
       this.crew = data['crew'];
       this.episode['still_path'] = 'https://image.tmdb.org/t/p/w300' + this.episode['still_path'];
       this.episodeLoaded = true;
-      console.log(this.episode);
     });
 
   }

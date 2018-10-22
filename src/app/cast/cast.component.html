@@ -23,15 +23,15 @@
 
        <div class="cast__item" *ngIf="i < 6" [routerLink]="'/person/' + person.id">
          <div class="cast__img-container">
-           <img src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
+           <img *ngIf="person['profile_path']"  src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
          </div>
          <div class="cast__container">
-           <div class="item-cast__name">{{ person['name'] }}</div>
-           <div class="item-cast__playing">{{ person['character'] }}</div>
+           <div class="cast__name">{{ person['name'] }}</div>
+           <div class="cast__playing">{{ person['character'] }}</div>
          </div>
        </div>
      </ng-container>
-     <p *ngIf="cast.length === 0">No crew for this tv show was found.</p>
+     <p class="cast__not-found" *ngIf="cast.length === 0">No crew for this tv show was found.</p>
    </div>
 
 
@@ -43,15 +43,15 @@
 
       <div class="cast__item" *ngIf="i < 6" [routerLink]="'/person/' + person.id">
         <div class="cast__img-container">
-          <img src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
+          <img *ngIf="person['profile_path']"  src="https://image.tmdb.org/t/p/w185{{ person['profile_path']}}" alt="" class="cast__img">
         </div>
         <div class="cast__container">
-          <div class="item-cast__name">{{ person['name'] }}</div>
-          <div class="item-cast__playing">{{ person['job'] }}</div>
+          <div class="cast__name">{{ person['name'] }}</div>
+          <div class="cast__playing">{{ person['job'] }}</div>
         </div>
       </div>
     </ng-container>
-    <p *ngIf="crew.length === 0">No crew for this tv show was found.</p>
+    <p class="cast__not-found" *ngIf="crew.length === 0">No crew for this tv show was found.</p>
   </div>
 
 </div>

@@ -1,4 +1,4 @@
-@import "../../app/variables";
+@import "../../app/_sass/variables";
 
 .top-bar {
   background-color: white;
@@ -26,6 +26,10 @@
     color: $primary;
   }
 
+}
+
+.logo:hover {
+  cursor: pointer;
 }
 
 .menu {

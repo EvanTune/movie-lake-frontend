@@ -111,6 +111,10 @@ const isoLangs = {
     'name': 'Chechen',
     'nativeName': 'нохчийн мотт'
   },
+  'cn': {
+    'name': 'Chinese',
+    'nativeName': 'нохчийн мотт'
+  },
   'ny': {
     'name': 'Chichewa; Chewa; Nyanja',
     'nativeName': 'chiCheŵa, chinyanja'

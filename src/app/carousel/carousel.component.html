@@ -1,18 +1,32 @@
 <div class="carousel" #carousel>
 
-  <button class="carousel__arrow carousel__arrow--prev" (click)="prev($event)"><i class="fas fa-chevron-left"></i></button>
-  <button class="carousel__arrow carousel__arrow--next" (click)="next($event)"><i class="fas fa-chevron-right"></i></button>
+  <button class="carousel__arrow carousel__arrow--prev" (click)="prev($event)"><i class="fas fa-chevron-left"></i>
+  </button>
+  <button class="carousel__arrow carousel__arrow--next" (click)="next($event)"><i class="fas fa-chevron-right"></i>
+  </button>
 
 
-  <ng-container *ngFor="let movie of movies">
-    <div class="carousel__item" [ngStyle]="{'background-image': 'url(' + movie.image2 + ')'}">
+  <ng-container *ngFor="let movie of movies;let i = index">
+    <div class="carousel__item" *ngIf="i < 7" [ngStyle]="{'background-image': 'url(' + movie['backdrop_path'] + ')'}">
       <div class="container position-relative">
 
         <div class="carousel__content">
-          <div class="carousel__rating">8</div>
           <div class="carousel__featured">FEATURED</div>
-          <h1 class="carousel__title">{{ movie.title }}</h1>
-          <button routerLink="/movie" class="carousel__more">Read more</button>
+          <h1 class="carousel__title">{{ movie.title }}
+            <ngx-content-loading *ngIf="movies.length === 1"
+                                 [speed]="'1000ms'"
+                                 [width]="1000"
+                                 [height]="40"
+                                 [primaryColor]="'#9b9b9b'"
+                                 [secondaryColor]="'#afafaf'">
+
+              <svg:g ngx-rect width="1000" height="70" y="0" x="0" rx="5" ry="5"></svg:g>
+
+
+            </ngx-content-loading>
+          </h1>
+          <button *ngIf="movies.length > 1" [routerLink]="'/movie/' + movie.id" class="carousel__more">Read more
+          </button>
         </div>
       </div>
     </div>

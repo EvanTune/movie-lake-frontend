@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PEOPLE } from '../mock-people';
-import { PeopleService } from '../people.service';
+import { PeopleService } from '../_services/people.service';
 
 @Component({
   selector: 'app-popular-people',
@@ -9,13 +8,16 @@ import { PeopleService } from '../people.service';
 })
 export class PopularPeopleComponent implements OnInit {
 
-  people = [];
+  people = [{},{},{},{},{},{},{}];
+  peopleLoaded: boolean;
 
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.peopleService.getPopularPeople().subscribe(data => {
       this.people = data['results'];
+      this.peopleLoaded = true;
+
     });
   }
 

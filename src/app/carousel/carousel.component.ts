@@ -1,5 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MOVIES } from '../mock-movies';
+import {MovieService} from '../_services/movie.service';
 
 @Component({
   selector: 'app-carousel',
@@ -10,13 +11,17 @@ export class CarouselComponent implements OnInit {
 
   @ViewChild('carousel') carouselElement: ElementRef;
 
-  movies = MOVIES;
+  movies = [{}];
   currentPosition = 0;
   windowWidth = 0;
 
-  constructor() { }
+  constructor(
+    private movieService: MovieService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setupTopMovies();
+  }
 
   ngAfterViewInit() {
     this.setWindowWidth();
@@ -46,6 +51,24 @@ export class CarouselComponent implements OnInit {
 
   setScrollLeft() {
     this.carouselElement.nativeElement.scrollLeft = this.windowWidth * this.currentPosition;
+  }
+
+  setupTopMovies() {
+    this.movieService.getPopularMovies().subscribe(data => {
+
+      this.movies = [];
+      let count = 0;
+
+      for (let i = 0; i < data['results'].length; i++) {
+
+        if (i > 7 && i < 18) {
+          this.movies.push(data['results'][i]);
+          this.movies[count]['backdrop_path'] = 'https://image.tmdb.org/t/p/w1280' + this.movies[count]['backdrop_path'];
+          count++;
+        }
+      }
+      console.log(this.movies);
+    });
   }
 
 }

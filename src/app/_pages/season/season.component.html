@@ -13,8 +13,9 @@
         <ng-container *ngFor="let episode of season['episodes']">
           <div class="seasons__item" [routerLink]="'/tv/' + tvId + '/season/' + seasonId + '/episode/' + episode['episode_number']">
             <div class="seasons__number" *ngIf="seasonLoaded">{{ episode['episode_number'] }}</div>
-            <img [src]="episode['still_path'] ? 'https://image.tmdb.org/t/p/w300' + episode['still_path'] :'/assets/images/placeholder-still.png'" alt="" class="seasons__img">
-
+            <div class="seasons__img-container">
+              <img [src]="episode['still_path'] ? 'https://image.tmdb.org/t/p/w300' + episode['still_path'] :'/assets/images/placeholder-still.png'" alt="" class="seasons__img">
+            </div>
             <div class="seasons__box">
               <h2 class="seasons__title" *ngIf="seasonLoaded">{{ episode['name']}}</h2>
               <p class="seasons__overview" *ngIf="seasonLoaded">{{ episode['overview']}}</p>
@@ -28,7 +29,6 @@
 
                 <svg:g ngx-rect width="300" height="15" y="5" x="0" rx="5" ry="5"></svg:g>
                 <svg:g ngx-rect width="700" height="80" y="40" x="0" rx="5" ry="5"></svg:g>
-
 
               </ngx-content-loading>
 

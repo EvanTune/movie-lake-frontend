@@ -1,77 +1,97 @@
 <div class="top-bar-search">
 
+  <img *ngIf="loading && !mobileMode" class="top-bar-search__loading" src="/assets/images/loader-search.gif" alt="">
   <i class="fas fa-search top-bar-search__search-icon"></i>
-  <i class="fas fa-times top-bar-search__close-icon" *ngIf="query.length > 0" (click)="clearQuery()"></i>
+  <i class="fas fa-times top-bar-search__close-icon" *ngIf="query.length > 0 && !loading && !mobileMode" (click)="clearQuery()"></i>
 
-  <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query" placeholder="Search for movie, tv-show or actor ..." class="top-bar-search__input" type="text">
+  <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query"
+         placeholder="Search for movie, tv-show or actor ..." class="top-bar-search__input" type="text">
 
-  <button class="top-bar-search-mobile__btn" (click)="showContainer=true"><i class="fas fa-search"></i></button>
+  <button (click)="mobileSearchMode=true;" class="top-bar-search-mobile__btn"><i class="fas fa-search"></i></button>
 
-  <div class="top-bar-search__container" [hidden]="!showContainer">
+</div>
 
-    <div class="top-bar-search-mobile">
+<div *ngIf="mobileSearchMode" class="top-bar-search-mobile">
 
-      <div class="top-bar-search-mobile__container">
-        <div class="container position-relative">
-          <input (keyup)="search()" [(ngModel)]="query" placeholder="Search for movie, tv-show or actor ..." type="text" class="top-bar-search-mobile__input">
-        </div>
-        <i class="top-bar-search-mobile__close fas fa-times" (click)="showContainer=false"></i>
-      </div>
+  <div class="top-bar-search-mobile__container">
+    <div class="container position-relative">
+      <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query" placeholder="Search for movie, tv-show or actor ..." type="text"
+             class="top-bar-search-mobile__input">
+      <i *ngIf="!loading" (click)="closeSearch()" class="top-bar-search-mobile__close fas fa-times"></i>
+      <img *ngIf="mobileMode && loading" class="top-bar-search-mobile__loading" src="/assets/images/loader-search.gif" alt="">
     </div>
-
-
-    <div class="top-bar-search-results">
-
-      <div class="lds-ellipsis" *ngIf="showLoading"><div></div><div></div><div></div><div></div></div>
-      <div class="top-bar-search-results__test">
-        <div class="container">
-
-          <h3 class="top-bar-search-results__header" *ngIf="movies.length">Movies</h3>
-
-          <ng-container *ngFor="let movie of movies; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/movie', movie.id)">
-              <img class="top-bar-search-results__img"
-                   [src]="movie['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + movie['poster_path'] : '/assets/images/placeholder-poster.png'" alt="">
-              <div class="top-bar-search-results__container">
-                <span class="top-bar-search-results__title">{{ movie['title'] }}</span>
-              </div>
-            </div>
-          </ng-container>
-
-          <h3 class="top-bar-search-results__header" *ngIf="tv.length">Tv shows</h3>
-
-          <ng-container *ngFor="let show of tv; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/tv', show.id)">
-              <img class="top-bar-search-results__img"
-                   [src]="show['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + show['poster_path'] : '/assets/images/placeholder-poster.png'" alt="">
-              <div class="top-bar-search-results__container">
-                <span class="top-bar-search-results__title">{{ show['name'] }}</span>
-              </div>
-            </div>
-          </ng-container>
-
-
-          <h3 class="top-bar-search-results__header" *ngIf="people.length">People</h3>
-
-          <ng-container *ngFor="let person of people; let i = index">
-            <div class="top-bar-search-results__item" *ngIf="i < 5" (click)="redirectAndClear('/person', person.id)">
-              <img class="top-bar-search-results__img"
-                   [src]="person['profile_path'] ? 'https://image.tmdb.org/t/p/w45' + person['profile_path'] : '/assets/images/placeholder-poster.png'" alt="">
-              <div class="top-bar-search-results__container">
-                <span class="top-bar-search-results__title">{{ person['name'] }}</span>
-              </div>
-            </div>
-          </ng-container>
-
-        </div>
-      </div>
-
-
-
-    </div>
-
 
   </div>
 
 </div>
+
+<div class="search-results" [exclude]="'.top-bar-search__input,.top-bar-search-mobile__btn,.top-bar-search-mobile,.top-bar-search-mobile__input,.top-bar-search-mobile__container,.container'" (clickOutside)="clearQuery()"
+     [@resultsContainer]="containerState">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <div class="search-results__group">
+          <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">Movies</div>
+          <p class="search-results__not-found" *ngIf="!movies.length && showNotFoundText"
+             [@header]="showNotFoundText ? 'open' : 'closed'">No movies found matching search.</p>
+          <ng-container *ngFor="let movie of movies; let i = index">
+            <div class="search-results__item" @itemFade [routerLink]="'/movie/' + movie['id']">
+              <img class="search-results__img"
+                   [src]="movie['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + movie['poster_path'] : '/assets/images/placeholder-poster.png'"
+                   alt="">
+              <h3 class="search-results__title">{{ movie['title'] }} <span class="search-results__year">{{ movie['release_date'] | date: 'y' }}</span>
+              </h3>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="search-results__group">
+          <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">Tv shows</div>
+          <p class="search-results__not-found" *ngIf="!tv.length  && showNotFoundText"
+             [@header]="showNotFoundText ? 'open' : 'closed'">No tv shows found matching search.</p>
+          <ng-container *ngFor="let show of tv; let i = index">
+            <div class="search-results__item" @itemFade [routerLink]="'/tv/' + show['id']">
+              <img class="search-results__img"
+                   [src]="show['poster_path'] ? 'https://image.tmdb.org/t/p/w92' + show['poster_path'] : '/assets/images/placeholder-poster.png'"
+                   alt="">
+              <h3 class="search-results__title">{{ show['name'] }} <span class="search-results__year">{{ show['first_air_date'] | date: 'y' }}</span>
+              </h3>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="search-results__group">
+          <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">People</div>
+          <p class="search-results__not-found" *ngIf="!people.length  && showNotFoundText"
+             [@header]="showNotFoundText ? 'open' : 'closed'">No people found matching search.</p>
+          <ng-container *ngFor="let person of people; let i = index">
+            <div class="search-results__item" @itemFade [routerLink]="'/person/' + person['id']">
+              <img class="search-results__img"
+                   [src]="person['profile_path'] ? 'https://image.tmdb.org/t/p/w92' + person['profile_path'] : '/assets/images/placeholder-poster.png'"
+                   alt="">
+              <h3 class="search-results__title">{{ person['name'] }}</h3>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

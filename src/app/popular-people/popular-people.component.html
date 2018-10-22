@@ -1,12 +1,32 @@
 <div class="popular-people card">
 
+
+
   <ng-container  *ngFor="let person of people; let i=index">
-    <div class="popular-people__item" *ngIf="i<5" routerLink="/person/{{ person.id }}">
-      <div class="popular-people__img-container circular-image">
+
+
+    <div class="popular-people__item" *ngIf="i<6 && peopleLoaded" routerLink="/person/{{ person.id }}">
+
+      <div class="popular-people__img-container circular-image" *ngIf="peopleLoaded">
         <img class="popular-people__img circular-image__img" src="https://image.tmdb.org/t/p/w500{{ person.profile_path}}" alt="">
       </div>
       <h3 class="popular-people__name">{{ person.name}}</h3>
+
+
     </div>
+
+    <ngx-content-loading  *ngIf="i<6 && !peopleLoaded"
+                         [speed]="'1000ms'"
+                         [width]="1000"
+                         [height]="170"
+                         [primaryColor]="'#9b9b9b'"
+                         [secondaryColor]="'#afafaf'">
+
+      <svg:g ngx-circle [cy]="85" cx="85" r="60" ry="5"></svg:g>
+      <svg:g ngx-rect width="400" height="28" y="70" x="180" rx="5" ry="5"></svg:g>
+
+
+    </ngx-content-loading>
 
   </ng-container>
 </div>

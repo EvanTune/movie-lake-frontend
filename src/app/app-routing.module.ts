@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ItemComponent } from './item/item.component';
-import {FrontPageComponent} from './front-page/front-page.component';
-import {PersonComponent} from './person/person.component';
-import {TvComponent} from './tv/tv.component';
-import {SeasonComponent} from './season/season.component';
-import {EpisodeComponent} from './episode/episode.component';
+import { MovieComponent } from './_pages/movie/movie.component';
+import {FrontPageComponent} from './_pages/front-page/front-page.component';
+import {PersonComponent} from './_pages/person/person.component';
+import {TvComponent} from './_pages/tv/tv.component';
+import {SeasonComponent} from './_pages/season/season.component';
+import {EpisodeComponent} from './_pages/episode/episode.component';
 
 const routes: Routes = [
   { path: '', component: FrontPageComponent },
-  { path: 'movie/:id', component: ItemComponent },
+  { path: 'movie/:id', component: MovieComponent },
   { path: 'tv/:id', component: TvComponent },
   { path: 'tv/:id/season/:id2', component: SeasonComponent },
   { path: 'tv/:id/season/:id2/episode/:id3', component: EpisodeComponent },

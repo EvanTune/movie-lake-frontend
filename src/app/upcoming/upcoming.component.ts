@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MOVIES} from '../mock-movies';
 
-import { MovieService } from '../movie.service';
+import { MovieService } from '../_services/movie.service';
 
 @Component({
   selector: 'app-upcoming',
@@ -20,6 +20,7 @@ export class UpcomingComponent implements OnInit {
 
     this.movieService.getUpcomingMovies().subscribe(data => {
       this.movies = data['results'];
+
     });
 
 
