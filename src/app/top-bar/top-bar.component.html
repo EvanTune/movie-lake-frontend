@@ -1,23 +1,30 @@
-<div class="top-bar">
 
-<div class="container d-flex align-items-center justify-content-between position-relative">
+<ngx-headroom>
+  <div class="top-bar">
 
-  <div class="logo" routerLink="/">
-    <div class="logo__first">Movie</div>
-    <div class="logo__second">Lake</div>
+    <div class="container d-flex align-items-center justify-content-between position-relative">
+
+      <a class="logo" routerLink="/">
+        <div class="logo__first">Movie</div>
+        <div class="logo__second">Lake</div>
+      </a>
+
+      <app-top-bar-search></app-top-bar-search>
+      <ul class="menu d-flex align-items-center">
+        <li>
+          <a [class]="path === '/movies' ? 'menu__item menu__item--active' : 'menu__item'" routerLink="/movies">MOVIES</a>
+        </li>
+        <li>
+          <a [class]="path === '/tv-shows' ? 'menu__item menu__item--active' : 'menu__item'" routerLink="/tv-shows">TV SHOWS</a>
+        </li>
+      </ul>
+
+      <div class="top-bar-user">
+        <div class="top-bar-user__img" style="background-image: url('/assets/images/30.jpg')"></div>
+      </div>
+
+    </div>
+
   </div>
 
-    <app-top-bar-search></app-top-bar-search>
-  <ul class="menu d-flex align-items-center">
-    <li class="menu__item">MOVIES</li>
-    <li class="menu__item">TV-SHOWS</li>
-  </ul>
-
-  <div class="top-bar-user">
-    <div class="top-bar-user__img" style="background-image: url('/assets/images/30.jpg')"></div>
-  </div>
-
-</div>
-
-</div>
-
+</ngx-headroom>

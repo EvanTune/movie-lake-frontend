@@ -5,6 +5,7 @@ import { NgxContentLoadingModule } from 'ngx-content-loading';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ClickOutsideModule } from 'ng4-click-outside';
+import { HeadroomModule } from '@ctrl/ngx-headroom';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -31,6 +32,12 @@ import { ScrollableComponent } from './scrollable/scrollable.component';
 import { SeasonComponent } from './_pages/season/season.component';
 import { EpisodeComponent } from './_pages/episode/episode.component';
 import { TestComponent } from './test/test.component';
+import { MoviesComponent } from './_pages/movies/movies.component';
+import { TvShowsComponent } from './_pages/tv-shows/tv-shows.component';
+import { PeopleComponent } from './_pages/people/people.component';
+import { ListComponent } from './list/list.component';
+import { FiltersComponent } from './filters/filters.component';
+import { HeaderTwoComponent } from './header-two/header-two.component';
 
 
 @NgModule({
@@ -58,7 +65,13 @@ import { TestComponent } from './test/test.component';
     ScrollableComponent,
     SeasonComponent,
     EpisodeComponent,
-    TestComponent
+    TestComponent,
+    MoviesComponent,
+    TvShowsComponent,
+    PeopleComponent,
+    ListComponent,
+    FiltersComponent,
+    HeaderTwoComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +81,7 @@ import { TestComponent } from './test/test.component';
     NgxContentLoadingModule,
     FormsModule,
     ClickOutsideModule,
+    HeadroomModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

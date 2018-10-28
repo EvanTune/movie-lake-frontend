@@ -1,0 +1,131 @@
+.filters {
+
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  padding: 10px 0;
+
+  label {
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  select {
+    border: 1px solid #e1e1e1;
+    background-color: white;
+    padding: 10px 14px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 110px;
+    min-height: 32px;
+  }
+
+  &__genres {
+    //border-bottom: 1px solid #f0f0f0;
+    margin-top: 10px;
+  }
+
+  &__genre {
+    display: inline-block;
+    color: white;
+    background-color: #2d2d2d;
+    font-size: 0.7rem;
+    padding: 10px 15px;
+    border-radius: 25px;
+    margin: 0 20px 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    float: left;
+    border: none;
+    transition: 0.15s all;
+  }
+  &__genre:hover {
+    transform: scale(1.05);
+  }
+
+  &__genre:focus {
+    outline: none;
+  }
+
+  &__genre--action {
+    background: linear-gradient(45deg, rgb(255, 0, 13), rgb(220, 0, 12));
+  }
+
+  &__genre--adventure {
+    background: linear-gradient(45deg, rgb(6, 76, 255), rgb(5, 66, 220));
+  }
+
+  &__genre--romance {
+    background: linear-gradient(45deg, rgb(255, 3, 248), rgb(220, 3, 214));
+  }
+
+  &__genre--comedy {
+    background: linear-gradient(45deg, rgb(255, 84, 1), rgb(220, 71, 1));
+  }
+
+  &__genre--family {
+    background: linear-gradient(45deg, rgb(161, 0, 255), rgb(132, 0, 220));
+  }
+
+  &__genre--fantasy {
+    background: linear-gradient(45deg, rgb(1, 205, 9), rgb(1, 170, 9));
+  }
+
+  &__genre--fantasy {
+    background: linear-gradient(45deg, rgb(1, 205, 9), rgb(1, 170, 9));
+  }
+
+  &__icon {
+    margin-left: 3px;
+  }
+
+  &__group {
+    display: block;
+    margin-right: 40px;
+    padding: 10px 0;
+
+  }
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .filters {
+
+    padding: 0;
+
+    &__genres {
+      margin-top: 0;
+    }
+
+    &__group {
+      padding: 25px 0;
+      display: inline-block;
+    }
+  }
+
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+
+}
+

@@ -39,4 +39,12 @@ export class TvService {
     get(environment.api_path + 'tv/' + id + '/season/' + id2 + '/episode/' + id3);
   }
 
+  getDiscover(sort, year, genres, page) {
+
+    console.log('discover/tv?sort=' + sort + '&year=' + year + '&genres=' + genres + '&page=' + page);
+
+    return this.httpClient.
+    get(environment.api_path + 'discover/tv?sort=' + sort + '&year=' + year + '&genres=' + genres + '&page=' + page);
+  }
+
 }

@@ -54,4 +54,12 @@ export class MovieService {
     get(environment.api_path + 'search?query=' + query);
   }
 
+  getDiscover(sort, year, genres, page) {
+
+    console.log('discover/movie?sort=' + sort + '&year=' + year + '&genres=' + genres);
+
+    return this.httpClient.
+    get(environment.api_path + 'discover/movie?sort=' + sort + '&year=' + year + '&genres=' + genres + '&page=' + page);
+  }
+
 }

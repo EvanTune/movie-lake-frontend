@@ -1,0 +1,44 @@
+<div class="filters">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div *ngIf="type === 'movie' || type === 'tv'" class="filters__group">
+          <label for="">Genres</label>
+          <select [disabled]="loadingList" #genreSelect (change)="addGenre($event.target.value)" name="" id="">
+            <option value="-1">Select genres</option>
+            <option *ngFor="let genre of allGenres" [value]="genre['id']">{{ genre['name'] }}</option>
+          </select>
+        </div>
+        <div *ngIf="type === 'movie' || type === 'tv'" class="filters__group">
+          <label for="">Year</label>
+          <select [disabled]="loadingList" (change)="changedEvent.emit({ value: $event.target.value, type: 'year' })" name="year">
+            <option value="">All years</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+        <div *ngIf="type === 'movie' || type === 'tv'" class="filters__group">
+          <label for="">Sort</label>
+          <select [disabled]="loadingList" name="sort" (change)="changedEvent.emit({ value: $event.target.value, type: 'sort' })">
+            <option value="popularity.desc">Popularity</option>
+            <option value="vote_average.desc">Top rated</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="type === 'movie' || type === 'tv'" class="filters__genres">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <button (click)="removeGenre(genre['id'])" [@genre] [class]="'filters__genre filters__genre--' + genre['name'].toLowerCase()" *ngFor="let genre of selectedGenres">{{ genre['name'] }} <i class="filters__icon fas fa-times"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

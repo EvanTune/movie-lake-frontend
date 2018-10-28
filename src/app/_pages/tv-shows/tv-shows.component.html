@@ -1,0 +1,5 @@
+<app-header-two [type]="'Tv Shows'"></app-header-two>
+<app-filters (changedEvent)="filtersChanged($event)" [selectedGenres]="genres" [allGenres]="allGenres"
+             [loadingList]="loadingList" [type]="'tv'"></app-filters>
+<app-list [items]="shows" [type]="'tv'" [itemsLoaded]="moviesLoaded" [loadingList]="loadingList"
+          (newPageEvent)="addMoreShows($event)" [totalResults]="totalResults"></app-list>

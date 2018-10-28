@@ -6,12 +6,15 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
+  z-index: 12;
 }
 
 .logo {
 
   text-transform: uppercase;
   letter-spacing: 2px;
+  transition: 0.1s all ease-in-out;
+  backface-visibility: hidden;
 
   &__first {
     display: inline-block;
@@ -30,6 +33,7 @@
 
 .logo:hover {
   cursor: pointer;
+  transform: scale(1.02);
 }
 
 .menu {
@@ -38,12 +42,31 @@
   margin-right:  auto;
   display: none !important;
 
+  li {
+    list-style: none;
+    display: inline-block;
+  }
+
   &__item {
     display: inline-block;
     margin-right: 20px;
     font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     font-weight: 600;
+    color: grey;
+  }
+
+  &__item:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+
+  &__item:focus {
+    outline: none;
+  }
+
+  &__item--active {
+    color: $primary;
   }
 
 }

@@ -95,12 +95,12 @@
     padding: 10px;
     border-radius: 3px;
     border: 1px solid #f5f5f5;
-    transition: 0.15s all;
+    transition: 0.2s all;
   }
 
   &__item:hover {
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
     border: 1px solid #efefef;
   }
 }

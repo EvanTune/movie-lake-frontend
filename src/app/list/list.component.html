@@ -1,0 +1,51 @@
+<div class="list">
+
+  <button (click)="scrollToTop()" [@toTopFade]="showToTopBtn ? 'open' : 'closed'" class="list__to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+       <div class="list__loader" [hidden]="!loadingList">
+         <img class="list__loader-img" src="/assets/images/loader-list2.svg"><span class="list__loader-text">Fetching movies...</span>
+       </div>
+        <!-- EMPTY TEXT -->
+        <div *ngIf="itemsLoaded && items.length == 0" class="list-empty"><i class="list-empty__icon fas fa-exclamation-circle"></i> No results found matching filters.</div>
+        <!-- RESULTS TEXT -->
+        <div [hidden]="!itemsLoaded || items.length === 0" class="list__results-text"><b style="font-weight: 600;letter-spacing: 1px">{{ totalResults | number }} </b> results found.</div>
+      </div>
+      <ng-container *ngFor="let item of items;let i = index">
+        <div class="col-lg-6" *ngIf="type === 'movie' || type === 'tv' && !loadingList">
+          <a [routerLink]="'/' + type + '/' + item['id']" class="list__item card">
+            <!-- SCORE -->
+            <div *ngIf="itemsLoaded || item['loaded']" [class]="'list__score list__score--' + getScoreColorFromScore(item['vote_average'])">{{ item['vote_average'] }}</div>
+            <img *ngIf="!mobileMode" class="list__img" [src]="item['image']" alt="">
+            <div *ngIf="mobileMode" class="list__img-mobile" [ngStyle]="{'background': 'url(' + item['image_mobile'] + ') center center / cover'}"></div>
+            <div class="list__container">
+              <h2 *ngIf="itemsLoaded || item['loaded']" class="list__title">{{ item['title'] ? item['title'] : item['name'] }}</h2>
+              <p *ngIf="itemsLoaded || item['loaded']" class="list__text">{{ truncateText(item['overview']) }}</p>
+              <ngx-content-loading *ngIf="!itemsLoaded && !item['loaded']"
+                                   [speed]="'1000ms'"
+                                   [width]="1000"
+                                   [height]="445"
+                                   [primaryColor]="'#c3c3c3'"
+                                   [secondaryColor]="'#d7d7d7'">
+
+
+                <svg:g ngx-rect width="400" height="30" y="30" x="0" rx="5" ry="5"></svg:g>
+                <svg:g ngx-rect width="1000" height="280" y="115" x="0" rx="5" ry="5"></svg:g>
+
+              </ngx-content-loading>
+            </div>
+
+          </a>
+        </div>
+      </ng-container>
+
+      <div class="col-md-12" *ngIf="!itemsLoaded && items.length >= 20">
+        <img class="list__loader-bottom src=" src="/assets/images/loader-list2.svg">
+      </div>
+
+    </div>
+  </div>
+
+</div>

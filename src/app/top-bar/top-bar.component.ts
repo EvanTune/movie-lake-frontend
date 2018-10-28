@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor() { }
+  path: string;
 
-  ngOnInit() {
+  constructor(
+    private router: Router
+  ) {
+    router.events.subscribe(val => {
+      if (val instanceof NavigationEnd) {
+        this.path = window.location.pathname;
+      }
+    });
   }
+
+  ngOnInit() {}
 
 }
