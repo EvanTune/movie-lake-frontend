@@ -11,7 +11,7 @@
     text-transform: uppercase;
     font-size: 1.2rem;
     margin-bottom: 0;
-
+    text-align: center;
   }
 
 }
@@ -24,7 +24,13 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
 
+  .header-two {
 
+    &__heading {
+      text-align: left;
+    }
+
+  }
 
 }
 

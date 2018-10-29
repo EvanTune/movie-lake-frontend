@@ -29,4 +29,9 @@ export class PeopleService {
     get(environment.api_path + 'person/' + id + '/images');
   }
 
+  getSearch(query, page) {
+    return this.httpClient.
+    get(environment.api_path + 'search/person?query=' + query + '&page=' + page);
+  }
+
 }

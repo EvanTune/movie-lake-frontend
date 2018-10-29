@@ -47,8 +47,8 @@ export class ListComponent implements OnInit, OnChanges {
   showToTopBtn: boolean;
   getScoreColorFromScore = getScoreColorFromScore;
 
+  // Window scroll event
   @HostListener('window:scroll', []) onWindowScroll() {
-    // do some stuff here when the window is scrolled
     this.scrollOffset = window.pageYOffset
       || document.documentElement.scrollTop
       || document.body.scrollTop || 0;

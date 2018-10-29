@@ -29,7 +29,7 @@
     border-bottom-right-radius: 2px;
     border-top-left-radius: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+    text-shadow: 0 1px 6px rgba(0,0,0,0.35);
   }
 
   &__score--green {
@@ -59,6 +59,12 @@
     width: 100%;
   }
 
+  &__year {
+    color: #5f5f5f;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
   &__img {
     width: 100%;
     border-right: 1px solid #ebebeb;
@@ -69,6 +75,7 @@
     height: 220px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    border-bottom: 1px solid #f0f0f0;
   }
 
   &__container {
@@ -176,10 +183,13 @@
       box-shadow: 0 3px 12px rgba(0,0,0,0.22);
     }
 
-    &__img {
+    &__img-container {
+      border-right: 1px solid #f0f0f0;
       width: 155px;
+    }
+
+    &__img {
       border-radius: 3px 0 0 3px;
-      border-right: 1px solid #ebebeb;
     }
 
     &__title {

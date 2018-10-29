@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {MovieService} from '../_services/movie.service';
-import {NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
@@ -62,6 +62,7 @@ export class TopBarSearchComponent implements OnInit {
   people: object[] = [];
   showHeaders: boolean;
   showNotFoundText: boolean;
+  disableInput: boolean;
 
   loading: boolean;
   mobileMode: boolean;
@@ -78,7 +79,8 @@ export class TopBarSearchComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
@@ -86,11 +88,18 @@ export class TopBarSearchComponent implements OnInit {
           this.clearQuery();
         }
         this.mobileMode = window.innerWidth < 992;
+        this.disableInput = router.url.startsWith('/search');
       }
     });
   }
 
   ngOnInit() {
+  }
+
+  navigateToSearchPage() {
+    if (this.query.length > 1) {
+      this.router.navigate(['/search'], {queryParams: {query: this.query}});
+    }
   }
 
   addSlowlyToArray(array: object[], array2: object[], index: number): void {
@@ -120,23 +129,16 @@ export class TopBarSearchComponent implements OnInit {
         this.showNotFoundText = false;
       }
 
-      this.movieService.getSearch(this.query).subscribe(data => {
+      this.movieService.getSearchMulti(this.query, 1).subscribe(data => {
 
-        for (let i = 0; i < data['results'].length; i++) {
-          if (data['results'][i]['media_type'] === 'movie') {
-            this.allMovies.push(data['results'][i]);
-          } else if (data['results'][i]['media_type'] === 'tv') {
-            this.allTv.push(data['results'][i]);
-          } else if (data['results'][i]['media_type'] === 'person') {
-            this.allPeople.push(data['results'][i]);
-          }
+        this.addResultsToArrays(data['results']);
 
-        }
         if (this.mobileMode) {
           this.containerState = 'open-mobile';
         } else {
           this.containerState = 'open';
         }
+
         this.showHeaders = true;
 
         this.addSlowlyToArray(this.movies, this.allMovies, 0);
@@ -164,7 +166,18 @@ export class TopBarSearchComponent implements OnInit {
     }
   }
 
+  addResultsToArrays(results) {
+    for (let i = 0; i < results.length; i++) {
+      if (results[i]['media_type'] === 'movie') {
+        this.allMovies.push(results[i]);
+      } else if (results[i]['media_type'] === 'tv') {
+        this.allTv.push(results[i]);
+      } else if (results[i]['media_type'] === 'person') {
+        this.allPeople.push(results[i]);
+      }
 
+    }
+  }
 
   closeSearch() {
     this.showHeaders = false;

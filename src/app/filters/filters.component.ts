@@ -34,7 +34,10 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setupYearsArray();
+  }
 
+  setupYearsArray() {
     let year = 2020;
 
     while (year > 1950) {
@@ -65,7 +68,7 @@ export class FiltersComponent implements OnInit {
     this.genreSelect.nativeElement.value = '-1';
 
     if (!alreadyAdded) {
-      this.changedEvent.emit({ id: value, name: name});
+      this.changedEvent.emit({id: value, name: name});
     }
 
   }

@@ -8,7 +8,7 @@ import {MovieService} from '../../_services/movie.service';
 })
 export class MoviesComponent implements OnInit {
 
-  movies: object[] = [{}, {}, {}, {}, {}, {}, {}, {}];
+  movies: object[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
   sort: string = 'popularity.desc';
   year: string = '';
   selectedGenres = [];

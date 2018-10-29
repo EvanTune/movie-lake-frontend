@@ -9,6 +9,7 @@ import {EpisodeComponent} from './_pages/episode/episode.component';
 import {MoviesComponent} from './_pages/movies/movies.component';
 import {TvShowsComponent} from './_pages/tv-shows/tv-shows.component';
 import {PeopleComponent} from './_pages/people/people.component';
+import {SearchComponent} from './_pages/search/search.component';
 
 const routes: Routes = [
   { path: '', component: FrontPageComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'person/:id', component: PersonComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'tv-shows', component: TvShowsComponent },
-  { path: 'people', component: PeopleComponent }
+  { path: 'people', component: PeopleComponent },
+  { path: 'search', component: SearchComponent }
 ];
 
 

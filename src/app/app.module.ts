@@ -38,6 +38,7 @@ import { PeopleComponent } from './_pages/people/people.component';
 import { ListComponent } from './list/list.component';
 import { FiltersComponent } from './filters/filters.component';
 import { HeaderTwoComponent } from './header-two/header-two.component';
+import { SearchComponent } from './_pages/search/search.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { HeaderTwoComponent } from './header-two/header-two.component';
     PeopleComponent,
     ListComponent,
     FiltersComponent,
-    HeaderTwoComponent
+    HeaderTwoComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

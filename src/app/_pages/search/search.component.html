@@ -1,0 +1,24 @@
+<app-header-two [type]="'Search'"></app-header-two>
+<div class="search-filters">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <input [(ngModel)]="query" (keyup)="attemptSearch()" (keydown)="clearTimeout1()" class="search-filters__input" type="text" placeholder="Search here...">
+        <div (click)="changeSearchMode('movie')"
+             [class]="searchType === 'movie' ? 'search-filters__group search-filters__group--active' : 'search-filters__group'">
+          <i class="search-filters__checkbox fas fa-check"></i> <span class="search-filters__text">Movies</span>
+        </div>
+        <div (click)="changeSearchMode('tv')"
+             [class]="searchType === 'tv' ? 'search-filters__group search-filters__group--active' : 'search-filters__group'">
+          <i class="search-filters__checkbox fas fa-check"></i> <span class="search-filters__text">Tv Shows</span>
+        </div>
+        <div (click)="changeSearchMode('person')"
+             [class]="searchType === 'person' ? 'search-filters__group search-filters__group--active' : 'search-filters__group'">
+          <i class="search-filters__checkbox fas fa-check"></i> <span class="search-filters__text">People</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-list [items]="items" [type]="searchType" [itemsLoaded]="moviesLoaded" [loadingList]="loadingList"
+          (newPageEvent)="addMoreItems($event)" [totalResults]="totalResults"></app-list>

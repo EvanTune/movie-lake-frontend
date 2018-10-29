@@ -8,7 +8,7 @@ import { TvService } from '../../_services/tv.service';
 })
 export class TvShowsComponent implements OnInit {
 
-  shows: object[] = [{}, {}, {}, {}, {}, {}, {}, {}];
+  shows: object[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
   sort: string = 'popularity.desc';
   year: string = '';
   genres = [];

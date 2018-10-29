@@ -1,31 +1,36 @@
-<div class="top-bar-search">
+<form class="top-bar-search">
 
   <img *ngIf="loading && !mobileMode" class="top-bar-search__loading" src="/assets/images/loader-search.gif" alt="">
   <i class="fas fa-search top-bar-search__search-icon"></i>
-  <i class="fas fa-times top-bar-search__close-icon" *ngIf="query.length > 0 && !loading && !mobileMode" (click)="clearQuery()"></i>
+  <i class="fas fa-times top-bar-search__close-icon" *ngIf="query.length > 0 && !loading && !mobileMode"
+     (click)="clearQuery()"></i>
 
-  <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query"
-         placeholder="Search for movie, tv-show or actor ..." class="top-bar-search__input" type="text">
+  <input [disabled]="disableInput" (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query"
+         placeholder="Search for movie, tv-show or actor ..." class="top-bar-search__input" type="text" name="search">
+  <button [hidden]="true" type="submit" (click)="navigateToSearchPage()"></button>
+  <button *ngIf="!disableInput" (click)="mobileSearchMode=true;" class="top-bar-search-mobile__btn"><i class="fas fa-search"></i></button>
 
-  <button (click)="mobileSearchMode=true;" class="top-bar-search-mobile__btn"><i class="fas fa-search"></i></button>
-
-</div>
+</form>
 
 <div *ngIf="mobileSearchMode" class="top-bar-search-mobile">
 
   <div class="top-bar-search-mobile__container">
     <div class="container position-relative">
-      <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query" placeholder="Search for movie, tv-show or actor ..." type="text"
+      <input (keyup)="attemptSearch()" (keydown)="clearTimeout1()" [(ngModel)]="query"
+             placeholder="Search for movie, tv-show or actor ..." type="text"
              class="top-bar-search-mobile__input">
       <i *ngIf="!loading" (click)="closeSearch()" class="top-bar-search-mobile__close fas fa-times"></i>
-      <img *ngIf="mobileMode && loading" class="top-bar-search-mobile__loading" src="/assets/images/loader-search.gif" alt="">
+      <img *ngIf="mobileMode && loading" class="top-bar-search-mobile__loading" src="/assets/images/loader-search.gif"
+           alt="">
     </div>
 
   </div>
 
 </div>
 
-<div class="search-results" [exclude]="'.top-bar-search__input,.top-bar-search-mobile__btn,.top-bar-search-mobile,.top-bar-search-mobile__input,.top-bar-search-mobile__container,.container'" (clickOutside)="clearQuery()"
+<div class="search-results"
+     [exclude]="'.top-bar-search__input,.top-bar-search-mobile__btn,.top-bar-search-mobile,.top-bar-search-mobile__input,.top-bar-search-mobile__container,.container'"
+     (clickOutside)="clearQuery()"
      [@resultsContainer]="containerState">
 
   <div class="container-fluid">
@@ -33,6 +38,7 @@
       <div class="col-sm-12 col-md-4">
         <div class="search-results__group">
           <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">Movies</div>
+          <a class="search-results__more" [@header]="showHeaders ? 'open' : 'closed'" [routerLink]="'/search'" [queryParams]="{query: query, type: 'movie'}">More results</a>
           <p class="search-results__not-found" *ngIf="!movies.length && showNotFoundText"
              [@header]="showNotFoundText ? 'open' : 'closed'">No movies found matching search.</p>
           <ng-container *ngFor="let movie of movies; let i = index">
@@ -49,6 +55,7 @@
       <div class="col-sm-12 col-md-4">
         <div class="search-results__group">
           <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">Tv shows</div>
+          <a class="search-results__more" [@header]="showHeaders ? 'open' : 'closed'" [routerLink]="'/search'" [queryParams]="{query: query, type: 'tv'}">More results</a>
           <p class="search-results__not-found" *ngIf="!tv.length  && showNotFoundText"
              [@header]="showNotFoundText ? 'open' : 'closed'">No tv shows found matching search.</p>
           <ng-container *ngFor="let show of tv; let i = index">
@@ -65,6 +72,7 @@
       <div class="col-sm-12 col-md-4">
         <div class="search-results__group">
           <div class="search-results__header" [@header]="showHeaders ? 'open' : 'closed'">People</div>
+          <a class="search-results__more" [@header]="showHeaders ? 'open' : 'closed'" [routerLink]="'/search'" [queryParams]="{query: query, type: 'person'}">More results</a>
           <p class="search-results__not-found" *ngIf="!people.length  && showNotFoundText"
              [@header]="showNotFoundText ? 'open' : 'closed'">No people found matching search.</p>
           <ng-container *ngFor="let person of people; let i = index">

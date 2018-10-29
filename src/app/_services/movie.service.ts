@@ -49,17 +49,22 @@ export class MovieService {
     get(environment.api_path + 'movie/' + id + '/images');
   }
 
-  getSearch(query) {
-    return this.httpClient.
-    get(environment.api_path + 'search?query=' + query);
-  }
-
   getDiscover(sort, year, genres, page) {
 
     console.log('discover/movie?sort=' + sort + '&year=' + year + '&genres=' + genres);
 
     return this.httpClient.
     get(environment.api_path + 'discover/movie?sort=' + sort + '&year=' + year + '&genres=' + genres + '&page=' + page);
+  }
+
+  getSearchMulti(query, page) {
+    return this.httpClient.
+    get(environment.api_path + 'search/multi?query=' + query + '&page=' + page);
+  }
+
+  getSearch(query, page) {
+    return this.httpClient.
+    get(environment.api_path + 'search/movie?query=' + query + '&page=' + page);
   }
 
 }

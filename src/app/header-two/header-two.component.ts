@@ -10,7 +10,8 @@ export class HeaderTwoComponent implements OnInit {
   @Input() type;
   images = {
     'Tv Shows': ['/assets/images/tv-header.jpg', '35%'],
-    'Movies': ['/assets/images/movies-header.jpg', '32%']
+    'Movies': ['/assets/images/movies-header.jpg', '32%'],
+    'Search': ['/assets/images/search-header.jpg', '32%']
   };
 
   constructor() { }

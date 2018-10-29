@@ -1,0 +1,118 @@
+.search-filters {
+
+  background-color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  &__input {
+    padding-left: 15px;
+    height: 42px;
+    border: 1px solid #e1e1e1;
+    margin-right: 20px;
+    float: left;
+    min-width: 100%;
+    background-color: #ebebeb;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  &__group {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    padding: 8px 20px;
+    border-radius: 25px;
+    color: black;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    float: none;
+    min-height: 48px;
+    transition: 0.25s all ease-out;
+    margin: 15px 0;
+    border: 1px solid #f0f0f0;
+  }
+
+  &__group:hover {
+    background-color: #004eff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+    border: 1px solid #004eff;
+
+    .search-filters__text {
+      color: white;
+    }
+  }
+
+  &__text {
+    color: #5e5e5e;
+  }
+
+  .search-filters__checkbox {
+    display: none;
+  }
+
+  &__group--active {
+    background-color: #004eff;
+    border: 1px solid #004eff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+    .search-filters__checkbox {
+      color: white;
+      opacity: 1;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .search-filters__text {
+      color: white;
+    }
+
+  }
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .search-filters {
+    &__group {
+      float: left;
+      margin: 0 0 0 20px;
+      min-height: 39px;
+    }
+
+    &__input {
+      margin: 0;
+      min-width: 295px;
+    }
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .search-filters {
+    &__input {
+      min-width: 400px;
+    }
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+
+}
+
+
+
