@@ -1,4 +1,4 @@
-<section class="section section--lg" [ngStyle]="{'background': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(' + tv['backdrop_path'] + ') top / cover'}">
+<section class="section section--lg" [ngStyle]="{'background': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(' + tv['backdrop_path'] + ') top / cover'}">
 
   <div class="container tv-window">
     <div class="row justify-content-center">
@@ -37,7 +37,7 @@
 
 
           <div class="tv-window__bottom">
-            <div class="tv-window__score" *ngIf="tvLoaded">{{ roundToNearestInt(tv['vote_average']) }}</div>
+            <div [class]="'tv-window__score tv-window__score--' + getScoreColorFromScore(tv['vote_average'].toFixed(1))" *ngIf="tvLoaded && tv['vote_average'] > 0">{{ tv['vote_average'].toFixed(1) }}</div>
             <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-heart"></i></span>
             <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-list"></i></span>
             <span class="tv-window__circle" *ngIf="tvLoaded"><i class="fas fa-eye"></i></span>
@@ -161,12 +161,13 @@
 
 </section>
 
-<section class="item-cast section section--white section--md">
+<section class="section section--white section--md">
 
   <div class="container">
     <div class="row">
 
       <div class="col-md-12">
+
         <app-cast [cast]="cast" [crew]="crew"></app-cast>
       </div>
 

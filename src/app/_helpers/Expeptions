@@ -1,0 +1,16 @@
+function getJsonFromExeptionString(string) {
+
+  let index = 0;
+
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === '{') {
+      index = i;
+      break;
+    }
+  }
+
+  return JSON.parse(string.substring(index, 300));
+
+}
+
+export { getJsonFromExeptionString };

@@ -1,3 +1,3 @@
-<div class="button-img" [ngClass]="{'button-img--blue': color == 'blue'}">
-  <button class="button-img__btn">{{ text}}</button>
-</div>
+<a (click)="navigateToRoute()" class="button-img" [ngClass]="{'button-img--blue': color == 'blue'}">
+  <button class="button-img__btn">{{ text }}</button>
+</a>

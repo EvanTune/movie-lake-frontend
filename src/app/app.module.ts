@@ -39,6 +39,7 @@ import { ListComponent } from './list/list.component';
 import { FiltersComponent } from './filters/filters.component';
 import { HeaderTwoComponent } from './header-two/header-two.component';
 import { SearchComponent } from './_pages/search/search.component';
+import { NotFoundComponent } from './_pages/notfound/notfound.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { SearchComponent } from './_pages/search/search.component';
     ListComponent,
     FiltersComponent,
     HeaderTwoComponent,
-    SearchComponent
+    SearchComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,13 @@
 <div class="movie-slider">
 
   <div class="container">
-    <app-header-one title="In Theatres" color="white"></app-header-one>
+    <app-header-one [route]="'/movies'" [sort]="'now_playing.desc'" title="In Theatres" color="white"></app-header-one>
   </div>
 
 <div #slider class="movie-slider__slider"
      (panstart)="setOffset($event)" (panright)="panRight($event)"
-     (panleft)="panLeft($event)" (panend)="panEnd($event)"
+     (panleft)="panLeft($event)" (panend)="panEnd($event)">
 
-
-
->
   <ng-container *ngFor="let movie of movies">
     <div class="movie-slider__item" (tap)="navigateToMovie(movie.id)">
       <img class="movie-slider__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">

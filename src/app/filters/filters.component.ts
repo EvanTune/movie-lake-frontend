@@ -26,9 +26,10 @@ export class FiltersComponent implements OnInit {
   @Input() allGenres;
   @Input() loadingList;
   @Input() type;
+  @Input() year;
+  @Input() sort;
   @Output() changedEvent = new EventEmitter();
   @ViewChild('genreSelect') genreSelect: ElementRef;
-
 
   constructor() {
   }

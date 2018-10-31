@@ -16,13 +16,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6));
   }
 
   &__img {
     width: 100%;
     border-radius: 3px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.16);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     min-height: 435px;
   }
 
@@ -52,7 +52,7 @@
     margin-top: 12px;
     letter-spacing: 1px;
     font-size: 0.9rem;
-    color: #575757;
+    color: $primaryDarker;
   }
 
   &__meta-placeholder {
@@ -78,23 +78,20 @@
   }
 
   &__bottom {
-    border-top: 1px solid #ebebeb;
+    border-top: 1px solid #f0f0f0;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding-top: 15px;
   }
 
   &__circle {
-    margin-right: 20px;
+    margin-right: 15px;
     display: inline-block;
     height: 40px;
     width: 40px;
     line-height: 41px;
-    background-color: white;
-    font-size: 0.9rem;
-    color: black;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    border: 1px solid #ebebeb;
+    font-size: 1.2rem;
+    color: #5d5d5d;
     border-radius: 50%;
     text-align: center;
   }
@@ -108,10 +105,101 @@
     font-size: 1.1rem;
     color: white;
     font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 3px;
     text-align: center;
     margin-right: 40px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  &__score--green {
+    background-color: $score-green;
+  }
+  &__score--yellow {
+    background-color: $score-yellow;
+  }
+  &__score--red {
+    background-color: $score-red;
+  }
+
+  &__youtube {
+    border: none;
+    background-color: transparent;
+    display: block;
+    padding: 5px 10px 5px 10px;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  &__youtube:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  }
+
+  &__youtube:focus {
+    outline: none;
+  }
+
+  &__youtube-text {
+    color: #5f5f5f;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  &__youtube-icon {
+    color: red;
+    font-size: 1.3rem;
+    float: left;
+    margin-top: 2px;
+    margin-right: 12px;
+  }
+
+}
+
+/***************************
+ *  TRAILER
+ ***************************/
+.trailer {
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: none;
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  &__exit {
+    margin: 10px 0;
+    background-color: transparent;
+    color: black;
+    border: none;
+    display: none;
+  }
+
+
+  &__main {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  &__trailer {
+    width: 100%;
+    height: calc(100vh - 46px);
   }
 
 }
@@ -119,11 +207,11 @@
 .item-window-crew {
 
   position: absolute;
-  bottom: 77px;
+  bottom: 90px;
   left: 0;
   right: 0;
-  padding: 15px 35px 15px 35px;
-  border-top: 1px solid #ebebeb;
+  padding: 16px 35px 16px 35px;
+  border-top: 1px solid #f0f0f0;
   width: 100%;
   display: none;
 
@@ -192,13 +280,13 @@
   }
 
   &__header {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     font-size: 0.9rem;
   }
 
   &__value {
-    font-weight: 600;
-    color: #3f3f3f;
+    font-weight: 500;
+    color: $primaryDarker;
   }
 
   &__trailer {
@@ -249,6 +337,13 @@
     &__title {
       font-size: 1.8rem;
     }
+
+    &__youtube {
+      margin-left: 20px;
+      display: inline-block;
+      padding: 5px 10px 5px 10px;
+      border-radius: 3px;
+    }
   }
 
   .item-window-crew {
@@ -290,6 +385,42 @@
 
   }
 
+  .trailer {
+
+    &__main {
+      height: 500px;
+      position: relative;
+      margin-top: 60px;
+    }
+
+    &__container {
+      width: 750px;
+      margin: 0 auto;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 500px;
+      left: 0;
+    }
+
+    &__trailer {
+      height: 454px;
+    }
+
+    &__exit  {
+      color: grey;
+    }
+
+    &__exit:hover  {
+      color: black;
+    }
+
+    &__exit:focus {
+      outline: none;
+    }
+
+  }
+
 }
 
 // Large devices (desktops, 992px and up)
@@ -315,6 +446,14 @@
     }
   }
 
+  .item-info {
+    .row .col-md-4:nth-child(5) .item-info__item,
+    .row .col-md-4:nth-child(6) .item-info__item,
+    .row .col-md-4:nth-child(7) .item-info__item {
+      margin-bottom: 0;
+    }
+  }
+
   .item-window-crew {
     padding-left: 20px;
   }
@@ -332,7 +471,7 @@
 
     &__container {
       padding: 30px 35px 35px 35px;
-      height: 410px;
+      height: 412px;
     }
 
     &__bottom {
@@ -342,6 +481,23 @@
 
   .item-window-crew {
     padding-left: 35px;
+  }
+
+  .trailer {
+
+    &__main {
+      height: 500px;
+    }
+
+    &__container {
+      height: 600px;
+      width: 992px;
+    }
+
+    &__trailer {
+      height: 554px;
+    }
+
   }
 
 }

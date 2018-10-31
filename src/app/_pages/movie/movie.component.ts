@@ -1,14 +1,46 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MovieService} from '../../_services/movie.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {getLangugaeFromIso} from '../../_helpers/language';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {getScoreColorFromScore} from '../../_helpers/score';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-item',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.scss']
+  styleUrls: ['./movie.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('show', style({
+        opacity: '1'
+      })),
+      state('hide', style({
+        opacity: '0'
+      })),
+      transition('show => hide', [
+        animate('0.3s ease-out')
+      ]),
+      transition('hide => show', [
+        animate('0.3s ease-in')
+      ])
+    ]),
+    trigger('slideBody', [
+      state('show', style({
+        height: '100%'
+      })),
+      state('hide', style({
+        height: '0'
+      })),
+      transition('show => hide', [
+        animate('0.6s ease-in-out')
+      ]),
+      transition('hide => show', [
+        animate('0.6s ease-in-out')
+      ])
+    ]),
+  ]
 })
 export class MovieComponent implements OnInit {
 
@@ -22,6 +54,7 @@ export class MovieComponent implements OnInit {
   trailerUrl: SafeUrl;
 
   movieLoaded: boolean;
+  getScoreColorFromScore = getScoreColorFromScore;
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -29,11 +62,20 @@ export class MovieComponent implements OnInit {
     minimumFractionDigits: 2
   });
 
+  showTrailer: boolean;
+  showOverlay: boolean;
+  showBody: boolean;
+  showExitBtn: boolean;
+  @ViewChild('trailer') trailer: ElementRef;
+  @ViewChild('modalExitBtn') modalExitBtn: ElementRef;
+  @ViewChild('videoTrailer') videoTrailer: ElementRef;
+
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService,
     private location: Location,
     private sanitizer: DomSanitizer,
+    private router: Router
   ) {
     route.params.subscribe(val => {
 
@@ -49,8 +91,40 @@ export class MovieComponent implements OnInit {
     });
   }
 
-  roundToNearestInt(number: number): number {
-    return Math.round(number);
+  showTrailerModal() {
+
+    this.showOverlay = true;
+
+    setTimeout(() => {
+      this.showBody = true;
+    }, 400);
+    setTimeout(() => {
+      this.showTrailer = true;
+      this.modalExitBtn.nativeElement.style.display = 'inline-block';
+      this.showExitBtn = true;
+
+    }, 900);
+    this.trailer.nativeElement.style.display = 'block';
+
+  }
+
+  exitTrailerModal() {
+    this.showTrailer = false;
+    this.showExitBtn = false;
+
+    setTimeout(() => {
+      this.showBody = false;
+    }, 300);
+    setTimeout(() => {
+      this.showOverlay = false;
+    }, 800);
+    setTimeout(() => {
+      this.trailer.nativeElement.style.display = 'none';
+    }, 1100);
+  }
+
+  stopBodyProp(e) {
+    e.stopPropagation();
   }
 
   clearPrev(): void {
@@ -74,7 +148,7 @@ export class MovieComponent implements OnInit {
       }
       genres += this.movie['genres'][i].name;
 
-      if (i < 2) {
+      if (i < 2 && i !== this.movie['genres'].length - 1) {
         genres += ', ';
       }
 
@@ -116,10 +190,14 @@ export class MovieComponent implements OnInit {
   }
 
   setupMovie() {
+
     this.movie = {
       'poster_path': '/assets/images/placeholder-poster.png'
     };
     this.movieService.getMovie(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        this.router.navigate(['/404']);
+      }
       this.movie = data;
       this.movie['poster_path'] = 'https://image.tmdb.org/t/p/w300' + this.movie['poster_path'];
       this.movieLoaded = true;
@@ -128,10 +206,13 @@ export class MovieComponent implements OnInit {
 
   setupMovieVideos(): void {
     this.movieService.getMovieVideos(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
       this.videos = data['results'];
 
       if (this.videos.length) {
-        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0]['key']);
+        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videos[0]['key'] + '?enablejsapi=1');
       }
 
     });
@@ -139,6 +220,9 @@ export class MovieComponent implements OnInit {
 
   setupMovieCredits(): void {
     this.movieService.getMovieCredits(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
       this.crew = data['crew'];
       this.cast = data['cast'];
     });
@@ -146,6 +230,9 @@ export class MovieComponent implements OnInit {
 
   setupMovieImages(): void {
     this.movieService.getMovieImages(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
       this.images = data['backdrops'];
     });
   }

@@ -10,6 +10,7 @@ import {MoviesComponent} from './_pages/movies/movies.component';
 import {TvShowsComponent} from './_pages/tv-shows/tv-shows.component';
 import {PeopleComponent} from './_pages/people/people.component';
 import {SearchComponent} from './_pages/search/search.component';
+import {NotFoundComponent} from './_pages/notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', component: FrontPageComponent },
@@ -21,7 +22,9 @@ const routes: Routes = [
   { path: 'movies', component: MoviesComponent },
   { path: 'tv-shows', component: TvShowsComponent },
   { path: 'people', component: PeopleComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 

@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  min-height: 300px;
 
   &__container {
     height: 100%;
@@ -12,6 +13,8 @@
     padding-bottom: 18px;
     margin-bottom: -18px;
     white-space: nowrap;
+    padding-left: 5px;
+    padding-top: 5px;
   }
 
   &__container:hover {
@@ -20,15 +23,17 @@
 
   &__item {
     display: inline-block;
-    width: 150px;
+    width: 160px;
     margin-right: 20px;
     transition: 0.15s all;
     vertical-align: top;
+    backface-visibility: hidden;
+    transform: translateZ(0);
     height: 100%;
   }
 
   &__item:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
 
   img {
@@ -63,7 +68,7 @@
   &__item {
     box-shadow: 0 2px 4px rgba(0,0,0,.05);
     height: 100%;
-    background-color: #272727;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -78,6 +83,45 @@
   &__name {
     font-weight: 600;
     font-size: 0.9rem;
+    white-space: normal;
+  }
+
+}
+
+.scrollable-known-for {
+
+  margin-top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-left: 2px;
+  padding-right: 2px;
+
+  &__img {
+    width: 100%;
+    border-radius: 3px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 5px;
+    white-space: normal;
+    margin-bottom: 0;
+  }
+
+  &__item {
+    width: 162px;
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+    vertical-align: top;
+  }
+
+  &__item:hover {
+    cursor: pointer;
   }
 
 }

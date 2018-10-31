@@ -1,7 +1,9 @@
+@import "../../_sass/variables";
+
 .tv-window {
 
   &__title {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 15px;
   }
@@ -23,23 +25,25 @@
   }
 
   &__bottom {
-    border-top: 1px solid #ebebeb;
+    //border-top: 1px solid #ebebeb;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding-top: 15px;
+    //background-color: #f3f3f3;
+    border-top: 1px solid #f0f0f0;
   }
 
   &__circle {
-    margin-right: 20px;
+    margin-right: 15px;
     display: inline-block;
     height: 40px;
     width: 40px;
     line-height: 41px;
-    background-color: white;
-    font-size: 0.9rem;
-    color: black;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    border: 1px solid #ebebeb;
+    //background-color: white;
+    font-size: 1.2rem;
+    color: #6a6a6a;
+    //box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    //border: 1px solid #ebebeb;
     border-radius: 50%;
     text-align: center;
   }
@@ -53,10 +57,21 @@
     font-size: 1.1rem;
     color: white;
     font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 3px;
     text-align: center;
     margin-right: 40px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  &__score--green {
+    background-color: $score-green;
+  }
+  &__score--yellow {
+    background-color: $score-yellow;
+  }
+  &__score--red {
+    background-color: $score-red;
   }
 
   &__seasons {
@@ -83,18 +98,18 @@
 .tv-info {
 
   &__item {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
   }
 
   &__header {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     font-weight: 400;
     font-size: 0.9rem;
   }
 
   &__value {
-    font-weight: 600;
-    color: #3f3f3f;
+    font-weight: 500;
+    color: $primaryDarker;
     font-size: 1rem;
   }
 
@@ -144,7 +159,7 @@
 
     &__seasons {
       position: absolute;
-      bottom: 89px;
+      bottom: 96px;
       margin-bottom: 0;
     }
 

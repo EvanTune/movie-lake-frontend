@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
   ) {
     // Route params updated
     this.route.queryParams.subscribe(params => {
-      if(this.query.length > 1) {
+      if (params['query'] && params['query'].length > 1) {
         this.query = params['query'];
       }
       if (params['type'] === 'movie') {

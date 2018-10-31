@@ -1,0 +1,40 @@
+@import "../../_sass/variables";
+
+.not-found {
+  text-align: center;
+  margin: 200px 0 500px 0;
+
+  &__img {
+    height: 150px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    border-radius: 50%;
+    margin-bottom: 25px;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-weight: 100;
+    margin-bottom: 50px;
+    font-size: 1.5rem;
+  }
+
+  &__btn {
+    background-color: $primary;
+    color: white;
+    border: none;
+    padding: 12px 17px;
+    border-radius: 3px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    transition: 0.15s;
+  }
+
+  &__btn:hover {
+    background-color: $primaryDarker;
+  }
+
+}

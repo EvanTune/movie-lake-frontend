@@ -77,71 +77,11 @@ export class PersonComponent implements OnInit {
     return age;
   }
 
-  setOffset(e: object): void {
-    if (!this.scrolling) {
-      const screenWidth = e['center'];
-      this.currentOffset = this.knownEle.nativeElement.scrollLeft;
-      this.last = e['center'].x;
-
-    }
-  }
-
-  panRight(e: object): void {
-    if (!this.scrolling) {
-      this.knownEle.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
-    }
-  }
-
-  panLeft(e: object): void {
-    if (!this.scrolling) {
-      this.knownEle.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
-    }
-  }
-
-  panEnd(e: object): void {
-    if (!this.scrolling) {
-
-      if (Math.abs(e['overallVelocity']) > 0.6 && e['distance'] < 600) {
-        this.acceleration = Math.floor(e['overallVelocity'] * 22);
-      } else {
-        this.acceleration = 0;
-      }
-
-      this.scrolling = true;
-      this.panInterval = setInterval(() => {
-
-        if (this.acceleration > 0) {
-
-          this.knownEle.nativeElement.scrollLeft -= this.acceleration;
-
-          if (this.knownEle.nativeElement.scrollLeft <= 0) {
-            this.acceleration = 0;
-          } else {
-            this.acceleration--;
-          }
-
-        } else if (this.acceleration < 0) {
-
-          this.knownEle.nativeElement.scrollLeft -= this.acceleration;
-
-          if (this.knownEle.nativeElement.scrollLeft >= this.knownEle.nativeElement.scrollWidth - this.knownEle.nativeElement.clientWidth) {
-            this.acceleration = 0;
-          } else {
-            this.acceleration++;
-          }
-
-        } else {
-          clearInterval(this.panInterval);
-          this.scrolling = false;
-
-        }
-
-      }, 16);
-    }
-  }
-
   setupCredits(): void {
     this.peopleService.getCredits(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
 
       for (let i = 0; i < data['cast'].length; i++) {
         if (data['cast'][i]['media_type'] === 'movie' || data['cast'][i]['media_type'] === 'tv') {
@@ -193,6 +133,9 @@ export class PersonComponent implements OnInit {
       'profile_path': '/assets/images/placeholder-poster.png'
     };
     this.peopleService.getPerson(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        this.router.navigate(['/404']);
+      }
       this.person = data;
       this.person['profile_path'] = 'https://image.tmdb.org/t/p/w300' + this.person['profile_path'];
       this.personLoaded = true;
@@ -202,6 +145,9 @@ export class PersonComponent implements OnInit {
 
   setupImages(): void {
     this.peopleService.getImages(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
       this.images = data['profiles'];
     });
   }

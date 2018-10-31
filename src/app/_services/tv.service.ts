@@ -14,6 +14,10 @@ export class TvService {
     get(environment.api_path + 'tv/' + id);
   }
 
+  getPopularTv() {
+    return this.httpClient.get(environment.api_path + 'tv/popular');
+  }
+
   getTvImages(id) {
     return this.httpClient.
     get(environment.api_path + 'tv/' + id + '/images');

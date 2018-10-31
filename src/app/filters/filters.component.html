@@ -11,18 +11,21 @@
             <option *ngFor="let genre of allGenres" [value]="genre['id']">{{ genre['name'] }}</option>
           </select>
         </div>
+
         <div *ngIf="type === 'movie' || type === 'tv'" class="filters__group">
           <label for="">Year</label>
-          <select [disabled]="loadingList" (change)="changedEvent.emit({ value: $event.target.value, type: 'year' })" name="year">
+          <select [(ngModel)]="year" [disabled]="loadingList || sort === 'now_playing.desc'" (change)="changedEvent.emit({ value: $event.target.value, type: 'year' })" name="year">
             <option value="">All years</option>
             <option *ngFor="let year of years" [value]="year">{{ year }}</option>
           </select>
         </div>
+
         <div *ngIf="type === 'movie' || type === 'tv'" class="filters__group">
           <label for="">Sort</label>
-          <select [disabled]="loadingList" name="sort" (change)="changedEvent.emit({ value: $event.target.value, type: 'sort' })">
+          <select [(ngModel)]="sort" [disabled]="loadingList" name="sort" (change)="changedEvent.emit({ value: $event.target.value, type: 'sort' })">
             <option value="popularity.desc">Popularity</option>
             <option value="vote_average.desc">Top rated</option>
+            <option *ngIf="type === 'movie'" value="now_playing.desc">In Theatres</option>
           </select>
         </div>
 

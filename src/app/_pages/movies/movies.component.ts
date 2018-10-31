@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MovieService} from '../../_services/movie.service';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-movies',
@@ -96,14 +99,42 @@ export class MoviesComponent implements OnInit {
   ];
 
   constructor(
-    private movieService: MovieService
+    private movieService: MovieService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+    this.route.queryParams.subscribe(params => {
+      this.setupDataFromParams(params);
+      this.addMovies(this.getGenreString(), 1);
+    });
+
+  }
+
+  setupDataFromParams(params) {
+    if (params['year']) {
+      this.year = params['year'];
+    }
+    if (params['sort']) {
+      this.sort = params['sort'];
+    }
+
+    if (this.selectedGenres.length === 0 && params['genres']) {
+      const genreIds = params['genres'].split(',');
+
+      for (let i = 0; i < genreIds.length; i++) {
+        for (let j = 0; j < this.allGenres.length; j++) {
+          if (!parseInt(genreIds[i], 10)) {
+            continue;
+          }
+          if (parseInt(genreIds[i], 10) === this.allGenres[j]['id']) {
+            this.selectedGenres.push(this.allGenres[j]);
+          }
+        }
+      }
+    }
   }
 
   ngOnInit() {
-
-    const s = this.getGenreString();
-    this.addMovies(s, 1);
 
   }
 
@@ -119,7 +150,24 @@ export class MoviesComponent implements OnInit {
       }
     }
 
-    this.movieService.getDiscover(this.sort, this.year, genres, page).subscribe(data => {
+    let dateGreaterThan = null;
+    let dateLesserThan = null;
+
+    if (this.sort === 'now_playing.desc') {
+      const nowDate = new Date();
+      const nextDate = new Date();
+
+      const nextMonth = nextDate.setMonth(nowDate.getMonth() + 1);
+
+      const nowDateString = formatDate(nowDate, 'yyyy-M-dd', 'en-gb');
+      const nextMonthString = formatDate(nextMonth, 'yyyy-M-dd', 'en-gb');
+
+      dateGreaterThan = nowDateString;
+      dateLesserThan = nextMonthString;
+    }
+
+
+    this.movieService.getDiscover(this.sort, this.year, genres, page, dateGreaterThan, dateLesserThan).subscribe(data => {
 
       if (page === 1) {
         this.movies = data['results'];
@@ -132,6 +180,7 @@ export class MoviesComponent implements OnInit {
         this.movies[i]['image'] = 'https://image.tmdb.org/t/p/w342' + this.movies[i]['poster_path'];
         this.movies[i]['image_mobile'] = 'https://image.tmdb.org/t/p/w780' + this.movies[i]['backdrop_path'];
         this.movies[i]['loaded'] = true;
+        this.movies[i]['date'] = this.movies[i]['release_date'];
       }
 
       this.moviesLoaded = true;
@@ -139,6 +188,10 @@ export class MoviesComponent implements OnInit {
 
     });
 
+  }
+
+  changeURL(sort, year, genres) {
+    this.router.navigate(['/movies'], {queryParams: {sort: sort, year: year, genres: genres}});
   }
 
   getGenreString() {
@@ -169,6 +222,7 @@ export class MoviesComponent implements OnInit {
         this.selectedGenres.push(event);
         const s = this.getGenreString();
         this.addMovies(s, 1);
+        this.changeURL(this.sort, this.year, this.getGenreString());
       }, delay);
 
     } else {
@@ -180,8 +234,8 @@ export class MoviesComponent implements OnInit {
 
       const s = this.getGenreString();
       this.addMovies(s, 1);
+      this.changeURL(this.sort, this.year, this.getGenreString());
     }
-
   }
 
   addMoreMovie(value) {

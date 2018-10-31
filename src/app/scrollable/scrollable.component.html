@@ -4,6 +4,7 @@
        (panleft)="panLeft($event)" (panend)="panEnd($event)">
 
     <ng-container *ngFor="let item of items; let i = index">
+
       <div class="scrollable__item" *ngIf="component === 'seasons'" (tap)="navigateToSeason(item['season_number'])">
         <div class="scrollable-seasons__item">
           <div class="scrollable-seasons__img-container">
@@ -15,6 +16,14 @@
           </div>
         </div>
       </div>
+
+      <div class="scrollable__item" *ngIf="component === 'known-for' && i < 12" (tap)="navigateToItem('/' +item['media_type'] + '/', item.id)">
+        <div class="scrollable-known-for__item">
+          <img class="scrollable-known-for__img" src="https://image.tmdb.org/t/p/w185{{ item['poster_path']}}" alt="">
+          <h3 class="scrollable-known-for__title">{{ item['title'] ? item['title'] : item['name'] }}</h3>
+        </div>
+      </div>
+
     </ng-container>
 
   </div>

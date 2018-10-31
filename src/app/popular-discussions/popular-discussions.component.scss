@@ -1,23 +1,79 @@
 @import "../_sass/variables";
 
-.popular-discussions {
+.featured-show {
 
-  padding: 10px;
-
-  &__title {
-    font-size: 0.8rem;
-    color: black;
-    font-weight: 400;
+  position: relative;
+  &__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 
-  &__text {
+  &__container {
+    padding: 20px;
+  }
+
+  &__title {
+    color: #eeeeee;
+    font-size: 1rem;
+  }
+
+  &__overview {
+    color: #f8f8f8;
     font-size: 0.9rem;
-    font-weight: 600;
-    color: black;
+    margin-bottom: 0;
   }
 
   &__item {
-    padding: 10px;
+    display: block;
+    margin-bottom: 20px;
   }
+
+  &__item:hover {
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+  .featured-show {
+
+    &__item {
+      height: 280px;
+      border-radius: 3px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+  }
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+  .featured-show {
+
+    &__item {
+
+      height: 197px;
+
+    }
+
+  }
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
 
 }

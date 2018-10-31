@@ -2,9 +2,10 @@
   border: none;
   width: 100%;
   text-align: left;
-  color: white;
+  color: black;
   //background-image: linear-gradient(to bottom right, #00b5ff, #00a8ff);
   background-color: #00a9ff;
+  background-color: white;
   border-radius: 3px;
   box-shadow: 0 2px 4px rgba(0,0,0,.2);
   margin-bottom: 20px;
@@ -13,9 +14,9 @@
   padding: 0;
 
   &__text {
-    margin-left: 20px;
+    margin-left: 0px;
     font-weight: 100;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     margin-top: 1px;
     font-size: 1.1rem;
   }
@@ -24,19 +25,44 @@
     font-size: 1.5rem;
     display: inline-block;
     padding: 20px;
-    background-color: #0099e7;
+    //background-color: #0099e7;
     width: 63px;
+    color: #0099e7;
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
   }
 
   &__icon--instagram {
-    background-color: #bf10e7;
+    //background-color: #bf10e7;
+    color: #bf10e7;
   }
 
 }
 
 .button-social--instagram {
-  //background-image: linear-gradient(to bottom right, #ac0bff, #ff00ee);
-  background-color: #cf13ff;
+  //background-color: #cf13ff;
+  margin-bottom: 30px;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+
 }

@@ -1,4 +1,5 @@
-<div class="item-window" [style.backgroundImage]="movie['backdrop_path'] ? 'url(https://image.tmdb.org/t/p/w1280'+ movie['backdrop_path'] +')' : ''">
+<div class="item-window"
+     [style.backgroundImage]="movie['backdrop_path'] ? 'url(https://image.tmdb.org/t/p/w1280'+ movie['backdrop_path'] +')' : ''">
 
   <div class="container">
     <div class="row justify-content-center">
@@ -17,9 +18,9 @@
                                [primaryColor]="'#c3c3c3'"
                                [secondaryColor]="'#d7d7d7'">
 
-            <svg:g ngx-rect width="600" height="30" y="0" x="0" rx="5" ry="5"></svg:g>
-            <svg:g ngx-rect width="400" height="20" y="60" x="0" rx="5" ry="5"></svg:g>
-            <svg:g ngx-rect width="800" height="150" y="120" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="600" height="25" y="10" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="400" height="20" y="70" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="800" height="150" y="125" x="0" rx="5" ry="5"></svg:g>
 
           </ngx-content-loading>
 
@@ -32,13 +33,9 @@
           <p class="item-window__overview" *ngIf="movie['overview']">{{ movie['overview']}}</p>
 
           <div class="item-window-crew">
-            <div class="item-window-crew__item" *ngIf="movie['overview']" style="margin-bottom: 5px">
+            <div class="item-window-crew__item" *ngIf="crew.length > 0">
               <span class="item-window-crew__header">Director:</span>
-              <span class="item-window-crew__name" *ngIf="crew.length">{{ getDirector() }}</span>
-            </div>
-            <div class="item-window-crew__item" *ngIf="movie['overview']">
-              <span class="item-window-crew__header">Writer:</span>
-              <span class="item-window-crew__name">Jill Logan</span>
+              <span class="item-window-crew__name">{{ getDirector() }}</span>
             </div>
 
             <ngx-content-loading *ngIf="!movieLoaded"
@@ -48,8 +45,7 @@
                                  [primaryColor]="'#c3c3c3'"
                                  [secondaryColor]="'#d7d7d7'">
 
-              <svg:g ngx-rect width="180" height="15" y="0" x="0" rx="5" ry="5"></svg:g>
-              <svg:g ngx-rect width="180" height="15" y="0" x="220" rx="5" ry="5"></svg:g>
+              <svg:g ngx-rect width="180" height="15" y="9" x="0" rx="5" ry="5"></svg:g>
 
 
             </ngx-content-loading>
@@ -57,10 +53,16 @@
           </div>
 
           <div class="item-window__bottom">
-            <div class="item-window__score" *ngIf="movie['overview']">{{ roundToNearestInt(movie['vote_average']) }}</div>
-            <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-heart"></i></span>
-            <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-list"></i></span>
-            <span class="item-window__circle" *ngIf="movie['overview']"><i class="fas fa-eye"></i></span>
+            <div
+              [class]="'item-window__score item-window__score--' + getScoreColorFromScore(movie['vote_average'].toFixed(1))"
+              *ngIf="movieLoaded && movie['vote_average'] > 0">{{ movie['vote_average'].toFixed(1) }}
+            </div>
+            <span class="item-window__circle" *ngIf="movieLoaded"><i class="fas fa-heart"></i></span>
+            <span class="item-window__circle" *ngIf="movieLoaded"><i class="fas fa-eye"></i></span>
+
+            <button class="item-window__youtube" *ngIf="movieLoaded && videos.length > 0" (click)="showTrailerModal()"><i
+              class="item-window__youtube-icon fab fa-youtube"></i> <span
+              class="item-window__youtube-text">Play trailer</span></button>
 
             <ngx-content-loading *ngIf="!movieLoaded"
                                  [speed]="'1000ms'"
@@ -72,7 +74,7 @@
               <svg:g ngx-circle cy="35" cx="25" r="25" ry="5"></svg:g>
               <svg:g ngx-circle cy="35" cx="125" r="25" ry="5"></svg:g>
               <svg:g ngx-circle cy="35" cx="200" r="25" ry="5"></svg:g>
-              <svg:g ngx-circle cy="35" cx="280" r="25" ry="5"></svg:g>
+              <svg:g ngx-circle cy="35" cx="300" r="25" ry="5"></svg:g>
 
 
             </ngx-content-loading>
@@ -85,89 +87,108 @@
 
 </div>
 
-<!--
-<div class="item-menu">
-  <div class="container">
-    <span class="item-menu__item">Information</span>
-    <span class="item-menu__item">Cast</span>
-    <span class="item-menu__item">Images</span>
+<div class="trailer" #trailer>
+
+  <div class="trailer__overlay" [@fade]="showOverlay ? 'show' : 'hide'" (click)="exitTrailerModal()"></div>
+
+  <div class="trailer__container">
+
+    <div class="trailer__main" [@slideBody]="showBody ? 'show' : 'hide'">
+      <button class="trailer__exit" #modalExitBtn [@fade]="showExitBtn ? 'show' : 'hide'" (click)="exitTrailerModal()"><i class="fas fa-times"></i></button>
+
+
+      <div [@fade]="showTrailer ? 'show' : 'hide'" *ngIf="videos.length > 0">
+        <iframe #videoTrailer class="trailer__trailer" [src]="trailerUrl" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+
+    </div>
+
   </div>
+
 </div>
--->
 
 <div class="item-info section section--md section--white">
 
   <div class="container">
     <div class="row">
 
-      <div class="col-md-12">
-        <h2 class="item-header">General information</h2>
-      </div>
+      <div class="col-md-12" *ngIf="!movieLoaded">
+        <ngx-content-loading
+          [speed]="'1000ms'"
+          [width]="1000"
+          [height]="192"
+          [primaryColor]="'#c3c3c3'"
+          [secondaryColor]="'#d7d7d7'">
 
-      <div class="col-md-12">
-        <ngx-content-loading *ngIf="!movieLoaded"
-                             [speed]="'1000ms'"
-                             [width]="1000"
-                             [height]="300"
-                             [primaryColor]="'#9b9b9b'"
-                             [secondaryColor]="'#afafaf'">
+          <svg:g ngx-rect width="250" height="16" y="10" x="0" rx="5" ry="5"></svg:g>
 
-          <svg:g ngx-rect width="415" height="200" y="0" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="70" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="0" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="0" rx="5" ry="5"></svg:g>
+
+          <svg:g ngx-rect width="150" height="14" y="70" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="340" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="340" rx="5" ry="5"></svg:g>
+
+          <svg:g ngx-rect width="150" height="14" y="70" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="95" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="150" height="14" y="150" x="680" rx="5" ry="5"></svg:g>
+          <svg:g ngx-rect width="100" height="10" y="175" x="680" rx="5" ry="5"></svg:g>
 
 
         </ngx-content-loading>
-        <div *ngIf="videos.length">
-          <iframe class="item-info__trailer" width="560" height="315" [src]="trailerUrl" frameborder="0"
-                  allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
       </div>
 
+      <div class="col-md-12" *ngIf="movieLoaded">
+        <h2 class="item-header">General information</h2>
+      </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Runtime</div>
           <div class="item-info__value">{{ getRuntime(movie['runtime']) }}</div>
         </div>
-
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Release date</div>
           <div class="item-info__value">{{movie['release_date'] | date }}</div>
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Budget</div>
           <div class="item-info__value">{{ getMoney(movie['budget']) }}</div>
         </div>
-
       </div>
 
-    </div>
-    <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Original Language</div>
           <div class="item-info__value" *ngIf="movie['original_language']">{{ getLanguage(movie['original_language']) }}
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Genres</div>
           <div class="item-info__value" *ngIf="movie['genres']">{{ getGenres() }}</div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="movieLoaded">
         <div class="item-info__item">
           <div class="item-info__header">Revenue</div>
           <div class="item-info__value">{{ getMoney(movie['revenue']) }}</div>
         </div>
       </div>
+
     </div>
+
   </div>
 </div>
 

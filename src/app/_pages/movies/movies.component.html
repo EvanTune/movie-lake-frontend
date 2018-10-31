@@ -2,6 +2,6 @@
 
 <app-header-two [type]="'Movies'"></app-header-two>
 <app-filters (changedEvent)="filtersChanged($event)" [selectedGenres]="selectedGenres" [allGenres]="allGenres"
-             [loadingList]="loadingList" [type]="'movie'"></app-filters>
+             [loadingList]="loadingList" [type]="'movie'" [year]="year" [sort]="sort"></app-filters>
 <app-list [items]="movies" [type]="'movie'" [itemsLoaded]="moviesLoaded" [loadingList]="loadingList"
           (newPageEvent)="addMoreMovie($event)" [totalResults]="totalResults"></app-list>

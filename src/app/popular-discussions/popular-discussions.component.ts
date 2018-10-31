@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MOVIES} from '../mock-movies';
+import {truncateText} from '../_helpers/Text';
 
 @Component({
   selector: 'app-popular-discussions',
@@ -8,7 +9,8 @@ import {MOVIES} from '../mock-movies';
 })
 export class PopularDiscussionsComponent implements OnInit {
 
-  movies = MOVIES;
+  @Input() shows;
+  truncateText = truncateText;
 
   constructor() { }
 

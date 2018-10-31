@@ -74,7 +74,6 @@ export class ImagesComponent implements OnInit {
   }
 
   exitImageModal() {
-    console.log('exit');
     this.showContent = false;
 
     setTimeout(() => {

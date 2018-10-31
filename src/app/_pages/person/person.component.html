@@ -46,7 +46,7 @@
                     <div class="person-window-info__title">Age</div>
                     <div class="person-window-info__value">{{ getAge(person['birthday']) }}</div>
                   </div>
-                  <div class="person-window-info__item">
+                  <div *ngIf="person['place_of_birth']" class="person-window-info__item">
                     <div class="person-window-info__title">Place of birth</div>
                     <div class="person-window-info__value">{{ getCountry(person['place_of_birth']) }}</div>
                   </div>
@@ -115,19 +115,8 @@
 
       </ngx-content-loading>
 
-      <div #knownElement class="person-known" (panstart)="setOffset($event)" (panright)="panRight($event)"
-           (panleft)="panLeft($event)" (panend)="panEnd($event)">
-        <ng-container *ngFor="let movie of knownFor; let i = index">
 
-          <div class="person-known__item" *ngIf="i < 12" (tap)="navigateToItem(movie['media_type'], movie.id)">
-            <img class="person-known__img" src="https://image.tmdb.org/t/p/w185{{ movie['poster_path']}}" alt="">
-            <h3 class="person-known__title">{{ movie['title'] ? movie['title'] : movie['name'] }}</h3>
-          </div>
-
-        </ng-container>
-
-
-      </div>
+      <app-scrollable [items]="knownFor" [component]="'known-for'"></app-scrollable>
 
     </div>
 

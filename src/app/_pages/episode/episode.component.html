@@ -1,4 +1,4 @@
-<section class="section section--md">
+<section class="section section--lg">
 
   <div class="container tv-window">
     <div class="row justify-content-center">
@@ -6,23 +6,21 @@
         <img class="episode-window__img" *ngIf="episode['still_path']"
              src="{{ episode['still_path']}}" alt="">
       </div>
-      <div class="col-lg-8">
-        <div class="episode-window__box card">
-          <h1 class="tv-window__title" *ngIf="episodeLoaded">{{ episode['name'] }}</h1>
-          <p class="tv-window__overview" *ngIf="episodeLoaded">{{ episode['overview'] }}</p>
+      <div class="col-lg-7">
+        <div class="episode-window__box">
+          <h1 class="episode-window__title" *ngIf="episodeLoaded">{{ episode['name'] }}</h1>
+          <p class="episode-window__overview" *ngIf="episodeLoaded">{{ episode['overview'] }}</p>
 
           <ngx-content-loading *ngIf="!episodeLoaded"
                                [speed]="'1000ms'"
                                [width]="1000"
                                [height]="365"
-                               [primaryColor]="'#9b9b9b'"
-                               [secondaryColor]="'#afafaf'">
+                               [primaryColor]="'#c3c3c3'"
+                               [secondaryColor]="'#d7d7d7'">
 
-            <svg:g ngx-rect width="1000" height="30" y="0" x="0" rx="5" ry="5"></svg:g>
-            <svg:g ngx-rect width="700" height="140" y="75" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="1000" height="30" y="12" x="0" rx="5" ry="5"></svg:g>
+            <svg:g ngx-rect width="800" height="150" y="90" x="0" rx="5" ry="5"></svg:g>
 
-            <svg:g ngx-rect width="100" height="20" y="285" x="0" rx="5" ry="5"></svg:g>
-            <svg:g ngx-rect width="160" height="20" y="325" x="0" rx="5" ry="5"></svg:g>
 
           </ngx-content-loading>
 

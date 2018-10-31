@@ -1,4 +1,5 @@
 import { Component, OnInit, Input  } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-button-img',
@@ -10,10 +11,18 @@ export class ButtonImgComponent implements OnInit {
   @Input() color: string;
   @Input() text: string;
   @Input() image: string;
+  @Input() route: string;
+  @Input() params: string;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  navigateToRoute() {
+    this.router.navigate([this.route], {queryParams: {sort: 'vote_average.desc'}});
   }
 
 }

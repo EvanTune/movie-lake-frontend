@@ -13,7 +13,7 @@
 
         <div class="carousel__content">
           <div class="carousel__featured">FEATURED</div>
-          <h1 class="carousel__title">{{ movie.title }}
+          <h1 class="carousel__title">{{ movie[['title']] }}
             <ngx-content-loading *ngIf="movies.length === 1"
                                  [speed]="'1000ms'"
                                  [width]="1000"
@@ -26,7 +26,7 @@
 
             </ngx-content-loading>
           </h1>
-          <button *ngIf="movies.length > 1" [routerLink]="'/movie/' + movie.id" class="carousel__more">Read more
+          <button *ngIf="movies.length > 1" [routerLink]="'/movie/' + movie['id']" class="carousel__more">Read more
           </button>
         </div>
       </div>

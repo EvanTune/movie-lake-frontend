@@ -23,6 +23,13 @@
     min-height: 32px;
   }
 
+  select:disabled {
+    opacity: 0.8;
+  }
+  select:disabled:hover {
+    cursor: not-allowed;
+  }
+
   &__genres {
     //border-bottom: 1px solid #f0f0f0;
     margin-top: 10px;

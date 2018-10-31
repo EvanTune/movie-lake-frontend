@@ -2,48 +2,6 @@
 /***************************
  *  ITEM CAST
  ***************************/
-.item-cast {
-
-  &__img-container {
-    width: 88%;
-    padding-bottom: 88%;
-    overflow:hidden;
-    position:relative;
-    border-radius: 50%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  }
-
-  &__img {
-    position:absolute;
-    width:100%;
-    min-width:100%;
-    min-height:100%;
-    margin-top: -30px;
-  }
-
-  &__container {
-    text-align: center;
-    margin-top: 15px;
-    padding-right: 12%;
-  }
-
-  &__name {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  &__playing {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-  }
-
-  &__item:hover {
-    cursor: pointer;
-  }
-
-}
-
 .cast {
   width: 100%;
 
@@ -90,7 +48,7 @@
   &__item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     background-color: white;
     padding: 10px;
     border-radius: 3px;

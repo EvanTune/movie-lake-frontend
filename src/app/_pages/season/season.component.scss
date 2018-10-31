@@ -4,19 +4,19 @@
   min-height: 75px;
 
   &__name {
-    color: #d4d4d4;
+    color: #cbcbcb;
     letter-spacing: 2px;
     font-weight: 100;
     margin-bottom: 15px;
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 
   &__season {
-    color: #f9f9f9;
+    color: #e7e7e7;
     margin-bottom: 0;
     font-weight: 600;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
   }
 }
 
@@ -30,6 +30,13 @@
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
     background-color: white;
     position: relative;
+    color: black;
+    transition: 0.1s all;
+  }
+
+  &__item:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+    text-decoration: none;
   }
 
   &__img {
@@ -43,7 +50,7 @@
     min-width: 235px;
     text-align: center;
     border-right: 1px solid #ebebeb;
-    background-color: #454545;
+    background-color: white;
   }
 
   &__box {

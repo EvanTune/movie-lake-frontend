@@ -1,18 +1,18 @@
 <div class="popular-movies">
   <div class="row">
 
-    <ng-container *ngFor="let movie of movies; let i=index">
+    <ng-container *ngFor="let item of items; let i=index">
       <div *ngIf="i < 6" class="col-md-12 col-lg-6">
-        <div class="popular-movies__item" routerLink="/movie/{{ movie.id }}">
-          <h3 *ngIf="moviesLoaded" class="popular-movies__title">{{ titleCharLimit( movie.title) }}</h3>
-          <div *ngIf="moviesLoaded" class="popular-movies__rating">9</div>
-          <img *ngIf="moviesLoaded" class="popular-movies__img" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path}}" alt="">
-          <div *ngIf="moviesLoaded" class="popular-movies__container">
-            <h4 class="popular-movies__year">{{ movie['release_date'] | date }}</h4>
-            <p class="popular-movies__text">{{ movie.overview}}</p>
+        <div class="popular-movies__item" [routerLink]="'/' + type + '/' + item['id']">
+          <h3 *ngIf="itemsLoaded" class="popular-movies__title">{{ type === 'movie' ? truncateTitle( item['title']) : item['name']  }}</h3>
+          <div *ngIf="itemsLoaded" class="popular-movies__rating">9</div>
+          <img *ngIf="itemsLoaded" class="popular-movies__img" src="https://image.tmdb.org/t/p/w500{{ item['poster_path']}}" alt="">
+          <div *ngIf="itemsLoaded" class="popular-movies__container">
+            <h4 class="popular-movies__year">{{ type === 'movie' ? item['release_date'] : item['first_air_date'] | date }}</h4>
+            <p class="popular-movies__text">{{ item['overview']}}</p>
           </div>
 
-          <ngx-content-loading *ngIf="!moviesLoaded"
+          <ngx-content-loading *ngIf="!itemsLoaded"
                                [speed]="'1000ms'"
                                [width]="1000"
                                [height]="490"

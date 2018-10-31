@@ -30,7 +30,7 @@ export class MovieSliderComponent implements OnInit {
   ngOnInit() {
 
 
-    this.movieService.getTheatresMovies().subscribe(data => {
+    this.movieService.getTheatresMovies(1).subscribe(data => {
       this.movies = data['results'];
     });
 
@@ -42,7 +42,7 @@ export class MovieSliderComponent implements OnInit {
 
   setOffset(e) {
     if (!this.scrolling) {
-      let screenWidth = e['center'];
+      const screenWidth = e['center'];
       this.currentOffset = this.sliderElement.nativeElement.scrollLeft;
       this.last = e['center'].x;
 
@@ -52,14 +52,14 @@ export class MovieSliderComponent implements OnInit {
   panRight(e) {
     console.log(this.scrolling);
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
+      const a = this.last - e['center'].x + this.currentOffset;
       this.sliderElement.nativeElement.scrollLeft = a;
     }
   }
 
   panLeft(e) {
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
+      const a = this.last - e['center'].x + this.currentOffset;
       this.sliderElement.nativeElement.scrollLeft = a;
     }
   }

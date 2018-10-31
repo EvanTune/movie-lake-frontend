@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TvService } from '../../_services/tv.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-tv-shows',
@@ -84,12 +85,42 @@ export class TvShowsComponent implements OnInit {
     ];
 
   constructor(
-    private tvService: TvService
-  ) { }
+    private tvService: TvService,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.setDataFromParams(params);
+      this.addShows(this.getGenreString(), 1);
+    });
+  }
 
   ngOnInit() {
     const s = this.getGenreString();
     this.addShows(s, 1);
+  }
+
+  setDataFromParams(params) {
+    if (params['year']) {
+      this.year = params['year'];
+    }
+    if (params['sort']) {
+      this.sort = params['sort'];
+    }
+
+    if (this.genres.length === 0 && params['genres']) {
+      const genreIds = params['genres'].split(',');
+
+      for (let i = 0; i < genreIds.length; i++) {
+        for (let j = 0; j < this.allGenres.length; j++) {
+          if (!parseInt(genreIds[i], 10)) {
+            continue;
+          }
+          if (parseInt(genreIds[i], 10) === this.allGenres[j]['id']) {
+            this.genres.push(this.allGenres[j]);
+          }
+        }
+      }
+    }
   }
 
   addShows(genres, page) {
@@ -118,6 +149,7 @@ export class TvShowsComponent implements OnInit {
         this.shows[i]['image'] = 'https://image.tmdb.org/t/p/w342' + this.shows[i]['poster_path'];
         this.shows[i]['image_mobile'] = 'https://image.tmdb.org/t/p/w780' + this.shows[i]['backdrop_path'];
         this.shows[i]['loaded'] = true;
+        this.shows[i]['date'] = this.shows[i]['first_air_date'];
       }
 
       this.moviesLoaded = true;

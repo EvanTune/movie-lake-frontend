@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MovieService} from '../_services/movie.service';
 
 @Component({
@@ -8,23 +8,18 @@ import {MovieService} from '../_services/movie.service';
 })
 export class PopularMoviesComponent implements OnInit {
 
-  movies = [{}, {}, {}, {}, {}, {}];
-  moviesLoaded = false;
+  @Input() items;
+  @Input() itemsLoaded;
+  @Input() type;
 
   constructor(private movieService: MovieService) {
   }
 
   ngOnInit() {
 
-    this.movieService.getPopularMovies().subscribe(data => {
-      this.movies = data['results'];
-      console.log(this.movies);
-      this.moviesLoaded = true;
-    });
-
   }
 
-  titleCharLimit(title: string) {
+  truncateTitle(title: string) {
 
     const width = window.innerWidth;
 
@@ -41,7 +36,6 @@ export class PopularMoviesComponent implements OnInit {
         return title;
       }
     }
-
 
   }
 

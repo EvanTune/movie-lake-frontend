@@ -100,6 +100,7 @@ export class CarouselComponent implements OnInit {
 
       this.movies = [];
       let count = 0;
+      console.log(data);
 
       for (let i = 0; i < data['results'].length; i++) {
 

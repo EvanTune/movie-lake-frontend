@@ -12,6 +12,7 @@ export class ScrollableComponent implements OnInit {
   contentLoaded = false;
   @Input() items;
   @Input() component;
+  @Input() type;
   @Input() tvId;
   @ViewChild('scrollableElement') scrollableElement: ElementRef;
 
@@ -35,27 +36,27 @@ export class ScrollableComponent implements OnInit {
     this.router.navigate(['/tv/' + this.tvId + '/season/' + id]);
   }
 
+  navigateToItem(type, id) {
+    this.router.navigate([type + id]);
+  }
+
   setOffset(e) {
     if (!this.canScroll) {
-      let screenWidth = e['center'];
+      const screenWidth = e['center'];
       this.currentOffset = this.scrollableElement.nativeElement.scrollLeft;
       this.last = e['center'].x;
-
     }
   }
 
   panRight(e) {
-    console.log(this.scrolling);
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.scrollableElement.nativeElement.scrollLeft = a;
+      this.scrollableElement.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 
   panLeft(e) {
     if (!this.scrolling) {
-      let a = this.last - e['center'].x + this.currentOffset;
-      this.scrollableElement.nativeElement.scrollLeft = a;
+      this.scrollableElement.nativeElement.scrollLeft = this.last - e['center'].x + this.currentOffset;
     }
   }
 

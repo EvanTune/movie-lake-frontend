@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TvService } from '../../_services/tv.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { getLangugaeFromIso } from '../../_helpers/language';
+import {getScoreColorFromScore} from '../../_helpers/score';
 
 @Component({
   selector: 'app-tv',
@@ -18,10 +19,12 @@ export class TvComponent implements OnInit {
   crew: object[] = [];
 
   tvLoaded: boolean;
+  getScoreColorFromScore = getScoreColorFromScore;
 
   constructor(
     private tvService: TvService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     route.params.subscribe(val => {
 
@@ -30,16 +33,11 @@ export class TvComponent implements OnInit {
 
       this.setupTv();
       this.setupImages();
-      this.setupVideos();
       this.setupTvCredits();
     });
   }
 
   ngOnInit() {}
-
-  roundToNearestInt(number: number): number {
-    return Math.round(number);
-  }
 
   getlanguage(iso: string): string {
     return getLangugaeFromIso(iso);
@@ -53,32 +51,42 @@ export class TvComponent implements OnInit {
     };
 
     this.tvService.getTv(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        this.router.navigate(['/404']);
+      }
+
       this.tv = data;
       this.tv['poster_path'] = 'https://image.tmdb.org/t/p/w300' + this.tv['poster_path'];
       this.tv['backdrop_path'] = 'https://image.tmdb.org/t/p/w1280' + this.tv['backdrop_path'];
       this.seasons = data['seasons'];
       this.tvLoaded = true;
+    }, error => {
+      this.router.navigate(['/404']);
     });
 
   }
 
   setupImages(): void {
     this.tvService.getTvImages(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+       return;
+      }
       this.images = data['backdrops'];
     });
   }
 
   setupTvCredits(): void {
     this.tvService.getTvCredits(this.id).subscribe(data => {
+      if (data['status_code'] && data['status_code'] === 34) {
+        return;
+      }
+
       this.crew = data['crew'];
       this.cast = data['cast'];
     });
   }
 
-  setupVideos(): void {
-    this.tvService.getTvVideos(this.id).subscribe(data => {
-    });
-  }
+
 
   getGenres(): string {
     let genres = '';
